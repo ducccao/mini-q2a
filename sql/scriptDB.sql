@@ -14,3 +14,5 @@ create table `users`(
 
 insert into `users`(user_id,email,user_name,user_pass,user_type,user_rank) 
 values (1,'duccao01@gmail.com','duccao','duc123','admin','100');
+insert into `users`(user_id,email,user_name,user_pass,user_type,user_rank) 
+values (2,'duccao02@gmail.com','duccao2','duc123','admin','100');

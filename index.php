@@ -7,56 +7,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Mini social network</title>
 </head>
 
 <body>
-    <h1>Hello, world!</h1>
 
 
     <?php
 
+    include "./models/UserModel.php";
 
-
-
-    use utils\Route;
-
-    require_once "utils/console-log.util.php";
-    require_once "utils/route.util.php";
-    $router = new Route();
-
-    require_once "router/router.php";
-
-
-
-
-
-    // Lấy url hiện tại của trang web. Mặc định la /
-    $req_url = !empty($_GET['url']) ? '/' . $_GET['url'] : '/';
-    // Lấy phương thức hiện tại của url đang được gọi. (GET | POST). Mặc định là GET.
-    $method_url = !empty($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
-
-    // map URL
-    $router->map($req_url, $method_url);
-
+    $userModel = new UserModel();
+    $data = $userModel->getAllUser();
 
 
 
 
     ?>
 
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+                <th>user_id</th>
+                <th>email</th>
+                <th>user_name</th>
+                <th>user_pass</th>
+                <th>user_type</th>
+                <th>user_rank</th>
+            </thead>
 
-    <!-- Optional JavaScript; choose one of the two! -->
+            <tbody>
+                <?php
+                foreach ($data as $dt) {
+                    echo "<tr>";
+                    echo "<td>" . $dt['user_id'] . "</td>";
+                    echo "<td>" . $dt['email'] . "</td>";
+                    echo "<td>" . $dt['user_name'] . "</td>";
+                    echo "<td>" . $dt['user_pass'] . "</td>";
+                    echo "<td>" . $dt['user_type'] . "</td>";
+                    echo "<td>" . $dt['user_rank'] . "</td>";
+                    echo "</tr>";
+                }
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+                ?>
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+            </tbody>
+        </table>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 
 </body>
 

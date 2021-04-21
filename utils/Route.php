@@ -1,6 +1,6 @@
 <?php
 
-namespace utils;
+
 
 class Route
 {
