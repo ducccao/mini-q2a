@@ -1,5 +1,10 @@
 <?php
-include "utils/Db.php";
+
+namespace App\Models;
+
+
+use Db;
+
 
 
 class UserModel

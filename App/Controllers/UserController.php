@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Controllers;
+
+use App\Models\UserModel;
 
 class UserController
 {
@@ -15,7 +18,10 @@ class UserController
 
         $users = $userModel->getAllUser();
 
+        console_log("hi");
         console_log($users);
-        echo $users['email'];
+
+
+        require "./App/Views/User/AllUser.php";
     }
 }

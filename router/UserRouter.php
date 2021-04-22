@@ -2,11 +2,7 @@
 <?php
 
 
-use models\UserModel;
-use controllers\UserController;
-use Route;
 
-$router = new Route;
 $router->get("/onboarding/sumGET.php", function () {
 });
 

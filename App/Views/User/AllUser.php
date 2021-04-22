@@ -11,7 +11,7 @@
 
         <tbody>
             <?php
-            foreach ($data as $dt) {
+            foreach ($users as $dt) {
                 echo "<tr>";
                 echo "<td>" . $dt['user_id'] . "</td>";
                 echo "<td>" . $dt['email'] . "</td>";
