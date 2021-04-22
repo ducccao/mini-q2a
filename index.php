@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="">
 
         <!-- class DB ROOT-->
 
@@ -119,8 +119,6 @@
             echo $js_code;
         }
 
-        // load css Homepage
-        // include "./Public";
 
 
 
