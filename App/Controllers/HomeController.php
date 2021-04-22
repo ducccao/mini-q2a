@@ -6,6 +6,6 @@ class HomeController
 {
     public function index()
     {
-        echo "Hi from home controller";
+        require "./App/Views/Home/HomePage.php";
     }
 }
