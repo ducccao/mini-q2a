@@ -2,16 +2,25 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
+use App\Views\View;
+
 class AdminController
 {
     public function index()
     {
-        require "./App/Views/Admin/vwIndex/index.php";
+
+
         return;
     }
     public function GetPostControlPage()
     {
-        require "./App/Views/Admin/vwPostControl/PostControl.php";
-        return;
+        return   require "./App/Views/Admin/vwPostControl/PostControl.php";
+    }
+
+    public function RenderAllUser()
+    {
+        $userModel = new UserModel();
+        $users = $userModel->getAllUser();
     }
 }

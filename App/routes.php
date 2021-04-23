@@ -7,7 +7,7 @@ $router->get("/", 'HomeController@index');
 
 
 # Route User
-$router->get("/all-users", 'UserController@renderViewAllUser');
+$router->get("/all-users", 'UserController@index');
 
 
 

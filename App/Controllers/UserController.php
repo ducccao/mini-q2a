@@ -1,8 +1,10 @@
 <?php
 
+
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Views\View;
 
 class UserController
 {
@@ -10,6 +12,10 @@ class UserController
 
     function __constructor()
     {
+    }
+    public function index()
+    {
+        echo "User index";
     }
 
     public function renderViewAllUser()
@@ -22,6 +28,9 @@ class UserController
         console_log($users);
 
 
-        require "./App/Views/User/AllUser.php";
+        $view_path = "./App/Views/User/AllUser.php";
+        $viewUser = new View();
+        $viewUser->render($view_path, $users);
+        return;
     }
 }
