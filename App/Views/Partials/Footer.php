@@ -19,7 +19,7 @@
 <footer class="footer">
 
     <div class="footer-content">
-        &copy Cung cấp bởi - UTPT-04
+        &copy powered by UTPT - 04 2021
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

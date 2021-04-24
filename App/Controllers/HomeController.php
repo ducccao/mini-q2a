@@ -4,19 +4,29 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Views\View;
+use App\Models\QuestionQueueModel;
 
 class HomeController
 {
     public function index()
     {
-        $userModel = new UserModel();
-        $users = $userModel->getAllUser();
 
+        $qqModel = new QuestionQueueModel();
+
+        $data = $qqModel->getAllQuestionQueues();
+
+        $view_home = new View();
 
         $view_path = "./App/Views/Home/HomePage.php";
-
-        $homeView = new View();
-        $homeView->render($view_path, $users);
+        $view_home->render($view_path, $data);
         return;
+    }
+
+
+
+
+    public function abc()
+    {
+        echo "abc";
     }
 }

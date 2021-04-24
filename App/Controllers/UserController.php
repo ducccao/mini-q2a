@@ -33,4 +33,19 @@ class UserController
         $viewUser->render($view_path, $users);
         return;
     }
+
+    public function GetAllUserPage()
+    {
+        $userModel = new UserModel();
+
+        $users = $userModel->getAllUser();
+
+        console_log("hi");
+        console_log($users);
+
+
+        $view_path = "./App/Views/User/AllUser.php";
+        $viewUser = new View();
+        return $viewUser->render($view_path, $users);
+    }
 }

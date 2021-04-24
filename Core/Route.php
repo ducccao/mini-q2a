@@ -38,6 +38,7 @@ class Route
     {
         // Xử lý phương thức GET
         $this->__request($url, 'GET', $action);
+        // console_log($this->__routes);
     }
 
     /**
@@ -101,6 +102,7 @@ class Route
         // Lặp qua các route trong ứng dụng, kiểm tra có chứa url được gọi không
         foreach ($this->__routes as $route) {
 
+            //  console_log($route);
             // nếu route có $method
             if ($route['method'] == $method) {
 

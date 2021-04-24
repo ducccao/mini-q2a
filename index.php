@@ -18,7 +18,21 @@ require_once "./App/Views/Partials/Header.php";
 
         <?php
         require_once "./Core/Db.php";
+
+        // load console log util
+        function  console_log($output, $with_script_tags = true)
+        {
+            $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+                ');';
+            if ($with_script_tags) {
+                $js_code = '<script>' . $js_code . '</script>';
+            }
+            echo $js_code;
+        }
+
         ?>
+
+
 
         <!-- Search Bar -->
         <?php
@@ -41,35 +55,22 @@ require_once "./App/Views/Partials/Header.php";
         });
 
 
-        // load class Route
-        $router = new Core\Route();
-        include_once PATH_ROOT . '/app/routes.php';
+        // Load Router
+        include_once "./App/Routing.php";
 
-
-
-        // load console log util
-        function  console_log($output, $with_script_tags = true)
-        {
-            $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
-                ');';
-            if ($with_script_tags) {
-                $js_code = '<script>' . $js_code . '</script>';
-            }
-            echo $js_code;
-        }
 
 
 
 
 
         // Lấy url hiện tại của trang web. Mặc định la /
-        $request_url = !empty($_GET['url']) ? '/' . $_GET['url'] : '/';
+        // $request_url = !empty($_GET['url']) ? '/' . $_GET['url'] : '/';
 
-        // Lấy phương thức hiện tại của url đang được gọi. (GET | POST). Mặc định là GET.
-        $method_url = !empty($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+        // // Lấy phương thức hiện tại của url đang được gọi. (GET | POST). Mặc định là GET.
+        // $method_url = !empty($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
 
         // map URL
-        $router->map($request_url, $method_url);
+        // $router->map($request_url, $method_url);
 
         // echo $request_url;
         // echo "<br/>";

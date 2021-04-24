@@ -79,9 +79,14 @@ create table `questionQueue`(
 -- Record of questionQueue
 -- ------------------------------------
 BEGIN;
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_01",'Tại sao phải học vật lý ?','Why Physic?',curdate(),"user_01",'que_cate_01');
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_02",'Học lý khó quá mọi người, giúp tôi với ?','Physic is hard ?',curdate(),"user_01",'que_cate_01');
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_03",'Toán đại học như thế nào ?','Toán đại học',curdate(),"user_02",'que_cate_02'); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_01",'< Tại sao phải học vật lý ?','Why Physic?',current_timestamp(),"user_01",'que_cate_01');
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_02",'Học lý khó quá mọi người, giúp tôi với ?','Physic is hard ?',current_timestamp(),"user_01",'que_cate_01');
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_03",'Toán đại học như thế nào ?','Toán đại học',current_timestamp(),"user_02",'que_cate_02'); 
+
+
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_04",'Toán đại học như thế nào ?','Toán đại học',current_timestamp(),"user_02",'que_cate_02'); 
+
+
 COMMIT;
 
 
@@ -196,8 +201,11 @@ create table `answers`(
 -- Record of answers
 -- ------------------------------------------------------
 begin;
-insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id)  values ("ans_01",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,curdate(),"que_01","user_05");
-insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id)  values ("ans_02",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,curdate(),"que_02","user_05");
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id)  values ("ans_01",'Vật lý bình thường thôi! ',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_01","user_05");
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id)  values ("ans_02",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_02","user_05");
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id)  values ("ans_03",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_01","user_05");
+
+
 commit;
 
 
