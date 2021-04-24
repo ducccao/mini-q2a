@@ -50,7 +50,7 @@ class QuestionQueueController
 
         $url_len = strlen($uri);
         // console_log($uri);
-        $pagi_current = substr($uri, $url_len - 1, 1) + 1;
+        $pagi_current = (int)substr($uri, $url_len - 1, 1) + 1;
         // console_log($pagi_current);
 
         $limit = $pagi_num_QuestionQueue_appear;
