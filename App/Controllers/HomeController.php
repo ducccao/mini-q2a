@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Views\View;
 use App\Models\QuestionQueueModel;
+use App\Models\QuestionCategoryModel;
 
 class HomeController
 {
@@ -12,12 +13,19 @@ class HomeController
     {
 
         $qqModel = new QuestionQueueModel();
+        $questionCateModel = new QuestionCategoryModel();
 
-        $data = $qqModel->getAllQuestionQueues();
+        $questionCategories = $questionCateModel->GetAllQuestionCategories();
+        $newestQuestionQueue = $qqModel->GetNewestQuestionQueueWithoutArrayTag();
+        $newestQQArrayTags = $qqModel->GetNewstQuestionQueueArrayTagName();
 
         $view_home = new View();
 
+
+        $data = [$newestQuestionQueue,  $questionCategories, $newestQQArrayTags];
+
         $view_path = "./App/Views/Home/HomePage.php";
+
         $view_home->render($view_path, $data);
         return;
     }

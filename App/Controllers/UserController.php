@@ -24,8 +24,7 @@ class UserController
 
         $users = $userModel->getAllUser();
 
-        console_log("hi");
-        console_log($users);
+
 
 
         $view_path = "./App/Views/User/AllUser.php";
@@ -40,8 +39,7 @@ class UserController
 
         $users = $userModel->getAllUser();
 
-        console_log("hi");
-        console_log($users);
+
 
 
         $view_path = "./App/Views/User/AllUser.php";

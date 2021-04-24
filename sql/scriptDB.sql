@@ -79,7 +79,7 @@ create table `questionQueue`(
 -- Record of questionQueue
 -- ------------------------------------
 BEGIN;
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_01",'< Tại sao phải học vật lý ?','Why Physic?',current_timestamp(),"user_01",'que_cate_01');
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_01",'Tại sao phải học vật lý ?','Why Physic?',current_timestamp(),"user_01",'que_cate_01');
 insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_02",'Học lý khó quá mọi người, giúp tôi với ?','Physic is hard ?',current_timestamp(),"user_01",'que_cate_01');
 insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_03",'Toán đại học như thế nào ?','Toán đại học',current_timestamp(),"user_02",'que_cate_02'); 
 
@@ -113,6 +113,8 @@ insert into `ratingsQuestion`(rate_id,rate_name,que_id,user_id)  values ("rate_0
 insert into `ratingsQuestion`(rate_id,rate_name,que_id,user_id)  values ("rate_03",'bad_content','que_02','user_03');
 insert into `ratingsQuestion`(rate_id,rate_name,que_id,user_id)  values ("rate_04",'like','que_01','user_04');
 insert into `ratingsQuestion`(rate_id,rate_name,que_id,user_id)  values ("rate_05",'like','que_01','user_05');
+insert into `ratingsQuestion`(rate_id,rate_name,que_id,user_id)  values ("rate_06",'like','que_03','user_05');
+insert into `ratingsQuestion`(rate_id,rate_name,que_id,user_id)  values ("rate_07",'like','que_02','user_05');
 commit;
 
 
