@@ -10,15 +10,7 @@ class QuestionQueueModel
     {
     }
 
-    public function getAllQuestionQueues()
-    {
-        $db = new Db();
-        $sql = 'SELECT * FROM `questionqueue`';
-        $db->load($sql);
 
-        $questions = $db->Rows();
-        return $questions;
-    }
 
     public function GetNewestQuestionQueueWithoutArrayTag()
     {
@@ -50,6 +42,63 @@ class QuestionQueueModel
         LEFT JOIN `labels`
         ON labels.label_id = quetionqueue_labels.label_id;
         ";
+
+        $db->load($sql);
+        $data = $db->Rows();
+
+        return $data;
+    }
+
+    public function GetFullQuestionQueue()
+    {
+        $db = new Db();
+
+        $sql = 'SELECT questionqueue.que_id,questionqueue.que_title,questionqueue.createdAt,
+        users.user_name
+        FROM `questionqueue`,`users`
+        WHERE users.user_id = questionqueue.user_id 
+        ORDER BY createdAt;
+        ';
+
+        $db->load($sql);
+        $data = $db->Rows();
+
+        return $data;
+    }
+
+    public function GetFullLikeCountOfFullQuestionQueue()
+    {
+        $db = new Db();
+
+        $sql = 'SELECT questionqueue.que_id,questionqueue.que_title,
+        ratingsquestion.rate_name, COUNT(*) AS like_count
+        FROM `questionqueue`
+        INNER JOIN `ratingsquestion`
+        ON questionqueue.que_id = ratingsquestion.que_id
+        WHERE ratingsquestion.rate_name ="like"
+        GROUP BY questionqueue.que_id
+        ORDER BY questionqueue.que_id;';
+
+        $db->load($sql);
+        $data = $db->Rows();
+
+        return $data;
+    }
+
+    public function GetFullQuestionQueueByPagination($limit, $offset)
+    {
+        $db = new Db();
+
+        $sql = 'SELECT questionqueue.que_id,questionqueue.que_title,questionqueue.createdAt,users.user_name 
+        FROM `questionqueue`,`users`
+        WHERE users.user_id = questionqueue.user_id 
+        ORDER BY createdAt
+        LIMIT ' . $limit .
+            ' OFFSET ' . $offset;
+
+
+        console_log($sql);
+
 
         $db->load($sql);
         $data = $db->Rows();

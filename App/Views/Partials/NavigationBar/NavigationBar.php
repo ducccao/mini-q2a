@@ -7,10 +7,10 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav w-100">
             <li class="nav-item active">
-                <a class="nav-link" href="#"> <i class="fa fa-home"></i> Trang chủ <span class="sr-only">(current)</span></a>
+                <a class="nav-link" <?php echo "href='$PATH_ROOT'" ?>> <i class="fa fa-home"></i> Trang chủ <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-question"></i> Danh dách câu hỏi</a>
+                <a class="nav-link" href="<?php echo "$PATH_ROOT" ?>/question-queue"><i class="fas fa-question"></i> Danh dách câu hỏi</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"> <i class="far fa-chart-bar"></i> Bảng xếp hạng</a>

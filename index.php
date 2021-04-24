@@ -4,6 +4,14 @@
 require_once "./App/Views/Partials/Header.php";
 ?>
 
+<!-- PATH ROOT -->
+
+<?php
+$PATH_ROOT = "/mini-social-network-backend-php";
+global $PATH_ROOT;
+
+?>
+
 <body class="body">
 
     <!-- Navigation Bar -->

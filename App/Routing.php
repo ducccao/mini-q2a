@@ -12,6 +12,9 @@ $router->get("/", "HomeController@index");
 // User Route
 $router->get("/all-users", "UserController@GetAllUserPage");
 
+// Question Queue Route
+$router->get("/question-queue", "QuestionQueueController@index");
+$router->get("/question-queue/{id}", "QuestionQueueController@GetQuestionQueueDetail");
 
 
 

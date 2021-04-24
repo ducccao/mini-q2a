@@ -18,9 +18,9 @@ ORDER BY questioncategories.que_cate_name;
 SELECT  questionqueue.que_id,questionqueue.que_title , questionqueue.createdAt,COUNT(*) as like_count,
 users.user_name
 FROM `questionqueue`
-LEFT JOIN `ratingsquestion`
+INNER JOIN `ratingsquestion`
 ON ratingsquestion.que_id = questionqueue.que_id 
-LEFT JOIN `users`
+INNER JOIN `users`
 ON users.user_id = questionqueue.user_id 
 WHERE ratingsquestion.rate_name = 'like'
 GROUP BY questionqueue.que_title
@@ -36,8 +36,39 @@ LEFT JOIN `labels`
 ON labels.label_id = quetionqueue_labels.label_id;
 
 
+-- ------------------------------------------------------
+-- Get full question queue without: like_count, array tag
+-- ------------------------------------------------------
+SELECT questionqueue.que_id,questionqueue.que_title,questionqueue.createdAt,users.user_name 
+FROM `questionqueue`,`users`
+WHERE users.user_id = questionqueue.user_id 
+ORDER BY createdAt;
+-- ------------------------------------------------------
+-- Get full like_count of full question queue 
+-- ------------------------------------------------------
+SELECT questionqueue.que_id,questionqueue.que_title,ratingsquestion.rate_name, COUNT(*) AS like_count
+FROM `questionqueue`
+INNER JOIN `ratingsquestion`
+ON questionqueue.que_id = ratingsquestion.que_id
+WHERE ratingsquestion.rate_name ='like'
+GROUP BY questionqueue.que_id
+ORDER BY questionqueue.que_id;
+
+-- ------------------------------------------------------
+-- Get full question queue paginationed without: like_count, array tag
+-- ------------------------------------------------------
+SELECT questionqueue.que_id,questionqueue.que_title,questionqueue.createdAt,users.user_name 
+FROM `questionqueue`,`users`
+WHERE users.user_id = questionqueue.user_id 
+ORDER BY createdAt
+LIMIT 10
+OFFSET 0;
 
 
+
+----------------
+-- testing
+----------------
 select * from `users`;
 select * from `questionqueue`;
 select * from `ratingsquestion`;
@@ -45,6 +76,6 @@ select * from `questioncategories`;
 select * from `labels`;
 select * from `quetionqueue_labels`;
 
-
+	
 
 

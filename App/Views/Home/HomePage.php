@@ -72,12 +72,12 @@
     }
 
 
-    .que-cate-wrapper {}
+    /* .que-cate-wrapper {}
 
-    .qq-top-left {}
+    .qq-top-left {} */
 
     .qq-title {
-        font-size: 26px;
+        font-size: 22px;
         font-weight: bold;
     }
 
@@ -123,6 +123,32 @@
         display: flex;
         justify-content: space-between;
     }
+
+    .home-list-filter-right {
+        background-color: #8fa1b4;
+        color: var(--near-white);
+        border-radius: var(--border-radius);
+
+    }
+
+    a:hover {
+        color: var(--near-white);
+        text-decoration: none;
+    }
+
+    .que_cate_name {
+        color: var(--near-white);
+
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: bold;
+    }
 </style>
 
 
@@ -132,7 +158,7 @@
     <div class="home-list-question-left w-75 ">
 
         <div class="question-newest">
-            <h2 class="">Các câu hỏi mới nhất</h2>
+            <h3 class="">Các câu hỏi mới nhất</h3>
         </div>
 
 
@@ -277,8 +303,8 @@
 
 
     </div>
-    <div class="home-list-filter-right w-25 p-3">
-        <h3 class="">Chủ đề</h3>
+    <div class="home-list-filter-right w-25 p-3 ml-3">
+        <h4 class="">Chủ đề</h4>
 
         <div class="que-cate-wrapper">
             <table class="table table-hover">
@@ -290,7 +316,7 @@
                     foreach ($data[1] as $questionCategories) {
                         echo "<tr class='question-category'>";
                         echo '<th scope="row" class ="que-cate-content"> ';
-                        echo "<div>" . $questionCategories["que_cate_name"] . "</div>";
+                        echo "<div> <a href='#' class='que_cate_name' >" . $questionCategories["que_cate_name"] . "</a> </div> ";
 
                         echo "<div class='badge badge-light p-2'>" . $questionCategories["amount"] . " </div>";
                         echo "   </th>";

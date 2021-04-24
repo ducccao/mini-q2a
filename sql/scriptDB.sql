@@ -86,7 +86,17 @@ insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_c
 
 insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_04",'Toán đại học như thế nào ?','Toán đại học',current_timestamp(),"user_02",'que_cate_02'); 
 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_05",'Câu hỏi 5 ?','Toán',current_timestamp(),"user_03",'que_cate_02'); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_06",'Câu hỏi 6?','Toán',current_timestamp(),"user_03",'que_cate_02'); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_07",'Câu hỏi 7 ?','Toán',current_timestamp(),"user_03",'que_cate_02'); 
 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_08",'Câu hỏi 8 ?','Lý',current_timestamp(),"user_03",'que_cate_01'); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_09",'Câu hỏi 9 ?','Lý',current_timestamp(),"user_03",'que_cate_01'); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_10",'Câu hỏi 10 ?','Lý',current_timestamp(),"user_03",'que_cate_01');
+
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_11",'Câu hỏi 11 ?','Sử',current_timestamp(),"user_02",'que_cate_03');  
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_12",'Câu hỏi 12 ?','Sử',current_timestamp(),"user_02",'que_cate_03');  
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_13",'Câu hỏi 13 ?','Sử',current_timestamp(),"user_02",'que_cate_03');  
 COMMIT;
 
 
@@ -115,6 +125,8 @@ insert into `ratingsQuestion`(rate_id,rate_name,que_id,user_id)  values ("rate_0
 insert into `ratingsQuestion`(rate_id,rate_name,que_id,user_id)  values ("rate_05",'like','que_01','user_05');
 insert into `ratingsQuestion`(rate_id,rate_name,que_id,user_id)  values ("rate_06",'like','que_03','user_05');
 insert into `ratingsQuestion`(rate_id,rate_name,que_id,user_id)  values ("rate_07",'like','que_02','user_05');
+insert into `ratingsQuestion`(rate_id,rate_name,que_id,user_id)  values ("rate_08",'like','que_03','user_05');
+insert into `ratingsQuestion`(rate_id,rate_name,que_id,user_id)  values ("rate_09",'like','que_02','user_05');
 commit;
 
 
@@ -155,9 +167,9 @@ create table `labels`(
 -- Record of labels
 -- ------------------------------------------------------
 begin;
-insert into `labels`(label_id,label_name)  values ("label_01",'vatly');
-insert into `labels`(label_id,label_name)  values ("label_02",'toanhoc');
-insert into `labels`(label_id,label_name)  values ("label_03",'lichsu');
+insert into `labels`(label_id,label_name)  values ("label_01",'hay');
+insert into `labels`(label_id,label_name)  values ("label_02",'tuyetvoi');
+insert into `labels`(label_id,label_name)  values ("label_03",'dangxem');
 commit;
 
 -- -------------------------------------
