@@ -63,6 +63,13 @@ WHERE users.user_id = questionqueue.user_id
 ORDER BY createdAt
 LIMIT 10
 OFFSET 0;
+-- ------------------------------------------------------
+-- Get full array tags of full question queue 
+-- ------------------------------------------------------
+SELECT quetionqueue_labels.que_id,labels.label_name
+FROM  `quetionqueue_labels`
+INNER JOIN `labels`
+ON labels.label_id=quetionqueue_labels.label_id;
 
 
 

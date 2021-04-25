@@ -97,8 +97,24 @@ class QuestionQueueModel
             ' OFFSET ' . $offset;
 
 
-        console_log($sql);
+        // console_log($sql);
 
+
+        $db->load($sql);
+        $data = $db->Rows();
+
+        return $data;
+    }
+
+    public function GetFullArrayTagsOfFullQuetionQueue()
+    {
+        $db = new Db();
+
+        $sql = "SELECT quetionqueue_labels.que_id,labels.label_name
+        FROM  `quetionqueue_labels`
+        INNER JOIN `labels`
+        ON labels.label_id=quetionqueue_labels.label_id;
+        ";
 
         $db->load($sql);
         $data = $db->Rows();

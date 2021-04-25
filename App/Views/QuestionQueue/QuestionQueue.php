@@ -149,6 +149,16 @@
     h6 {
         font-weight: bold;
     }
+
+    .pagi {
+        border-top-left-radius: var(--border-radius);
+        border-bottom-left-radius: var(--border-radius);
+    }
+
+    .pagi-next {
+        border-top-right-radius: var(--border-radius);
+        border-bottom-right-radius: var(--border-radius);
+    }
 </style>
 
 
@@ -295,15 +305,15 @@ $PATH_ROOT = "/mini-social-network-backend-php";
 
             // put tag[i] right there ! 
 
-            // foreach ($this->data[2]  as $tags => $tag) {
-            //     //  console_log($tag);
-            //     if ($tag['que_id'] == $qq['que_id']) {
-            //         console_log($tag['label_name']);
-            //         echo "       <div class='tag mx-1'>    <a href=''>";
-            //         echo  "#" . $tag['label_name'];
-            //         echo '    </a>      </div>';
-            //     }
-            // }
+            foreach ($this->data[2]  as $tags => $tag) {
+                //  console_log($tag);
+                if ($tag['que_id'] == $qq['que_id']) {
+                    console_log($tag['label_name']);
+                    echo "       <div class='tag mx-1'>    <a href=''>";
+                    echo  "#" . $tag['label_name'];
+                    echo '    </a>      </div>';
+                }
+            }
 
 
             echo   '
@@ -335,26 +345,58 @@ $PATH_ROOT = "/mini-social-network-backend-php";
 
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-
                 <?php
+                $pagi_curr = $data[5];
 
-                // total pagi stuff right there 
-                for ($i = 0; $i < $data[4]; ++$i) {
-                    console_log($i);
-                    echo '  <li class="page-item"><a  class="page-link" ';
-                    echo "  href='$PATH_ROOT/question-queue?pagi=$i'";
-                    echo ">";
-                    echo  $i + 1 . "   </a></li>";
+                if ($pagi_curr == 1) {
+                    console_log($pagi_curr);
+                    echo "   <li class='page-item disabled '>
+                    <a class='page-link pagi' href='#'>Previous</a>
+                </li>";
+                } else {
+
+                    $temp_pagi_cur_previous = $pagi_curr - 2;
+                    console_log($temp_pagi_cur_previous);
+                    echo "   <li class='page-item '>
+                    <a class='page-link pagi' href='$PATH_ROOT/question-queue?pagi=$temp_pagi_cur_previous'>Previous</a>
+                </li>";
                 }
 
                 ?>
 
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
+
+
+
+                <?php
+
+
+                // total pagi stuff right there 
+                for ($i = 0; $i < $data[4]; ++$i) {
+                    if ($data[5] - 1 == $i) {
+                        echo '  <li class="page-item active"><a  class="page-link " ';
+                        echo "  href='$PATH_ROOT/question-queue?pagi=$i'";
+                        echo ">";
+                        echo  $i + 1 . "   </a></li>";
+                    } else {
+                        echo '  <li class="page-item "><a  class="page-link " ';
+                        echo "  href='$PATH_ROOT/question-queue?pagi=$i'";
+                        echo ">";
+                        echo  $i + 1 . "   </a></li>";
+                    }
+                }
+
+                ?>
+                <?php
+                if ($pagi_curr == $data[4]) {
+                    echo " <li class='page-item disabled'> <a class='page-link disabled pagi-next' href='$PATH_ROOT/question-queue?pagi=$pagi_curr'>Next</a> </li> ";
+                } else {
+                    echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT/question-queue?pagi=$pagi_curr'>Next</a></li> ";
+                }
+
+
+                ?>
+
+
             </ul>
         </nav>
 
