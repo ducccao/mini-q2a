@@ -159,11 +159,17 @@
         border-top-right-radius: var(--border-radius);
         border-bottom-right-radius: var(--border-radius);
     }
+
+
+    .question-cate-active {
+        color: #212529;
+        background-color: rgba(0, 0, 0, .075);
+    }
 </style>
 
 
 <?php
-$PATH_ROOT = "/mini-social-network-backend-php";
+$PATH_ROOT = "/mini-q2a";
 ?>
 
 
@@ -274,7 +280,6 @@ $PATH_ROOT = "/mini-social-network-backend-php";
 
 
             foreach ($data[3] as $like_count) {
-                // console_log($like_count);
 
                 if ($qq['que_id'] ==  $like_count['que_id']) {
                     if ($like_count['like_count'] > 0) {
@@ -306,9 +311,8 @@ $PATH_ROOT = "/mini-social-network-backend-php";
             // put tag[i] right there ! 
 
             foreach ($this->data[2]  as $tags => $tag) {
-                //  console_log($tag);
+
                 if ($tag['que_id'] == $qq['que_id']) {
-                    console_log($tag['label_name']);
                     echo "       <div class='tag mx-1'>    <a href=''>";
                     echo  "#" . $tag['label_name'];
                     echo '    </a>      </div>';
@@ -349,14 +353,12 @@ $PATH_ROOT = "/mini-social-network-backend-php";
                 $pagi_curr = $data[5];
 
                 if ($pagi_curr == 1) {
-                    console_log($pagi_curr);
                     echo "   <li class='page-item disabled '>
                     <a class='page-link pagi' href='#'>Previous</a>
                 </li>";
                 } else {
 
                     $temp_pagi_cur_previous = $pagi_curr - 2;
-                    console_log($temp_pagi_cur_previous);
                     echo "   <li class='page-item '>
                     <a class='page-link pagi' href='$PATH_ROOT/question-queue?pagi=$temp_pagi_cur_previous'>Previous</a>
                 </li>";
@@ -411,12 +413,23 @@ $PATH_ROOT = "/mini-social-network-backend-php";
 
 
                     <?php
+                    $questionCate = '';
+
+                    if (isset($_REQUEST['questionCate'])) {
+                        $questionCate = $_REQUEST['questionCate'];
+                    } else {
+                        $questionCate = '';
+                    }
+
+
 
                     foreach ($data[1] as $questionCategories) {
                         // echo floor(81 / 10);
+                        console_log($questionCategories);
                         echo "<tr class='question-category'>";
                         echo '<th scope="row" class ="que-cate-content"> ';
-                        echo "<div> <a href='#' class='que_cate_name' >" . $questionCategories["que_cate_name"] . "</a> </div> ";
+                        echo "<div> <a  href='$PATH_ROOT/question-queue?questionCate=$questionCategories[que_cate_name]' 
+                        class='que_cate_name' >" . $questionCategories["que_cate_name"] . "</a> </div> ";
 
                         echo "<div class='badge badge-light p-2'>" . $questionCategories["amount"] . " </div>";
                         echo "   </th>";

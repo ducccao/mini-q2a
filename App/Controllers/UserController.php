@@ -46,4 +46,14 @@ class UserController
         $viewUser = new View();
         return $viewUser->render($view_path, $users);
     }
+
+
+    public function GetLoginPage()
+    {
+        echo "Login page";
+    }
+    public function GetSignUpPage()
+    {
+        echo "Sign up page";
+    }
 }

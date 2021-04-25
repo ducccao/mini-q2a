@@ -77,6 +77,7 @@ class Route
 
         // Thay the tat ca cac ki tu / bang ky tu \/ (regex) trong URL.
         $url = str_replace('/', '\/', $url);
+        //   console_log($params);
 
         $route = [
             'url' => $url,
@@ -138,4 +139,12 @@ class Route
             return;
         }
     }
+
+
+
+
+    // -----------------------
+    // An router
+    // --------------------
+
 }

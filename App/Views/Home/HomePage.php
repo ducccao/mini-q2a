@@ -158,7 +158,7 @@
     <div class="home-list-question-left w-75 ">
 
         <div class="question-newest">
-            <h3 class="">Các câu hỏi mới nhất</h3>
+            <h3 class="">Các câu hỏi nổi bật</h3>
         </div>
 
 

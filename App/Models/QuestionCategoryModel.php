@@ -14,7 +14,8 @@ class QuestionCategoryModel
     {
         $db = new Db();
 
-        $sql = "SELECT  questioncategories.que_cate_name, COUNT(*) AS amount
+        $sql = "SELECT questioncategories.que_cate_id, 
+        questioncategories.que_cate_name, COUNT(*) AS amount
         FROM `questioncategories`
         LEFT JOIN `questionqueue`
         ON questioncategories.que_cate_id =  questionqueue.que_cate_id

@@ -22,8 +22,7 @@ class QuestionQueueController
         $questionCategories = $questionCateModel->GetAllQuestionCategories();
 
         $allQuestionQueue = $qqModel->GetFullQuestionQueue();
-        $allArrayTags = [1, 2, 3];
-        $allLikeCount = $qqModel->GetFullLikeCountOfFullQuestionQueue();
+
         // ---------------------
         // Pagination Problem
         // ---------------------
@@ -53,10 +52,21 @@ class QuestionQueueController
         $allQuestionQueuePaginationed = $qqModel->GetFullQuestionQueueByPagination($limit, $offset);
 
 
-        // ---------------------
-        // Array Tags Problem
-        // ---------------------
+        // -------------------------------------
+        // Array Tags & Like Count Problem
+        // -------------------------------------
         $fullArrayTags = $qqModel->GetFullArrayTagsOfFullQuetionQueue();
+        $allLikeCount = $qqModel->GetFullLikeCountOfFullQuestionQueue();
+
+        // --------------------------
+        // Question Category problem
+        // --------------------------
+
+
+
+        $questionCate = $_SERVER['REQUEST_URI'];
+
+
 
 
         $view_home = new View();
@@ -83,16 +93,16 @@ class QuestionQueueController
     }
 
 
+
     public function GetQuestionQueueDetail()
     {
+        echo "detail qq";
         $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")
             . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
         $url_len = strlen($url);
-        // get current pagi
-        $pagi_current = substr($url, $url_len - 1, 1) + 1;
-        // console_log($pagi_current);
 
-        // echo "detail qq";
+
+        console_log($_SERVER['QUERY_STRING']);
     }
 }

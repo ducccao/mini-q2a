@@ -7,8 +7,21 @@ require_once "./App/Views/Partials/Header.php";
 <!-- PATH ROOT -->
 
 <?php
-$PATH_ROOT = "/mini-social-network-backend-php";
+$PATH_ROOT = "/mini-q2a";
 global $PATH_ROOT;
+
+$uri = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")
+    . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+$url_len = strlen($uri);
+
+$curr_url = '';
+if (isset($_SERVER['REDIRECT_URL'])) {
+    $curr_url = $_SERVER['REDIRECT_URL'];
+}
+$curr_route = substr($curr_url, strlen($PATH_ROOT), 100);
+$curr_route = trim($curr_route);
+console_log($curr_route);
 
 ?>
 
