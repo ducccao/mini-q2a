@@ -175,7 +175,7 @@ $PATH_ROOT = "/mini-q2a";
 
 
 <div class="home-content p-3 my-3">
-    <div class="home-list-question-left w-75 ">
+    <div class="home-list-question-left w-75  ">
 
         <div class="question-newest">
             <h3 class="">Danh sách câu hỏi</h3>

@@ -35,19 +35,19 @@
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li> -->
 
-            <li <?php if ($curr_route == "/login") {
+            <li <?php if ($curr_route == "/user/login") {
                     echo "class='nav-item active ml-auto'";
                 } else {
                     echo "class='nav-item ml-auto'";
                 } ?>>
-                <a class="nav-link" <?php echo "href='$PATH_ROOT/login'"; ?>> <i class="fas fa-key"></i> Đăng nhập</a>
+                <a class="nav-link" <?php echo "href='./App/Views/User/Login/Login.php'"; ?>> <i class="fas fa-key"></i> Đăng nhập</a>
             </li>
-            <li <?php if ($curr_route == "/sign-up") {
+            <li <?php if ($curr_route == "/user/register") {
                     echo "class='nav-item active'";
                 } else {
                     echo "class='nav-item'";
                 } ?>>
-                <a class="nav-link" <?php echo "href='$PATH_ROOT/sign-up'"; ?>> <i class="fas fa-registered"></i> Đăng ký</a>
+                <a class="nav-link" <?php echo "href='./App/Views/User/Register/Register.php'"; ?>> <i class="fas fa-registered"></i> Đăng ký</a>
             </li>
         </ul>
     </div>
