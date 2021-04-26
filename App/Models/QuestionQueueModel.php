@@ -121,4 +121,24 @@ class QuestionQueueModel
 
         return $data;
     }
+
+
+    public function FilterQuestionQueueByQuestionCategoryPaginationed($cate_id)
+    {
+        $db = new Db();
+
+        $sql = "SELECT questionqueue.que_id,questionqueue.que_title,questionqueue.createdAt,users.user_name 
+        FROM `questionqueue`,`users`
+        WHERE users.user_id = questionqueue.user_id 
+        AND questionqueue.que_cate_id='$cate_id'
+        ORDER BY createdAt
+        LIMIT 10
+        OFFSET 0;
+        ";
+
+        $db->load($sql);
+        $data = $db->Rows();
+
+        return $data;
+    }
 }

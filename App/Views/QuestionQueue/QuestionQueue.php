@@ -425,10 +425,9 @@ $PATH_ROOT = "/mini-q2a";
 
                     foreach ($data[1] as $questionCategories) {
                         // echo floor(81 / 10);
-                        console_log($questionCategories);
                         echo "<tr class='question-category'>";
                         echo '<th scope="row" class ="que-cate-content"> ';
-                        echo "<div> <a  href='$PATH_ROOT/question-queue?questionCate=$questionCategories[que_cate_name]' 
+                        echo "<div> <a  href='$PATH_ROOT/question-queue?questionCate=$questionCategories[que_cate_id]' 
                         class='que_cate_name' >" . $questionCategories["que_cate_name"] . "</a> </div> ";
 
                         echo "<div class='badge badge-light p-2'>" . $questionCategories["amount"] . " </div>";

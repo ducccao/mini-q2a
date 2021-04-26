@@ -155,7 +155,7 @@
 
 
 <div class="home-content p-3 my-3">
-    <div class="home-list-question-left w-75 ">
+    <div class="home-list-question-left w-100 ">
 
         <div class="question-newest">
             <h3 class="">Các câu hỏi nổi bật</h3>
@@ -303,7 +303,7 @@
 
 
     </div>
-    <div class="home-list-filter-right w-25 p-3 ml-3">
+    <!-- <div class="home-list-filter-right w-25 p-3 ml-3">
         <h4 class="">Chủ đề</h4>
 
         <div class="que-cate-wrapper">
@@ -332,5 +332,5 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div> -->
 </div>
