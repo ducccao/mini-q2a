@@ -73,7 +73,10 @@ create table `questionQueue`(
     references `questionCategories`(`que_cate_id`) on delete set null on update cascade
     
 )ENGINE=InnoDB AUTO_INCREMENT=16050 DEFAULT CHARSET=utf8;
-
+ALTER TABLE `questionQueue`
+ADD FULLTEXT(que_content);
+ALTER TABLE `questionQueue`
+    ADD FULLTEXT(que_title);
 
 -- ------------------------------------
 -- Record of questionQueue

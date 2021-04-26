@@ -83,6 +83,14 @@ select * from `questioncategories`;
 select * from `labels`;
 select * from `quetionqueue_labels`;
 
-	
+-- Get all question with keyword of que_content
+SELECT * FROM questionQueue
+WHERE MATCH(que_content)
+    AGAINST("Toán" IN NATURAL LANGUAGE MODE);
+
+-- Get all question with keyword of que_title
+SELECT * FROM questionQueue
+WHERE MATCH(que_title)
+    AGAINST("Lý" IN NATURAL LANGUAGE MODE);
 
 
