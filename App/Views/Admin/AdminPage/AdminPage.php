@@ -74,6 +74,7 @@ console_log('User type is: ' . $curr_user_type);
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://avatars2.githubusercontent.com/u/1241667?s=400&v=4">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
@@ -145,7 +146,7 @@ console_log('User type is: ' . $curr_user_type);
 
         }
 
-        .q2a-content-nav {}
+        /* .q2a-content-nav {} */
 
         .gr-logout:hover {
             color: black;

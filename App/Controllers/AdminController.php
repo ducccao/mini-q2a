@@ -10,7 +10,6 @@ class AdminController
     public function index()
     {
 
-
         return;
     }
     public function GetPostControlPage()

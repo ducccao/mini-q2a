@@ -77,4 +77,13 @@ class UserController
 
         return $login_view->render($view_path, $data);
     }
+    public function UploadQuestionHandle()
+    {
+        $data = [1, 2];
+        $login_view = new View();
+
+        $view_path = "./App/Views/User/UploadQuestion/UploadQuestion.php";
+
+        return $login_view->render($view_path, $data);
+    }
 }

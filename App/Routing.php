@@ -32,6 +32,8 @@ $router->get("/", "HomeController@index");
 // ------------
 
 $router->get("/user/all-users", "UserController@GetAllUserPage");
+$router->get("/user/upload-question", "UserController@UploadQuestionHandle");
+
 
 
 // ---------------------

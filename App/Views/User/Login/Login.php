@@ -8,10 +8,11 @@ session_start();
 <html lang="en">
 
 <head>
-    <title>Login</title>
+    <title>Mini Q2A</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="https://avatars2.githubusercontent.com/u/1241667?s=400&v=4">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
@@ -94,7 +95,7 @@ session_start();
                     <h5><Strong>Đăng nhập</Strong></h5>
                 </div>
                 <div class="card-body">
-                    <form action="http://localhost/mini-q2a/App/Views/User/Login/Login.php" method="POST">
+                    <form action="/mini-q2a/App/Views/User/Login/Login.php" method="POST">
 
                         <div class="form-group">
                             <label for="txtUsername"> <strong>Tên tài khoản</strong> </label>
@@ -109,6 +110,7 @@ session_start();
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-dark" type="submit">Đăng nhập</button>
                             <a class="btn btn-dark ml-3" <?php echo "href='$PATH_ROOT/'"; ?>>Trang chủ </a>
+
 
                         </div>
                     </form>

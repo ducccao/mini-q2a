@@ -13,13 +13,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 
     <!-- font famlily -->
+    <link rel="icon" href="https://avatars2.githubusercontent.com/u/1241667?s=400&v=4">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
     <!-- Fontawessome  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
-    <title>Mini social network</title>
+    <title>Mini Q2A</title>
 
     <!-- 
     Home Page CSS -->

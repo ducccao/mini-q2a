@@ -17,6 +17,9 @@ console_log($curr_user . ' is loged-in in system');
 
 ?>
 
+
+
+
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" <?php echo "href='$PATH_ROOT'" ?>><i class="fab fa-quora"></i> Mini-Q2A</a>
@@ -83,6 +86,10 @@ console_log($curr_user . ' is loged-in in system');
             } else {
                 // if exists user
 
+
+
+
+
                 echo '<li';
                 if ($curr_route == "$PATH_ROOT/user/profile") {
                     echo " class='nav-item active ml-auto'";
@@ -91,8 +98,22 @@ console_log($curr_user . ' is loged-in in system');
                 }
                 echo  '>';
                 echo "
-    <a class='nav-link'   href='$PATH_ROOT/App/Views/User/Profile/Profile.php'; > <i class='fas fa-info-circle mr-1'></i>$curr_user  </a>";
+    <a class='nav-link'   href='$PATH_ROOT/App/Views/User/Profile/Profile.php'; > <i class='fas fa-info-circle mr-1'></i>Hi $curr_user ! </a>";
                 echo "</li>";
+
+
+
+                echo '<li';
+                if ($curr_route == "$PATH_ROOT/user/upload-question") {
+                    echo " class='nav-item active '";
+                } else {
+                    echo " class='nav-item '";
+                }
+                echo  '>';
+                echo "
+    <a class='nav-link'   href='$PATH_ROOT/user/upload-question'; > <i class='fas fa-arrow-circle-up'></i> Đăng câu hỏi  </a>";
+                echo "</li>";
+
 
 
                 echo "<li";

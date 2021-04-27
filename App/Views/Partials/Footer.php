@@ -19,7 +19,7 @@
 <footer class="footer">
 
     <div class="footer-content">
-        &copy powered by Nhóm 04 ứng dụng phân tán - 2021
+        &copy powered by Ứng dụng phân tán 04
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -56,6 +56,7 @@ console_log($curr_route);
 
 
 
+
         <!-- Search Bar -->
         <?php
         require_once "./App/Views/Partials/SearchBar/SearchBar.php";

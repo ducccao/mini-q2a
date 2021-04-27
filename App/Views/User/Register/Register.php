@@ -2,13 +2,15 @@
 <html lang="en">
 
 <head>
-    <title>Login</title>
+    <title>Mini Q2A</title>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="https://avatars2.githubusercontent.com/u/1241667?s=400&v=4">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <style>
         :root {
             --near-white: #fdfdfddb;
@@ -34,13 +36,13 @@
         }
 
         body {
-            height: 100vh;
+            min-height: 100vh;
             width: 100vw;
         }
 
         .login-page-wrapper {
             background-color: var(--common-bg);
-            height: 100%;
+            min-height: 100vh;
             width: 100%;
             overflow: hidden;
             display: flex;
@@ -89,18 +91,19 @@
 
                 </div>
                 <div class="card-body">
-                    <form action="http://localhost/mini-q2a/App/Views/User/Login/Login.php" method="POST">
+                    <form id="fmRegister" method="POST">
 
                         <div class="form-group">
                             <label for="txtMaile"> <strong>Email</strong> </label>
-                            <input type="email" class="form-control" name="txtMaile" id="txtMaile" aria-describedby="helpId" placeholder="">
-                            <!-- <small id="helpId" class="form-text text-muted">Tên tài khoản</small> -->
+                            <input type="email" class="form-control" name="txtMaile" id="txtMaile" aria-describedby="txtMaile" placeholder="">
+                            <small id="smEmail" class="form-text  text-danger d-none">Email đã tồn tại</small>
                         </div>
 
                         <div class="form-group">
                             <label for="txtUsername"> <strong>Tên tài khoản</strong> </label>
                             <input type="text" class="form-control" name="txtUsername" id="txtUsername" aria-describedby="helpId" placeholder="">
-                            <!-- <small id="helpId" class="form-text text-muted">Tên tài khoản</small> -->
+                            <small id="smUsername" class="form-text  text-danger d-none">Tên tài khoản đã tồn tại</small>
+
                         </div>
                         <div class="form-group">
                             <label for="txtUsername"><strong>Mật khẩu</strong> </label>
@@ -117,6 +120,7 @@
                 <div class="card-footer text-muted d-flex flex-column justify-content-center ">
                     <p>Đã có tài khoản ?</p>
                     <a class="btn btn-dark " <?php echo "href='$PATH_ROOT/App/Views/User/Login/Login.php'"; ?>>Đăng nhập </a>
+                    <small id="smErrorMess" class="form-text  text-danger d-none ">Thông tin không được trống</small>
 
                     <!-- Footer -->
                 </div>
@@ -124,11 +128,53 @@
         </div>
 
     </div>
+
+
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+    <script>
+        function register() {
+            fmRegister = $("#fmRegister");
+            email = $("#txtMaile");
+            user_name = $("#txtMaile");
+            user_pass = $("#txtPasword");
+
+            data = {
+                email: email.val(),
+                user_name: user_name.val(),
+                user_pass: user_pass.val()
+            }
+
+            fmRegister.on("submit", function(e) {
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/App/Views/User/Register/Register.php",
+                    data: data,
+                    success: ret => {
+                        console.log(ret);
+                    },
+                    error: er => {
+                        console.log(er);
+
+                    }
+
+
+                })
+            })
+        }
+        register();
+    </script>
 </body>
 
 </html>
@@ -136,6 +182,16 @@
 
 <?php
 
+
+
+
+
+
+
+include_once "../../../../Core/Db.php";
+include_once "../../../Models/UserModel.php";
+
+use App\Models\UserModel;
 
 function  console_log($output, $with_script_tags = true)
 {
@@ -149,18 +205,16 @@ function  console_log($output, $with_script_tags = true)
 
 
 
-
-
-
-include_once "../../../../Core/Db.php";
-include_once "../../../Models/UserModel.php";
-
-use App\Models\UserModel;
-
 // handle Login
 
+$user_email = '';
 $user_name = '';
 $user_pass = '';
+$error_flag = false;
+
+if (isset($_POST['txtMaile'])) {
+    $user_email = $_POST['txtMaile'];
+}
 
 if (isset($_POST['txtUsername'])) {
     $user_name = $_POST['txtUsername'];
@@ -170,47 +224,78 @@ if (isset($_POST['txtPasword'])) {
 }
 
 
+
 $userModel = new UserModel();
 $users = $userModel->getAllUser();
+$users_len = count($users);
 
 
-foreach ($users as $us) {
-    console_log($us);
-    if ($us['user_name'] == $user_name && $us['user_pass'] == $user_pass) {
-        echo "equal";
-        $user_type = $us['user_type'];
-
-        switch ($user_type) {
-            case 'admin':
-                $msg = 'hi';
-                $url = "/mini-q2a";
-
-
-
-
-
-                echo ("<script>location.href = '" . $url . "/admin.php?msg=$msg';</script>");
-
-                break;
-            case 'user':
-
-
-                break;
-            case 'admin':
-
-                break;
-
-            default:
-
-                break;
+if ($user_email != '' && $user_pass != '' && $user_name !== '') {
+    console_log($users);
+    foreach ($users as $us) {
+        if ($us['email'] == $user_email) {
+            echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Email đã được sử dụng!',
+                showConfirmButton: false,
+                timer: 1500
+              });
+            </script>";
+            $error_flag = true;
         }
-    } else {
+        if ($us['user_name'] == $user_name) {
+            echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Tên tài khoản đã được sử dụng!',
+                showConfirmButton: false,
+                timer: 1500
+              });
+            </script>";
+            $error_flag = true;
+        }
+    }
+
+    if ($error_flag == false) {
+        $user_id =  'user_' . (string) ($users_len + 1);
+        $user_type = 'user';
+        $user_rank = (int)$userModel->getRankUserForRegister()['user_rank'] + 1;
+        $toggle_send_notify_status = true;
+
+
+        $ret = $userModel->add(
+            $user_id,
+            $user_email,
+            $user_name,
+            $user_pass,
+            $user_type,
+            $user_rank,
+            $toggle_send_notify_status
+        );
+
+        if ($ret == true) {
+            echo "<script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Đăng ký thành công!',
+                showConfirmButton: false,
+                timer: 1500
+              });
+            </script>";
+        } else {
+            echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Đã có lỗi gì đó!',
+                showConfirmButton: false,
+                timer: 1500
+              });
+            </script>";
+        }
     }
 }
 
-
-console_log($user_name);
-console_log($user_pass);
 
 
 
