@@ -41,13 +41,14 @@ session_start();
         }
 
         body {
-            height: 100vh;
+            min-height: 100vh;
             width: 100vw;
         }
 
         .login-page-wrapper {
             background-color: var(--common-bg);
-            height: 100%;
+            min-height: 100vh;
+
             width: 100%;
             overflow: hidden;
             display: flex;
@@ -133,6 +134,8 @@ session_start();
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </body>
 
 </html>
@@ -164,7 +167,7 @@ use App\Models\UserModel;
 
 $user_name = '';
 $user_pass = '';
-
+$error_flag = true;
 
 if (isset($_POST['txtUsername'])) {
     $user_name = $_POST['txtUsername'];
@@ -177,24 +180,29 @@ if (isset($_POST['txtPasword'])) {
 $userModel = new UserModel();
 $users = $userModel->getAllUser();
 
-console_log($users);
+//console_log($users);
 foreach ($users as $us) {
 
     if ($us['user_name'] == $user_name && $us['user_pass'] == $user_pass) {
-        echo "equal";
+
         $user_type = $us['user_type'];
+        $error_flag = false;
 
         switch ($user_type) {
             case 'admin':
                 $msg = 'hi';
                 $_SESSION['user_name'] = $user_name;
                 $_SESSION['user_type'] = 'admin';
-                echo ("<script>location.href = '" . $PATH_ROOT . "/App/Views/Admin/AdminPage/AdminPage.php';</script>");
+
+                // echo ("<script>location.href = '" . $PATH_ROOT . "/App/Views/Admin/AdminPage/AdminPage.php';</script>");
+
+                echo ("<script>location.href = '" . $PATH_ROOT . "/Admin.php';</script>");
 
                 break;
             case 'user':
                 $_SESSION['user_name'] = $user_name;
                 $_SESSION['user_type'] = 'user';
+
 
                 echo "<script>location.href = '" . $PATH_ROOT . "/'</script>";
 
@@ -207,11 +215,29 @@ foreach ($users as $us) {
                 echo "<script>location.href = '" . $PATH_ROOT . "/'</script>";
 
 
+
                 break;
         }
     } else {
     }
 }
+
+
+if (isset($_POST['txtUsername'])) {
+    if (isset($_POST['txtPasword'])) {
+        if ($error_flag == true) {
+            echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Sai tên tài khoản hoặc mật khẩu!',
+                showConfirmButton: false,
+                timer: 2700
+              });
+            </script>";
+        }
+    }
+}
+
 
 
 console_log($user_name);

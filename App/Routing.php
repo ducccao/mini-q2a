@@ -8,19 +8,13 @@ $router = new Route();
 // Admin Route
 // ---------------------
 $router->get("/admin", function () {
-    $user_type = 'anonymous';
-    $user_type = 'user';
-    $user_type = 'admin';
-
-
-    if ($user_type == 'admin') {
-        header("Location: ./Admin.php");
-    } else if ($user_type == 'anonymous') {
-        header("Location: ./index.php");
-    } else {
-        header("Location: ./index.php");
-    }
+    echo "<script>
+    body=document.getElementsByTagName('html')[0];
+    body.innerHTML='';
+    </script>";
 });
+
+
 
 // ---------------------
 // Home Route
@@ -46,7 +40,6 @@ $router->get("/question-queue/{id}", "QuestionQueueController@GetQuestionQueueDe
 // ---------------------
 // Ranking Route
 // ---------------------
-
 $router->get("/ranking", "RankingController@index");
 // ---------------------
 // Mapping
@@ -56,6 +49,8 @@ $request_url = !empty($_GET['url']) ? '/' . $_GET['url'] : '/';
 
 // Lấy phương thức hiện tại của url đang được gọi. (GET | POST). Mặc định là GET.
 $method_url = !empty($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+
+
 
 
 $router->map($request_url, $method_url);

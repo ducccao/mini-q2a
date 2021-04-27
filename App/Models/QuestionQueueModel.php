@@ -147,4 +147,18 @@ class QuestionQueueModel
 
         return $data;
     }
+
+    public function detail($qq_id)
+    {
+        $db = new Db();
+
+        $sql = "SELECT *
+        FROM  `questionqueue`
+        WHERE que_id='$qq_id';";
+
+        $db->load($db);
+        $data = $db->Rows();
+
+        return $data;
+    }
 }

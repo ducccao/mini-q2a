@@ -51,8 +51,18 @@ console_log($curr_route);
             }
             echo $js_code;
         }
+        function GlobalConsole_log($output, $with_script_tags = true)
+        {
+            $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+                ');';
+            if ($with_script_tags) {
+                $js_code = '<script>' . $js_code . '</script>';
+            }
+            echo $js_code;
+        }
 
         ?>
+
 
 
 
@@ -82,7 +92,10 @@ console_log($curr_route);
         include_once "./App/Routing.php";
 
 
+        console_log($_SERVER);
 
+        console_log($_GET);
+        console_log($_REQUEST);
 
         ?>
 

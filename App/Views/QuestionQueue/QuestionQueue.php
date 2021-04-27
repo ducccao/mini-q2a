@@ -165,6 +165,14 @@
         color: #212529;
         background-color: rgba(0, 0, 0, .075);
     }
+
+    .que_title {
+        color: initial;
+    }
+
+    .que_title:hover {
+        color: initial;
+    }
 </style>
 
 
@@ -183,59 +191,7 @@ $PATH_ROOT = "/mini-q2a";
 
 
 
-        <!-- Card  Question Queue -->
-        <!-- <div class="question-queue-card p-3">
-            <div class="qq-top-info">
-                <div class="qq-top-left">
-
-                    <div class="qq-title">
-                        title
-                    </div>
-                    <div class="qq-username">
-                        <p>username</p>
-                    </div>
-                </div>
-
-                <div class="qq-top-right">
-                    <div>Created at
-
-                    </div>
-
-                </div>
-
-            </div>
-            <div class="qq-bot-info">
-
-                <div class="qq-bot-left">
-
-                    <div class="like-wrapper">
-                        <span class="badge ">5</span>
-
-                        <i class="far fa-thumbs-up like"></i>
-
-                    </div>
-                </div>
-                <div class="qq-bot-right">
-                    <div class="list-tag">
-
-                        <div class="tag mx-1">
-                            <a href="">#tagname</a>
-
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div> -->
-
-
         <?php
-
-
 
 
 
@@ -244,13 +200,16 @@ $PATH_ROOT = "/mini-q2a";
 
 
             echo '
-            
+        
             <div class="question-queue-card p-3 my-3">
+          
             <div class="qq-top-info">
                 <div class="qq-top-left">
 
                     <div class="qq-title">
+                    <a class="que_title" href=  ' .   $PATH_ROOT . '/question-queue/' . $qq["que_id"] . '>
                       ' .   $qq["que_title"] . '
+                      </a>
                     </div>
                     <div class="qq-username">
                         <p>
@@ -323,26 +282,10 @@ $PATH_ROOT = "/mini-q2a";
             echo   '
 
     </div>
-
+    
 </div>
-
 </div>
-
-
-
-
-</div>';
-
-
-            // echo  "<div class= 'question-queue my-2'>";
-            // echo "<div>" . $qq["que_id"] . "</div>";
-            // echo "<div>" . $qq["que_content"] . "</div>";
-
-            // echo "<div>" . $qq["que_title"] . "</div>";
-            // echo "<div>" . $qq["createdAt"] . "</div>";
-            // echo "<div>" . $qq["user_id"] . "</div>";
-            // echo "<div>" . $qq["que_cate_id"] . "</div>";
-            // echo  "     </div>";
+</div> ';
         }
         ?>
 

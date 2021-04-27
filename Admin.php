@@ -171,8 +171,8 @@ console_log('User type is: ' . $curr_user_type);
     <!-- Require DB ROOT-->
 
     <?php
-    require_once "../../../../Core/Db.php";
 
+    require_once "./Core/Db.php";
 
     ?>
 
@@ -182,16 +182,16 @@ console_log('User type is: ' . $curr_user_type);
         <!-- side bar -->
         <?php
 
-        include_once "../partials/Sidebar.php";
+        include_once "./App/Views/Admin/partials/Sidebar.php";
         ?>
         <div class="q2a-content">
             <!-- nav bar -->
             <?php
-            include_once "../partials/Navbar.php";
+            include_once "./App/Views/Admin/partials/Navbar.php";
+
             ?>
             <div class="q2a-content-content">
                 <?php
-
 
 
                 // Định nghĩa hằng Path của file index.php
@@ -199,12 +199,35 @@ console_log('User type is: ' . $curr_user_type);
 
                 // Autoload class trong PHP
                 spl_autoload_register(function (string $class_name) {
-                    include_once   '../../../../' . $class_name . '.php';
+                    include_once PATH_ROOT . '/' . $class_name . '.php';
                 });
-
+                console_log($_REQUEST);
 
                 // Load Router
-                include_once "../../../AdminRouter.php";
+                include_once "./App/AdminRouter.php";
+
+
+                if (isset($_SERVER['REQUEST_URI'])) {
+                    $adRouting = $_SERVER['REQUEST_URI'];
+                    console_log($adRouting);
+                    switch ($adRouting) {
+                        case $PATH_ROOT . '/admin/question-cate':
+                            echo "q cate";
+                            break;
+
+                        default:
+                            # code...
+                            break;
+                    }
+                }
+
+                console_log($_SERVER);
+
+                $curr_routee = $_SERVER['REQUEST_URI'];
+
+
+
+
                 ?>
 
 

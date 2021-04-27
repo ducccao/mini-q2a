@@ -61,7 +61,7 @@ console_log($curr_user . ' is loged-in in system');
             // if not exists user
             if ($isExistsUser == false) {
                 echo '<li';
-                if ($curr_route == "$PATH_ROOT/user/login") {
+                if ($curr_route == "/user/login") {
                     echo " class='nav-item active ml-auto'";
                 } else {
                     echo " class='nav-item ml-auto'";
@@ -73,7 +73,7 @@ console_log($curr_user . ' is loged-in in system');
 
 
                 echo "<li";
-                if ($curr_route == "$PATH_ROOT/user/register") {
+                if ($curr_route == "/user/register") {
                     echo " class='nav-item active'";
                 } else {
                     echo " class='nav-item'";
@@ -91,7 +91,7 @@ console_log($curr_user . ' is loged-in in system');
 
 
                 echo '<li';
-                if ($curr_route == "$PATH_ROOT/user/profile") {
+                if ($curr_route == "/user/profile") {
                     echo " class='nav-item active ml-auto'";
                 } else {
                     echo " class='nav-item ml-auto'";
@@ -104,7 +104,8 @@ console_log($curr_user . ' is loged-in in system');
 
 
                 echo '<li';
-                if ($curr_route == "$PATH_ROOT/user/upload-question") {
+
+                if ($curr_route == "/user/upload-question") {
                     echo " class='nav-item active '";
                 } else {
                     echo " class='nav-item '";
@@ -117,7 +118,7 @@ console_log($curr_user . ' is loged-in in system');
 
 
                 echo "<li";
-                if ($curr_route == "$PATH_ROOT/user/logout") {
+                if ($curr_route == "/user/logout") {
                     echo " class='nav-item active'";
                 } else {
                     echo " class='nav-item'";

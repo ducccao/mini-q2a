@@ -184,13 +184,19 @@ class QuestionQueueController
 
     public function GetQuestionQueueDetail()
     {
-        echo "detail qq";
-        $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")
-            . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
-        $url_len = strlen($url);
+        $data = [1, 1];
 
 
-        console_log($_SERVER['QUERY_STRING']);
+        $qqModel = new QuestionQueueModel();
+
+        console_log($_SERVER);
+
+        console_log($_GET['id']);
+        //        $qqModel->detail($qq_id);
+
+        $view_qq_detail = new View();
+        $view_path = "./App/Views/QuestionQueue/QuestionQueueDetail.php";
+
+        return $view_qq_detail->render($view_path, $data);
     }
 }
