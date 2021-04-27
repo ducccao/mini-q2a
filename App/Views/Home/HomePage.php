@@ -266,9 +266,7 @@
             // put tag[i] right there ! 
 
             foreach ($this->data[2]  as $tags => $tag) {
-                //  console_log($tag);
                 if ($tag['que_id'] == $qq['que_id']) {
-                    console_log($tag['label_name']);
                     echo "       <div class='tag mx-1'>    <a href=''>";
                     echo  "#" . $tag['label_name'];
                     echo '    </a>      </div>';

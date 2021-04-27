@@ -1,3 +1,9 @@
+<?php
+// Session
+session_start();
+?>
+
+
 <!doctype html>
 <html lang="en">
 
@@ -57,6 +63,27 @@
 
 <body>
 
+    <!-- PATH ROOT -->
+
+    <?php
+    $PATH_ROOT = "/mini-q2a";
+    global $PATH_ROOT;
+
+    $uri = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")
+        . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+    $url_len = strlen($uri);
+
+    $curr_url = '';
+    if (isset($_SERVER['REDIRECT_URL'])) {
+        $curr_url = $_SERVER['REDIRECT_URL'];
+    }
+    $curr_route = substr($curr_url, strlen($PATH_ROOT), 100);
+    $curr_route = trim($curr_route);
+    console_log($curr_route);
+
+    ?>
+
 
     <div class="login-page-wrapper">
 
@@ -64,6 +91,7 @@
             <div class="card">
                 <div class="card-header">
                     <!-- Header -->
+                    <h5><Strong>Đăng nhập</Strong></h5>
                 </div>
                 <div class="card-body">
                     <form action="http://localhost/mini-q2a/App/Views/User/Login/Login.php" method="POST">
@@ -78,11 +106,21 @@
                             <input type="password" class="form-control" name="txtPasword" id="txtPasword" aria-describedby="helpId" placeholder="">
                             <!-- <small id="helpId" class="form-text text-muted">Tên tài khoản</small> -->
                         </div>
-                        <button class="btn btn-dark" type="submit">Đăng nhập</button>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-dark" type="submit">Đăng nhập</button>
+                            <a class="btn btn-dark ml-3" <?php echo "href='$PATH_ROOT/'"; ?>>Trang chủ </a>
+
+                        </div>
                     </form>
                 </div>
-                <div class="card-footer text-muted">
+                <div class="card-footer text-muted d-flex flex-column ">
                     <!-- Footer -->
+
+                    <p>Chưa có tài khoản ?</p>
+
+
+                    <a class="btn btn-dark " <?php echo "href='$PATH_ROOT/App/Views/User/Register/Register.php'"; ?>>Tạo tài khoản </a>
+
                 </div>
             </div>
         </div>
@@ -125,6 +163,7 @@ use App\Models\UserModel;
 $user_name = '';
 $user_pass = '';
 
+
 if (isset($_POST['txtUsername'])) {
     $user_name = $_POST['txtUsername'];
 }
@@ -136,9 +175,9 @@ if (isset($_POST['txtPasword'])) {
 $userModel = new UserModel();
 $users = $userModel->getAllUser();
 
-
+console_log($users);
 foreach ($users as $us) {
-    console_log($us);
+
     if ($us['user_name'] == $user_name && $us['user_pass'] == $user_pass) {
         echo "equal";
         $user_type = $us['user_type'];
@@ -146,18 +185,25 @@ foreach ($users as $us) {
         switch ($user_type) {
             case 'admin':
                 $msg = 'hi';
-                $url = "/mini-q2a";
-                echo ("<script>location.href = '" . $url . "/admin.php?msg=$msg';</script>");
+                $_SESSION['user_name'] = $user_name;
+                $_SESSION['user_type'] = 'admin';
+                echo ("<script>location.href = '" . $PATH_ROOT . "/App/Views/Admin/AdminPage/AdminPage.php';</script>");
 
                 break;
             case 'user':
+                $_SESSION['user_name'] = $user_name;
+                $_SESSION['user_type'] = 'user';
+
+                echo "<script>location.href = '" . $PATH_ROOT . "/'</script>";
+
 
                 break;
-            case 'admin':
 
-                break;
 
             default:
+                $_SESSION['user_name'] = $user_name;
+                echo "<script>location.href = '" . $PATH_ROOT . "/'</script>";
+
 
                 break;
         }

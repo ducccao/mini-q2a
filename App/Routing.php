@@ -32,8 +32,7 @@ $router->get("/", "HomeController@index");
 // ------------
 
 $router->get("/user/all-users", "UserController@GetAllUserPage");
-//$router->get("/user/login", "UserController@GetLoginPage");
-$router->get("/user/register", "UserController@GetRegisterPage");
+
 
 // ---------------------
 // Question Queue Route
