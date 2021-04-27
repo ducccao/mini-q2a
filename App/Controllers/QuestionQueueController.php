@@ -80,6 +80,7 @@ class QuestionQueueController
         
         */
 
+        console_log($allQuestionQueuePaginationed);
         $data = [
             $allQuestionQueuePaginationed,  $questionCategories,
             $fullArrayTags, $allLikeCount, $pagi_total_pagi_stuff, $pagi_current,

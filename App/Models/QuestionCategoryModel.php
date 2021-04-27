@@ -19,6 +19,7 @@ class QuestionCategoryModel
         FROM `questioncategories`
         LEFT JOIN `questionqueue`
         ON questioncategories.que_cate_id =  questionqueue.que_cate_id
+        WHERE questionqueue.is_accepted = true
         GROUP BY questioncategories.que_cate_name
         ORDER BY questioncategories.que_cate_name;
         ";
