@@ -98,17 +98,18 @@ console_log($curr_route);
 
 
                 if ($user_type == 'admin') {
-                    echo "<li class ='nav-item ml-auto'>";
+                    echo "<li class ='nav-item '>";
                     echo "<a class='nav-link' href='/?action=admin'><i class='fas fa-cog mr-1'></i>Trang quản lý</a>";
                     echo "</li>";
                 }
 
 
+
                 echo '<li';
                 if ($curr_route == "/user/profile") {
-                    echo " class='nav-item active '";
+                    echo " class='nav-item active ml-auto'";
                 } else {
-                    echo " class='nav-item '";
+                    echo " class='nav-item ml-auto'";
                 }
                 echo  '>';
                 echo "

@@ -148,6 +148,25 @@ class QuestionQueueModel
         return $data;
     }
 
+    public function GetQuestionByKeyFullText($keyWord)
+    {
+        $db = new Db();
+
+        $sql = "SELECT * FROM `questionQueue` qq
+            JOIN `users` u ON u.user_id = qq.user_id 
+            WHERE MATCH(que_content)
+            AGAINST('$keyWord' IN NATURAL LANGUAGE MODE)
+            ORDER BY createdAt
+            LIMIT 10
+            OFFSET 0;
+            ";
+
+        $db->load($sql);
+        $data = $db->Rows();
+
+        return $data;
+    }
+
     public function detail($qq_id)
     {
         $db = new Db();

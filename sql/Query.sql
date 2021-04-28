@@ -112,6 +112,22 @@ FROM  `questionqueue`
 WHERE que_id='que_01';
 
 
+
+
+-- ----------------------------------------------------------
+-- ADMIN. All Question Category
+-- ----------------------------------------------------------
+SELECT*
+FROM `questioncategories`;
+-- ----------------------------------------------------------
+-- ADMIN. Add Question Category
+-- ----------------------------------------------------------
+INSERT INTO `questioncategories` (que_cate_id,que_cate_name)
+VALUES ('que_cate_','Hóa học');
+
+
+
+
 ----------------
 -- testing
 ----------------
@@ -123,6 +139,14 @@ select * from `questioncategories`;
 select * from `labels`;
 select * from `quetionqueue_labels`;
 
-	
+-- Get all question with keyword of que_content
+SELECT * FROM questionQueue
+WHERE MATCH(que_content)
+    AGAINST("Toán" IN NATURAL LANGUAGE MODE);
+
+-- Get all question with keyword of que_title
+SELECT * FROM questionQueue
+WHERE MATCH(que_title)
+    AGAINST("Lý" IN NATURAL LANGUAGE MODE);
 
 

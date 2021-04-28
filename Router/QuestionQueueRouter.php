@@ -30,6 +30,10 @@ require_once "./App/Views/Partials/SearchBar/SearchBar.php";
 
 $qqController->index();
 echo '</div>';
+
+// JQuery
+require_once "./App/Views/Partials/JQuery/JQuery-Func.php";
+
 echo   "</body>";
 // -------------
 // Footer

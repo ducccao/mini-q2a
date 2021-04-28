@@ -35,6 +35,13 @@ class AdminController
     }
 
 
+    public function abc()
+    {
+        echo
+        "abc";
+    }
+
+
 
     public function RenderAllUser()
     {
