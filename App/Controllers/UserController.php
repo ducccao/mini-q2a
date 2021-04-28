@@ -50,10 +50,40 @@ class UserController
 
     public function GetLoginPage()
     {
-        echo "Login page";
+
+        console_log($_SERVER);
+        $data = [1, 2];
+        $view_path = "./App/Views/User/Login/Login.php";
+        $login_view = new View();
+
+
+        return $login_view->render($view_path, $data);
     }
-    public function GetSignUpPage()
+
+
+    public function LoginHandle()
     {
-        echo "Sign up page";
+    }
+
+
+
+
+    public function GetRegisterPage()
+    {
+        $data = [1, 2];
+        $login_view = new View();
+
+        $view_path = "./App/Views/User/Register/Register.php";
+
+        return $login_view->render($view_path, $data);
+    }
+    public function UploadQuestionHandle()
+    {
+        $data = [1, 2];
+        $login_view = new View();
+
+        $view_path = "./App/Views/User/UploadQuestion/UploadQuestion.php";
+
+        return $login_view->render($view_path, $data);
     }
 }

@@ -23,6 +23,7 @@ class QuestionQueueModel
         LEFT JOIN `users`
         ON users.user_id = questionqueue.user_id 
         WHERE ratingsquestion.rate_name = 'like'
+        AND questionqueue.is_accepted = TRUE
         GROUP BY questionqueue.que_id
         ORDER BY questionqueue.createdAt;
         ";
@@ -53,10 +54,11 @@ class QuestionQueueModel
     {
         $db = new Db();
 
-        $sql = 'SELECT questionqueue.que_id,questionqueue.que_title,questionqueue.createdAt,
-        users.user_name
+        $sql = 'SELECT questionqueue.que_id,questionqueue.que_title,
+        questionqueue.createdAt,users.user_name 
         FROM `questionqueue`,`users`
         WHERE users.user_id = questionqueue.user_id 
+        AND questionqueue.is_accepted = TRUE
         ORDER BY createdAt;
         ';
 
@@ -70,14 +72,16 @@ class QuestionQueueModel
     {
         $db = new Db();
 
-        $sql = 'SELECT questionqueue.que_id,questionqueue.que_title,
-        ratingsquestion.rate_name, COUNT(*) AS like_count
+        $sql = "SELECT questionqueue.que_id,questionqueue.que_title,ratingsquestion.rate_name, 
+        COUNT(*) AS like_count
         FROM `questionqueue`
         INNER JOIN `ratingsquestion`
         ON questionqueue.que_id = ratingsquestion.que_id
-        WHERE ratingsquestion.rate_name ="like"
+        WHERE ratingsquestion.rate_name ='like'
+        AND questionqueue.is_accepted = TRUE
         GROUP BY questionqueue.que_id
-        ORDER BY questionqueue.que_id;';
+        ORDER BY questionqueue.que_id;
+        ";
 
         $db->load($sql);
         $data = $db->Rows();
@@ -92,6 +96,7 @@ class QuestionQueueModel
         $sql = 'SELECT questionqueue.que_id,questionqueue.que_title,questionqueue.createdAt,users.user_name 
         FROM `questionqueue`,`users`
         WHERE users.user_id = questionqueue.user_id 
+        AND questionqueue.is_accepted = TRUE
         ORDER BY createdAt
         LIMIT ' . $limit .
             ' OFFSET ' . $offset;
@@ -117,6 +122,60 @@ class QuestionQueueModel
         ";
 
         $db->load($sql);
+        $data = $db->Rows();
+
+        return $data;
+    }
+
+
+    public function FilterQuestionQueueByQuestionCategoryPaginationed($cate_id)
+    {
+        $db = new Db();
+
+        $sql = "SELECT questionqueue.que_id,questionqueue.que_title,questionqueue.createdAt,users.user_name 
+        FROM `questionqueue`,`users`
+        WHERE users.user_id = questionqueue.user_id 
+        AND questionqueue.que_cate_id='$cate_id'
+        AND questionqueue.is_accepted = TRUE
+        ORDER BY createdAt
+        LIMIT 10
+        OFFSET 0;
+        ";
+
+        $db->load($sql);
+        $data = $db->Rows();
+
+        return $data;
+    }
+
+    public function GetQuestionByKeyFullText($keyWord)
+    {
+        $db = new Db();
+
+        $sql = "SELECT * FROM `questionQueue` qq
+            JOIN `users` u ON u.user_id = qq.user_id 
+            WHERE MATCH(que_content)
+            AGAINST('$keyWord' IN NATURAL LANGUAGE MODE)
+            ORDER BY createdAt
+            LIMIT 10
+            OFFSET 0;
+            ";
+
+        $db->load($sql);
+        $data = $db->Rows();
+
+        return $data;
+    }
+
+    public function detail($qq_id)
+    {
+        $db = new Db();
+
+        $sql = "SELECT *
+        FROM  `questionqueue`
+        WHERE que_id='$qq_id';";
+
+        $db->load($db);
         $data = $db->Rows();
 
         return $data;

@@ -165,17 +165,26 @@
         color: #212529;
         background-color: rgba(0, 0, 0, .075);
     }
+
+    .que_title {
+        color: initial;
+    }
+
+    .que_title:hover {
+        color: initial;
+    }
 </style>
 
 
 <?php
-$PATH_ROOT = "/mini-q2a";
+$PATH_ROOT = $GLOBALS['PATH_ROOT'];
+
 ?>
 
 
 
 <div class="home-content p-3 my-3">
-    <div class="home-list-question-left w-75 ">
+    <div class="home-list-question-left w-75  ">
 
         <div class="question-newest">
             <h3 class="">Danh sách câu hỏi</h3>
@@ -183,59 +192,7 @@ $PATH_ROOT = "/mini-q2a";
 
 
 
-        <!-- Card  Question Queue -->
-        <!-- <div class="question-queue-card p-3">
-            <div class="qq-top-info">
-                <div class="qq-top-left">
-
-                    <div class="qq-title">
-                        title
-                    </div>
-                    <div class="qq-username">
-                        <p>username</p>
-                    </div>
-                </div>
-
-                <div class="qq-top-right">
-                    <div>Created at
-
-                    </div>
-
-                </div>
-
-            </div>
-            <div class="qq-bot-info">
-
-                <div class="qq-bot-left">
-
-                    <div class="like-wrapper">
-                        <span class="badge ">5</span>
-
-                        <i class="far fa-thumbs-up like"></i>
-
-                    </div>
-                </div>
-                <div class="qq-bot-right">
-                    <div class="list-tag">
-
-                        <div class="tag mx-1">
-                            <a href="">#tagname</a>
-
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div> -->
-
-
         <?php
-
-
 
 
 
@@ -244,13 +201,16 @@ $PATH_ROOT = "/mini-q2a";
 
 
             echo '
-            
+        
             <div class="question-queue-card p-3 my-3">
+          
             <div class="qq-top-info">
                 <div class="qq-top-left">
 
                     <div class="qq-title">
+                    <a class="que_title" href=  ' .   $PATH_ROOT . '?action=question-queue-detail&que_id=' . $qq["que_id"] . '>
                       ' .   $qq["que_title"] . '
+                      </a>
                     </div>
                     <div class="qq-username">
                         <p>
@@ -323,26 +283,10 @@ $PATH_ROOT = "/mini-q2a";
             echo   '
 
     </div>
-
+    
 </div>
-
 </div>
-
-
-
-
-</div>';
-
-
-            // echo  "<div class= 'question-queue my-2'>";
-            // echo "<div>" . $qq["que_id"] . "</div>";
-            // echo "<div>" . $qq["que_content"] . "</div>";
-
-            // echo "<div>" . $qq["que_title"] . "</div>";
-            // echo "<div>" . $qq["createdAt"] . "</div>";
-            // echo "<div>" . $qq["user_id"] . "</div>";
-            // echo "<div>" . $qq["que_cate_id"] . "</div>";
-            // echo  "     </div>";
+</div> ';
         }
         ?>
 
@@ -360,7 +304,7 @@ $PATH_ROOT = "/mini-q2a";
 
                     $temp_pagi_cur_previous = $pagi_curr - 2;
                     echo "   <li class='page-item '>
-                    <a class='page-link pagi' href='$PATH_ROOT/question-queue?pagi=$temp_pagi_cur_previous'>Previous</a>
+                    <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&pagi=$temp_pagi_cur_previous'>Previous</a>
                 </li>";
                 }
 
@@ -376,12 +320,12 @@ $PATH_ROOT = "/mini-q2a";
                 for ($i = 0; $i < $data[4]; ++$i) {
                     if ($data[5] - 1 == $i) {
                         echo '  <li class="page-item active"><a  class="page-link " ';
-                        echo "  href='$PATH_ROOT/question-queue?pagi=$i'";
+                        echo "  href='$PATH_ROOT?action=question-queue&pagi=$i'";
                         echo ">";
                         echo  $i + 1 . "   </a></li>";
                     } else {
                         echo '  <li class="page-item "><a  class="page-link " ';
-                        echo "  href='$PATH_ROOT/question-queue?pagi=$i'";
+                        echo "  href='$PATH_ROOT?action=question-queue&pagi=$i'";
                         echo ">";
                         echo  $i + 1 . "   </a></li>";
                     }
@@ -390,9 +334,9 @@ $PATH_ROOT = "/mini-q2a";
                 ?>
                 <?php
                 if ($pagi_curr == $data[4]) {
-                    echo " <li class='page-item disabled'> <a class='page-link disabled pagi-next' href='$PATH_ROOT/question-queue?pagi=$pagi_curr'>Next</a> </li> ";
+                    echo " <li class='page-item disabled'> <a class='page-link disabled pagi-next' href='$PATH_ROOT?action=question-queue&pagi=$pagi_curr'>Next</a> </li> ";
                 } else {
-                    echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT/question-queue?pagi=$pagi_curr'>Next</a></li> ";
+                    echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&pagi=$pagi_curr'>Next</a></li> ";
                 }
 
 
@@ -425,10 +369,9 @@ $PATH_ROOT = "/mini-q2a";
 
                     foreach ($data[1] as $questionCategories) {
                         // echo floor(81 / 10);
-                        console_log($questionCategories);
                         echo "<tr class='question-category'>";
                         echo '<th scope="row" class ="que-cate-content"> ';
-                        echo "<div> <a  href='$PATH_ROOT/question-queue?questionCate=$questionCategories[que_cate_name]' 
+                        echo "<div> <a  href='$PATH_ROOT?action=question-queue&questionCate=$questionCategories[que_cate_id]' 
                         class='que_cate_name' >" . $questionCategories["que_cate_name"] . "</a> </div> ";
 
                         echo "<div class='badge badge-light p-2'>" . $questionCategories["amount"] . " </div>";

@@ -155,7 +155,7 @@
 
 
 <div class="home-content p-3 my-3">
-    <div class="home-list-question-left w-75 ">
+    <div class="home-list-question-left w-100 ">
 
         <div class="question-newest">
             <h3 class="">Các câu hỏi nổi bật</h3>
@@ -266,9 +266,7 @@
             // put tag[i] right there ! 
 
             foreach ($this->data[2]  as $tags => $tag) {
-                //  console_log($tag);
                 if ($tag['que_id'] == $qq['que_id']) {
-                    console_log($tag['label_name']);
                     echo "       <div class='tag mx-1'>    <a href=''>";
                     echo  "#" . $tag['label_name'];
                     echo '    </a>      </div>';
@@ -303,7 +301,7 @@
 
 
     </div>
-    <div class="home-list-filter-right w-25 p-3 ml-3">
+    <!-- <div class="home-list-filter-right w-25 p-3 ml-3">
         <h4 class="">Chủ đề</h4>
 
         <div class="que-cate-wrapper">
@@ -332,5 +330,5 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div> -->
 </div>

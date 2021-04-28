@@ -9,18 +9,34 @@ class AdminController
 {
     public function index()
     {
+        $view_admin = new View();
 
-
-        return;
+        $data = [1, 2];
+        $view_path = "./App/Views/Admin/AdminPage/AdminPage.php";
+        return $view_admin->render($view_path, $data);
     }
-    public function GetPostControlPage()
+
+
+    public function abc()
     {
-        return   require "./App/Views/Admin/vwPostControl/PostControl.php";
+        echo
+        "abc";
     }
 
     public function RenderAllUser()
     {
         $userModel = new UserModel();
         $users = $userModel->getAllUser();
+    }
+
+    public function QuestionCategory()
+    {
+
+        echo "qqcate";
+        // $view_path = './App/Views/Admin/QuestionCategory/QuestionCategory.php';
+        // $data = [1, 2, 3];
+
+        // $questionCategoryView = new View();
+        // return $questionCategoryView->render($view_path, $data);
     }
 }

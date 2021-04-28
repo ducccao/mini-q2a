@@ -27,14 +27,14 @@ class Db
     // Sends the query to the connection
     public function load($sql)
     {
-        $this->_ret = $this->_conn->query($sql) or die(mysqli_error($this->_ret));
+        $this->_ret = $this->_conn->query($sql) or die(mysqli_error($this->_conn));
         $this->_numRows = mysqli_num_rows($this->_ret);
     }
 
     // patch DB
     public function patchDb($sql)
     {
-        $this->_ret = $this->_conn->query($sql) or die(mysqli_error($this->_ret));
+        $this->_ret = $this->_conn->query($sql) or die(mysqli_error($this->_conn));
         return $this->_ret;
     }
 
