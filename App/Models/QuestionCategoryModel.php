@@ -10,7 +10,39 @@ class QuestionCategoryModel
     {
     }
 
-    public function GetAllQuestionCategories()
+    public function all()
+    {
+        $db = new Db();
+
+        $sql = "SELECT*
+        FROM `questioncategories`;
+        ";
+
+        $db->load($sql);
+        $data = $db->Rows();
+        return $data;
+    }
+
+    public function add($que_cate_id, $que_cate_name)
+    {
+        $db = new Db();
+
+        $sql = "INSERT INTO `questioncategories` (que_cate_id,que_cate_name)
+        VALUES ('$que_cate_id','$que_cate_name');
+        ";
+
+        $ret = $db->patchDb($sql);
+
+        return $ret;
+    }
+
+    public function del()
+    {
+    }
+    public function edit()
+    {
+    }
+    public function GetAllQuestionCategoriesWithCountQQ()
     {
         $db = new Db();
 

@@ -15,7 +15,7 @@ class HomeController
         $qqModel = new QuestionQueueModel();
         $questionCateModel = new QuestionCategoryModel();
 
-        $questionCategories = $questionCateModel->GetAllQuestionCategories();
+        $questionCategories = $questionCateModel->GetAllQuestionCategoriesWithCountQQ();
         $newestQuestionQueue = $qqModel->GetNewestQuestionQueueWithoutArrayTag();
         $newestQQArrayTags = $qqModel->GetNewstQuestionQueueArrayTagName();
 

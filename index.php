@@ -4,7 +4,7 @@
 // -----------------
 
 //$PATH_ROOT = "/mini-q2a";
-$PATH_ROOT = "http://localhost:1212";
+$PATH_ROOT = "http://localhost:8080";
 $GLOBALS['PATH_ROOT'] = $PATH_ROOT;
 
 global $PATH_ROOT;
@@ -61,11 +61,14 @@ function GlobalConsole_log($output, $with_script_tags = true)
 }
 
 
+
+
 // ---------------------------
-// Required Config
+// Required Config & Utils
 // ---------------------------
 
 require_once "./Core/Db.php";
+require_once "./utils/randomString.php";
 
 
 ?>
@@ -77,6 +80,10 @@ require_once "./Core/Db.php";
 
 <?php
 
+// ---------------------------
+// App Content
+// ---------------------------
+
 // Định nghĩa hằng Path của file index.php để load class
 define('PATH_ROOT', __DIR__);
 
@@ -86,17 +93,25 @@ spl_autoload_register(function (string $class_name) {
 });
 
 
-
+// ------------------
+// Routing
+// ------------------
 
 if (isset($_SERVER['REQUEST_URI'])) {
     $reqURI = $_SERVER['REQUEST_URI'];
+    console_log($reqURI);
 
     if ($reqURI == '/') {
         require_once "./Router/HomeRouter.php";
+        return;
+    } else if (str_contains($reqURI, "/admin/question-cate")) {
+
+        return header("location: /?action=admin&typeManage=question-cate");
     } else {
 
+
         // ------------------
-        // Routing
+        // Routing By Action
         // ------------------
 
 
@@ -107,9 +122,6 @@ if (isset($_SERVER['REQUEST_URI'])) {
 
 
 
-        // ------------------
-        // Routing By Action
-        // ------------------
 
 
         switch ($action) {
@@ -123,15 +135,15 @@ if (isset($_SERVER['REQUEST_URI'])) {
                 require_once "./Router/RankingRouter.php";
                 break;
             case 'user-login':
-                require_once "./Router/UserLoginRouter.php";
+                require_once "./Router/User/UserLoginRouter.php";
                 break;
 
             case 'user-register':
-                require_once "./Router/UserRegisterRouter.php";
+                require_once "./Router/User/UserRegisterRouter.php";
 
                 break;
             case 'admin':
-                require_once "./Router/AdminPageRouter.php";
+                require_once "./Router/Admin/AdminPageRouter.php";
                 break;
 
             default:

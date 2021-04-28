@@ -19,7 +19,7 @@ class QuestionQueueController
         $qqModel = new QuestionQueueModel();
         $questionCateModel = new QuestionCategoryModel();
 
-        $questionCategories = $questionCateModel->GetAllQuestionCategories();
+        $questionCategories = $questionCateModel->GetAllQuestionCategoriesWithCountQQ();
 
         $allQuestionQueue = $qqModel->GetFullQuestionQueue();
 
@@ -98,7 +98,7 @@ class QuestionQueueController
         $qqModel = new QuestionQueueModel();
         $questionCateModel = new QuestionCategoryModel();
 
-        $questionCategories = $questionCateModel->GetAllQuestionCategories();
+        $questionCategories = $questionCateModel->GetAllQuestionCategoriesWithCountQQ();
 
         $allQuestionQueue = $qqModel->GetFullQuestionQueue();
 

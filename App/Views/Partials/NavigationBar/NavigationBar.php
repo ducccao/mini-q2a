@@ -6,6 +6,7 @@ $isExistsUser = false;
 
 if (isset($_SESSION['user_name'])) {
     $curr_user = $_SESSION['user_name'];
+    $user_type = $_SESSION['user_type'];
     $isExistsUser = true;
 }
 // echo  $curr_user . ' is loged-in in system';
@@ -96,13 +97,18 @@ console_log($curr_route);
 
 
 
+                if ($user_type == 'admin') {
+                    echo "<li class ='nav-item ml-auto'>";
+                    echo "<a class='nav-link' href='/?action=admin'><i class='fas fa-cog mr-1'></i>Trang quản lý</a>";
+                    echo "</li>";
+                }
 
 
                 echo '<li';
                 if ($curr_route == "/user/profile") {
-                    echo " class='nav-item active ml-auto'";
+                    echo " class='nav-item active '";
                 } else {
-                    echo " class='nav-item ml-auto'";
+                    echo " class='nav-item '";
                 }
                 echo  '>';
                 echo "
