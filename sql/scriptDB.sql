@@ -10,7 +10,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- -----------------------
 drop table if exists `users`;
 create table `users`(
-	user_id nvarchar(200) primary key ,
+	user_id nvarchar(200) primary key  ,
     email nvarchar(200),
     user_name nvarchar(200),
     user_pass nvarchar(200),
@@ -30,6 +30,9 @@ insert into `users`(user_id,email,user_name,user_pass,user_type,user_rank,toggle
 insert into `users`(user_id,email,user_name,user_pass,user_type,user_rank,toggle_send_notify_status)  values ("user_03",'user03@gmail.com','user03','user03','user',null,true);
 insert into `users`(user_id,email,user_name,user_pass,user_type,user_rank,toggle_send_notify_status)  values ("user_04",'user04@gmail.com','user04','user04','user',null,true);
 insert into `users`(user_id,email,user_name,user_pass,user_type,user_rank,toggle_send_notify_status)  values ("user_05",'user05@gmail.com','user05','user05','user',null,true);
+insert into `users`(user_id,email,user_name,user_pass,user_type,user_rank,toggle_send_notify_status)  values ("user_06",'admin@gmail.com','admin','admin','admin',null,true);
+insert into `users`(user_id,email,user_name,user_pass,user_type,user_rank,toggle_send_notify_status)  values ("user_07",'anonymous@gmail.com','anonymous','anonymous','anonymous',null,true);
+insert into `users`(user_id,email,user_name,user_pass,user_type,user_rank,toggle_send_notify_status)  values ("user_08",'user@gmail.com','user','user','user',null,true);
 COMMIT;
 
 
@@ -66,6 +69,7 @@ create table `questionQueue`(
     createdAt datetime,
     user_id nvarchar(200),
 	que_cate_id nvarchar(200),
+    is_accepted bool,
 	constraint `fk_questionQueue_users` foreign key (`user_id`) 
     references `users`(`user_id`) on delete set null on update cascade,
     
@@ -79,24 +83,29 @@ create table `questionQueue`(
 -- Record of questionQueue
 -- ------------------------------------
 BEGIN;
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_01",'Tại sao phải học vật lý ?','Why Physic?',current_timestamp(),"user_01",'que_cate_01');
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_02",'Học lý khó quá mọi người, giúp tôi với ?','Physic is hard ?',current_timestamp(),"user_01",'que_cate_01');
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_03",'Toán đại học như thế nào ?','Toán đại học',current_timestamp(),"user_02",'que_cate_02'); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_01",'Tại sao phải học vật lý ?','Why Physic?',current_timestamp(),"user_01",'que_cate_01',true);
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_02",'Học lý khó quá mọi người, giúp tôi với ?','Physic is hard ?',current_timestamp(),"user_01",'que_cate_01',true);
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_03",'Toán đại học như thế nào ?','Toán đại học',current_timestamp(),"user_02",'que_cate_02',true); 
 
 
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_04",'Toán đại học như thế nào ?','Toán đại học',current_timestamp(),"user_02",'que_cate_02'); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_04",'Toán đại học như thế nào ?','Toán đại học',current_timestamp(),"user_02",'que_cate_02',true); 
 
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_05",'Câu hỏi 5 ?','Toán',current_timestamp(),"user_03",'que_cate_02'); 
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_06",'Câu hỏi 6?','Toán',current_timestamp(),"user_03",'que_cate_02'); 
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_07",'Câu hỏi 7 ?','Toán',current_timestamp(),"user_03",'que_cate_02'); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_05",'Câu hỏi 5 ?','Toán',current_timestamp(),"user_03",'que_cate_02',true); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_06",'Câu hỏi 6?','Toán',current_timestamp(),"user_03",'que_cate_02',true); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_07",'Câu hỏi 7 ?','Toán',current_timestamp(),"user_03",'que_cate_02',true); 
 
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_08",'Câu hỏi 8 ?','Lý',current_timestamp(),"user_03",'que_cate_01'); 
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_09",'Câu hỏi 9 ?','Lý',current_timestamp(),"user_03",'que_cate_01'); 
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_10",'Câu hỏi 10 ?','Lý',current_timestamp(),"user_03",'que_cate_01');
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_08",'Câu hỏi 8 ?','Lý',current_timestamp(),"user_03",'que_cate_01',true); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_09",'Câu hỏi 9 ?','Lý',current_timestamp(),"user_03",'que_cate_01',true); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_10",'Câu hỏi 10 ?','Lý',current_timestamp(),"user_03",'que_cate_01',true);
 
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_11",'Câu hỏi 11 ?','Sử',current_timestamp(),"user_02",'que_cate_03');  
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_12",'Câu hỏi 12 ?','Sử',current_timestamp(),"user_02",'que_cate_03');  
-insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id) values ("que_13",'Câu hỏi 13 ?','Sử',current_timestamp(),"user_02",'que_cate_03');  
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_11",'Câu hỏi 11 ?','Sử',current_timestamp(),"user_02",'que_cate_03',true);  
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_12",'Câu hỏi 12 ?','Sử',current_timestamp(),"user_02",'que_cate_03',true);  
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_13",'Câu hỏi 13 ?','Sử',current_timestamp(),"user_02",'que_cate_03',true);  
+
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_14",'Câu hỏi 14 có vấn đề?','Câu hỏi này có vấn đề',current_timestamp(),"user_02",'que_cate_03',false);  
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_15",'Câu hỏi 15 có vấn đề?','Câu hỏi này có vấn đề',current_timestamp(),"user_02",'que_cate_03',false);  
+
+
 COMMIT;
 
 
@@ -133,24 +142,7 @@ commit;
 
 
 
--- -------------------------------------
--- Table structure for autoQuestionAccepted 
--- -------------------------------------
-drop table if exists `autoQuestionAccepted`;
-create table `autoQuestionAccepted`(
-	que_id nvarchar(200) primary key,
-    accept_status bool,
-	CONSTRAINT `fk_autoQuestionAccepted_questionQueue` FOREIGN KEY (`que_id`) REFERENCES `questionQueue` (`que_id`)
-)ENGINE=InnoDB AUTO_INCREMENT=16050 DEFAULT CHARSET=utf8;
 
--- ------------------------------------------------------
--- Record of autoQuestionAccepted
--- ------------------------------------------------------
-begin;
-insert into `autoQuestionAccepted`(que_id,accept_status)  values ("que_01",true);
-insert into `autoQuestionAccepted`(que_id,accept_status)  values ("que_02",true);
-insert into `autoQuestionAccepted`(que_id,accept_status)  values ("que_03",true);
-commit;
 
 
 
@@ -207,6 +199,7 @@ create table `answers`(
     createdAt datetime,
     que_id nvarchar(200),
     user_id nvarchar(200),
+    is_accepted bool,
   CONSTRAINT `fk_answers_questionQueue` FOREIGN KEY (`que_id`) REFERENCES `questionQueue` (`que_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_answers_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
 )ENGINE=InnoDB AUTO_INCREMENT=16050 DEFAULT CHARSET=utf8;
@@ -215,35 +208,16 @@ create table `answers`(
 -- Record of answers
 -- ------------------------------------------------------
 begin;
-insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id)  values ("ans_01",'Vật lý bình thường thôi! ',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_01","user_05");
-insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id)  values ("ans_02",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_02","user_05");
-insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id)  values ("ans_03",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_01","user_05");
-
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_01",'Vật lý bình thường thôi! ',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_01","user_05",true);
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_02",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_02","user_05",true);
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_03",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_01","user_05",true);
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_04",'Câu trả lời này có vấn đề !',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_02","user_05",false);
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_05",'Câu trả lời này có vấn đề !',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_01","user_05",false);
 
 commit;
 
 
 
-
--- -------------------------------------
--- Table structure for autoAnswersAccepted 
--- -------------------------------------
-drop table if exists `autoAnswersAccepted`;
-create table `autoAnswersAccepted`(
-	ans_id nvarchar(200) primary key ,
-    accept_status bool,
-	CONSTRAINT `fk_autoAnswersAccepted_answers` FOREIGN KEY (`ans_id`) REFERENCES `answers` (`ans_id`) 
-)ENGINE=InnoDB AUTO_INCREMENT=16050 DEFAULT CHARSET=utf8;
-
-
-
--- ------------------------------------------------------
--- Record of autoAnswersAccepted
--- ------------------------------------------------------
-begin;
-insert into `autoAnswersAccepted`(ans_id,accept_status)  values ("ans_01",true);
-insert into `autoAnswersAccepted`(ans_id,accept_status)  values ("ans_02",true);
-commit;
 
 
 
