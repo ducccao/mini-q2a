@@ -68,21 +68,9 @@ session_start();
     <!-- PATH ROOT -->
 
     <?php
-    $PATH_ROOT = "/mini-q2a";
-    global $PATH_ROOT;
+    $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
-    $uri = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")
-        . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
-    $url_len = strlen($uri);
-
-    $curr_url = '';
-    if (isset($_SERVER['REDIRECT_URL'])) {
-        $curr_url = $_SERVER['REDIRECT_URL'];
-    }
-    $curr_route = substr($curr_url, strlen($PATH_ROOT), 100);
-    $curr_route = trim($curr_route);
-    console_log($curr_route);
 
     ?>
 
@@ -96,7 +84,7 @@ session_start();
                     <h5><Strong>Đăng nhập</Strong></h5>
                 </div>
                 <div class="card-body">
-                    <form action="/mini-q2a/App/Views/User/Login/Login.php" method="POST">
+                    <form action="?action=user-login" method="POST">
 
                         <div class="form-group">
                             <label for="txtUsername"> <strong>Tên tài khoản</strong> </label>
@@ -110,7 +98,7 @@ session_start();
                         </div>
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-dark" type="submit">Đăng nhập</button>
-                            <a class="btn btn-dark ml-3" <?php echo "href='$PATH_ROOT/'"; ?>>Trang chủ </a>
+                            <a class="btn btn-dark ml-3" <?php echo "href='$PATH_ROOT?action=home'"; ?>>Trang chủ </a>
 
 
                         </div>
@@ -122,7 +110,7 @@ session_start();
                     <p>Chưa có tài khoản ?</p>
 
 
-                    <a class="btn btn-dark " <?php echo "href='$PATH_ROOT/App/Views/User/Register/Register.php'"; ?>>Tạo tài khoản </a>
+                    <a class="btn btn-dark " <?php echo "href='$PATH_ROOT?action=user-register'"; ?>>Tạo tài khoản </a>
 
                 </div>
             </div>
@@ -144,23 +132,11 @@ session_start();
 <?php
 
 
-function  console_log($output, $with_script_tags = true)
-{
-    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
-        ');';
-    if ($with_script_tags) {
-        $js_code = '<script>' . $js_code . '</script>';
-    }
-    echo $js_code;
-};
 
 
 
 
 
-
-include_once "../../../../Core/Db.php";
-include_once "../../../Models/UserModel.php";
 
 use App\Models\UserModel;
 
@@ -196,7 +172,7 @@ foreach ($users as $us) {
 
                 // echo ("<script>location.href = '" . $PATH_ROOT . "/App/Views/Admin/AdminPage/AdminPage.php';</script>");
 
-                echo ("<script>location.href = '" . $PATH_ROOT . "/Admin.php';</script>");
+                echo ("<script>location.href = '" . $PATH_ROOT . "?action=admin';</script>");
 
                 break;
             case 'user':
@@ -204,7 +180,7 @@ foreach ($users as $us) {
                 $_SESSION['user_type'] = 'user';
 
 
-                echo "<script>location.href = '" . $PATH_ROOT . "/'</script>";
+                echo "<script>location.href = '" . $PATH_ROOT . "?action=home'</script>";
 
 
                 break;
@@ -212,6 +188,8 @@ foreach ($users as $us) {
 
             default:
                 $_SESSION['user_name'] = $user_name;
+                $_SESSION['user_type'] = 'user';
+
                 echo "<script>location.href = '" . $PATH_ROOT . "/'</script>";
 
 

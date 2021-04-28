@@ -112,14 +112,14 @@
                         </div>
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-dark" type="submit">Đăng ký</button>
-                            <a class="btn btn-dark ml-3" <?php echo "href='$PATH_ROOT/'"; ?>>Trang chủ </a>
+                            <a class="btn btn-dark ml-3" <?php echo "href='$PATH_ROOT?action=home'"; ?>>Trang chủ </a>
 
                         </div>
                     </form>
                 </div>
                 <div class="card-footer text-muted d-flex flex-column justify-content-center ">
                     <p>Đã có tài khoản ?</p>
-                    <a class="btn btn-dark " <?php echo "href='$PATH_ROOT/App/Views/User/Login/Login.php'"; ?>>Đăng nhập </a>
+                    <a class="btn btn-dark " <?php echo "href='$PATH_ROOT?action=user-login'"; ?>>Đăng nhập </a>
                     <small id="smErrorMess" class="form-text  text-danger d-none ">Thông tin không được trống</small>
 
                     <!-- Footer -->
@@ -159,7 +159,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/App/Views/User/Register/Register.php",
+                    url: "/?action=user-register",
                     data: data,
                     success: ret => {
                         console.log(ret);
@@ -188,20 +188,8 @@
 
 
 
-include_once "../../../../Core/Db.php";
-include_once "../../../Models/UserModel.php";
-
 use App\Models\UserModel;
 
-function  console_log($output, $with_script_tags = true)
-{
-    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
-        ');';
-    if ($with_script_tags) {
-        $js_code = '<script>' . $js_code . '</script>';
-    }
-    echo $js_code;
-};
 
 
 

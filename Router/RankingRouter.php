@@ -1,8 +1,9 @@
+
 <?php
 
-use App\Controllers\HomeController;
+use App\Controllers\RankingController;
 
-$homeController = new HomeController();
+$rankingController = new RankingController();
 // -------------
 // Header
 // -------------
@@ -10,33 +11,26 @@ $homeController = new HomeController();
 require_once "./App/Views/Partials/Header.php";
 
 
-echo "
-
-<body class='body'>";
+echo "<body class='body'>";
 // -------------
 // Navigation Bar
 // -------------
 
 require_once "./App/Views/Partials/NavigationBar/NavigationBar.php";
-echo ' <div class="container">';
-// -------------
-// Search Bar
-// -------------
+echo '  <div class="container">';
 
-require_once "./App/Views/Partials/SearchBar/SearchBar.php";
 // -------------
 // Home content
 // -------------
 
-$homeController->index();
+$rankingController->index();
 echo '</div>';
-echo "</body>";
+echo   "</body>";
 // -------------
 // Footer
 // -------------
 
 require_once "./App/Views/Partials/Footer.php";
 
-echo '
-
-</html>';
+echo '</html>';
+?>

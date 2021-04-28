@@ -1,44 +1,13 @@
-<!-- PATH ROOT -->
-
-<?php
-function  console_log($output, $with_script_tags = true)
-{
-    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
-        ');';
-    if ($with_script_tags) {
-        $js_code = '<script>' . $js_code . '</script>';
-    }
-    echo $js_code;
-}
-
-
-$PATH_ROOT = "/mini-q2a";
-global $PATH_ROOT;
-
-$uri = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")
-    . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
-$url_len = strlen($uri);
-
-console_log($uri);
-
-$curr_url = '';
-if (isset($_SERVER['REDIRECT_URL'])) {
-    $curr_url = $_SERVER['REDIRECT_URL'];
-}
-$curr_route = substr($curr_url, strlen($PATH_ROOT), 100);
-$curr_route = trim($curr_route);
-echo ("admin current route is " . $curr_route);
-
-?>
-
-
 <?php
 
 
 session_start();
 $curr_user = '';
 $isExistsUser = false;
+
+
+$PATH_ROOT = $GLOBALS['PATH_ROOT'];
+$curr_route = $GLOBALS['curr_route'];
 
 
 if (isset($_SESSION['user_name'])) {
@@ -171,8 +140,8 @@ console_log('User type is: ' . $curr_user_type);
     <!-- Require DB ROOT-->
 
     <?php
-    require_once "../../../../Core/Db.php";
 
+    require_once "./Core/Db.php";
 
     ?>
 
@@ -182,31 +151,16 @@ console_log('User type is: ' . $curr_user_type);
         <!-- side bar -->
         <?php
 
-        include_once "../partials/Sidebar.php";
+        include_once "./App/Views/Admin/partials/Sidebar.php";
         ?>
         <div class="q2a-content">
             <!-- nav bar -->
             <?php
-            include_once "../partials/Navbar.php";
+            include_once "./App/Views/Admin/partials/Navbar.php";
+
             ?>
             <div class="q2a-content-content">
-                <?php
-
-
-
-                // Định nghĩa hằng Path của file index.php
-                define('PATH_ROOT', __DIR__);
-
-                // Autoload class trong PHP
-                spl_autoload_register(function (string $class_name) {
-                    include_once   '../../../../' . $class_name . '.php';
-                });
-
-
-                // Load Router
-                include_once "../../../AdminRouter.php";
-                ?>
-
+                content
 
 
             </div>
@@ -220,7 +174,7 @@ console_log('User type is: ' . $curr_user_type);
 
 
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 </body>

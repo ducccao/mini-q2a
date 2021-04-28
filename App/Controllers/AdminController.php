@@ -9,8 +9,11 @@ class AdminController
 {
     public function index()
     {
-        echo "index";
-        return;
+        $view_admin = new View();
+
+        $data = [1, 2];
+        $view_path = "./App/Views/Admin/AdminPage/AdminPage.php";
+        return $view_admin->render($view_path, $data);
     }
 
 

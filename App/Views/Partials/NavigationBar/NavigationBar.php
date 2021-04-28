@@ -15,6 +15,14 @@ console_log($curr_user . ' is loged-in in system');
 console_log($PATH_ROOT);
 console_log($curr_route);
 
+$curr_route = '';
+
+if (isset($_SERVER['REQUEST_URI'])) {
+    $curr_route = $_SERVER['REQUEST_URI'];
+}
+
+console_log($curr_route);
+
 
 
 ?>
@@ -31,9 +39,7 @@ console_log($curr_route);
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav w-100">
 
-
-
-            <li <?php if ($curr_route == "") {
+            <li <?php if (str_contains($curr_route, "/?action=home")) {
                     echo "class='nav-item active'";
                 } else {
                     echo "class='nav-item '";
@@ -41,19 +47,19 @@ console_log($curr_route);
                 <a class="nav-link" <?php echo "href='$PATH_ROOT?action=home'" ?>> <i class="fa fa-home"></i> Trang chủ <span class="sr-only">(current)</span></a>
             </li>
 
-            <li <?php if ($curr_route == "$PATH_ROOT/?action=question-queue") {
+            <li <?php if (str_contains($curr_route, "/?action=question-queue")) {
                     echo "class='nav-item active'";
                 } else {
                     echo "class='nav-item '";
                 } ?>>
                 <a class="nav-link" href="<?php echo "$PATH_ROOT" ?>?action=question-queue"><i class="fas fa-question"></i> Danh dách câu hỏi</a>
             </li>
-            <li <?php if ($curr_route == "/ranking") {
+            <li <?php if (str_contains($curr_route, "/?action=ranking")) {
                     echo "class='nav-item active'";
                 } else {
                     echo "class='nav-item '";
                 } ?>>
-                <a class="nav-link" <?php echo "href='$PATH_ROOT/ranking'"; ?>> <i class="far fa-chart-bar"></i> Bảng xếp hạng</a>
+                <a class="nav-link" <?php echo "href='$PATH_ROOT?action=ranking'"; ?>> <i class="far fa-chart-bar"></i> Bảng xếp hạng</a>
             </li>
             <!-- <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
@@ -70,7 +76,7 @@ console_log($curr_route);
                 }
                 echo  '>';
                 echo "
-    <a class='nav-link'   href='$PATH_ROOT/App/Views/User/Login/Login.php'; > <i class='fas fa-key'></i> Đăng nhập</a>";
+    <a class='nav-link'   href='$PATH_ROOT?action=user-login'; > <i class='fas fa-key'></i> Đăng nhập</a>";
                 echo "</li>";
 
 
@@ -83,7 +89,7 @@ console_log($curr_route);
                 echo ">";
 
                 echo "
-    <a class='nav-link'  href='$PATH_ROOT/App/Views/User/Register/Register.php';> <i class='fas fa-registered'></i> Đăng ký</a>          
+    <a class='nav-link'  href='$PATH_ROOT?action=user-register';> <i class='fas fa-registered'></i> Đăng ký</a>          
                 ";
             } else {
                 // if exists user
@@ -128,7 +134,7 @@ console_log($curr_route);
                 echo ">";
 
                 echo "
-    <a id='btnLogout'  class='nav-link'href='$PATH_ROOT?isDestroy=1'  ;><i class='fas fa-sign-out-alt'></i> Đăng xuất</a>          
+    <a id='btnLogout'  class='nav-link'href='$PATH_ROOT?action=home&isDestroy=1'  ;><i class='fas fa-sign-out-alt'></i> Đăng xuất</a>          
          ";
             }
 
@@ -169,7 +175,7 @@ if (isset($_GET['isDestroy'])) {
 
     if ($isDestroy == 1) {
         session_destroy();
-        echo "<script>location.href='$PATH_ROOT'</script>";
+        echo "<script>location.href='$PATH_ROOT?action=home'</script>";
     }
 }
 
