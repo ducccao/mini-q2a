@@ -124,7 +124,18 @@ FROM `questioncategories`;
 -- ----------------------------------------------------------
 INSERT INTO `questioncategories` (que_cate_id,que_cate_name)
 VALUES ('que_cate_','Hóa học');
-
+-- ----------------------------------------------------------
+-- ADMIN. Delete Question Category
+-- ----------------------------------------------------------
+DELETE 
+FROM `questioncategories` AS q
+WHERE q.que_cate_id='4O8oRVGD2P';
+-- ----------------------------------------------------------
+-- ADMIN. Edit Question Category
+-- ----------------------------------------------------------
+UPDATE `questioncategories` AS qcat
+SET qcat.que_cate_name = 'NEW NAME'
+WHERE qcat.que_cate_id = 'old id';
 
 
 

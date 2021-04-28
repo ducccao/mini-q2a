@@ -36,11 +36,33 @@ class QuestionCategoryModel
         return $ret;
     }
 
-    public function del()
+    public function del($que_cate_id)
     {
+        $db = new Db();
+
+        $sql = "DELETE 
+        FROM `questioncategories` AS q
+        WHERE q.que_cate_id='$que_cate_id';";
+
+        $ret = $db->patchDb($sql);
+
+        return $ret;
     }
-    public function edit()
+    public function edit($que_cate_id, $new_name)
     {
+        $db = new Db();
+
+        $sql = "UPDATE `questioncategories` AS qcat
+        SET qcat.que_cate_name = '$new_name'
+        WHERE qcat.que_cate_id = '$que_cate_id';
+        ";
+
+
+        $ret = $db->patchDb($sql);
+        console_log("edit ret: ");
+        console_log($ret);
+
+        return $ret;
     }
     public function GetAllQuestionCategoriesWithCountQQ()
     {
