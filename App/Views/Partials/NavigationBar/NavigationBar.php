@@ -13,8 +13,7 @@ if (isset($_SESSION['user_name'])) {
 console_log($curr_user . ' is loged-in in system');
 
 
-console_log($PATH_ROOT);
-console_log($curr_route);
+
 
 $curr_route = '';
 
@@ -40,7 +39,7 @@ console_log($curr_route);
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav w-100">
 
-            <li <?php if (str_contains($curr_route, "/?action=home")) {
+            <li <?php if (str_contains($curr_route, "action=home")) {
                     echo "class='nav-item active'";
                 } else {
                     echo "class='nav-item '";
@@ -48,14 +47,14 @@ console_log($curr_route);
                 <a class="nav-link" <?php echo "href='$PATH_ROOT?action=home'" ?>> <i class="fa fa-home"></i> Trang chủ <span class="sr-only">(current)</span></a>
             </li>
 
-            <li <?php if (str_contains($curr_route, "/?action=question-queue")) {
+            <li <?php if (str_contains($curr_route, "action=question-queue")) {
                     echo "class='nav-item active'";
                 } else {
                     echo "class='nav-item '";
                 } ?>>
                 <a class="nav-link" href="<?php echo "$PATH_ROOT" ?>?action=question-queue"><i class="fas fa-question"></i> Danh dách câu hỏi</a>
             </li>
-            <li <?php if (str_contains($curr_route, "/?action=ranking")) {
+            <li <?php if (str_contains($curr_route, "action=ranking")) {
                     echo "class='nav-item active'";
                 } else {
                     echo "class='nav-item '";
@@ -99,7 +98,7 @@ console_log($curr_route);
 
                 if ($user_type == 'admin') {
                     echo "<li class ='nav-item '>";
-                    echo "<a class='nav-link' href='/?action=admin'><i class='fas fa-cog mr-1'></i>Trang quản lý</a>";
+                    echo "<a class='nav-link' href='/admin?action=dashboard'><i class='fas fa-cog mr-1'></i>Trang quản lý</a>";
                     echo "</li>";
                 }
 

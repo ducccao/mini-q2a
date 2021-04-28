@@ -1,4 +1,19 @@
 <?php
+
+
+// ---------------------------
+// Required Config & Utils
+// ---------------------------
+require_once "./utils/utilFunction.php";
+require_once "./Core/Db.php";
+
+
+
+?>
+
+
+
+<?php
 // -----------------
 // PATH ROOT
 // -----------------
@@ -6,7 +21,11 @@
 //$PATH_ROOT = "/mini-q2a";
 // $PATH_ROOT = "http://localhost:8080";
 $PATH_ROOT = "http://localhost:8080/mini-q2a";
+$PATH_ADMIN_ROOT = "http://localhost:8080/admin";
+
 $GLOBALS['PATH_ROOT'] = $PATH_ROOT;
+$GLOBALS['PATH_ADMIN_ROOT'] = $PATH_ADMIN_ROOT;
+
 
 global $PATH_ROOT;
 
@@ -38,40 +57,6 @@ if (isset($_SERVER['REQUEST_URI'])) {
 
 <!-- Require DB ROOT-->
 
-<?php
-
-
-// load console log util
-function  console_log($output, $with_script_tags = true)
-{
-    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
-        ');';
-    if ($with_script_tags) {
-        $js_code = '<script>' . $js_code . '</script>';
-    }
-    echo $js_code;
-}
-function GlobalConsole_log($output, $with_script_tags = true)
-{
-    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
-        ');';
-    if ($with_script_tags) {
-        $js_code = '<script>' . $js_code . '</script>';
-    }
-    echo $js_code;
-}
-
-// ---------------------------
-// Required Config & Utils
-// ---------------------------
-
-require_once "./Core/Db.php";
-require_once "./utils/randomString.php";
-
-
-?>
-
-
 
 
 
@@ -91,10 +76,6 @@ spl_autoload_register(function (string $class_name) {
 });
 
 
-function escape_white_space(string $string_to_escape)
-{
-    return $escape_string = str_replace(' ', '%20', $string_to_escape);
-}
 
 
 
@@ -104,56 +85,29 @@ function escape_white_space(string $string_to_escape)
 
 if (isset($_SERVER['REQUEST_URI'])) {
     $reqURI = $_SERVER['REQUEST_URI'];
+    echo 'req url: ' . $reqURI . "<br/>";
     console_log($reqURI);
 
-    if ($reqURI == '/') {
-        require_once "./Router/HomeRouter.php";
-        return;
-    } else if (str_contains($reqURI, "/admin/question-cate")) {
 
-        return header("location: /?action=admin&typeManage=question-cate");
+    if (str_contains($reqURI, "/admin")) {
+        // ------------------
+        // route admin
+        // ------------------
+        require_once "./Action/AdminAction.php";
+    } else if (str_contains($reqURI, "/mini-q2a")) {
+        // ------------------
+        // route home
+        // ------------------
+        require_once "./Action/HomeAction.php";
+    } else if ($reqURI == '/') {
+        // ------------------
+        // route home
+        // ------------------
+        require_once "./Action/FowardSlashHomeAction.php";
     } else {
-
-
         // ------------------
-        // Routing By Action
+        // catching  error
         // ------------------
-
-
-        $action = '';
-        if (isset($_GET['action'])) {
-            $action = $_GET['action'];
-        }
-
-
-
-
-
-        switch ($action) {
-            case 'question-queue':
-                require_once "./Router/QuestionQueueRouter.php";
-                break;
-            case 'home':
-                require_once "./Router/HomeRouter.php";
-                break;
-            case 'ranking':
-                require_once "./Router/RankingRouter.php";
-                break;
-            case 'user-login':
-                require_once "./Router/User/UserLoginRouter.php";
-                break;
-
-            case 'user-register':
-                require_once "./Router/User/UserRegisterRouter.php";
-
-                break;
-            case 'admin':
-                require_once "./Router/Admin/AdminPageRouter.php";
-                break;
-
-            default:
-                echo "404";
-                break;
-        }
+        echo '404';
     }
 }
