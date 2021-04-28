@@ -4,7 +4,8 @@
 // -----------------
 
 //$PATH_ROOT = "/mini-q2a";
-$PATH_ROOT = "http://localhost:8080";
+// $PATH_ROOT = "http://localhost:8080";
+$PATH_ROOT = "http://localhost:8080/mini-q2a";
 $GLOBALS['PATH_ROOT'] = $PATH_ROOT;
 
 global $PATH_ROOT;
@@ -60,9 +61,6 @@ function GlobalConsole_log($output, $with_script_tags = true)
     echo $js_code;
 }
 
-
-
-
 // ---------------------------
 // Required Config & Utils
 // ---------------------------
@@ -91,6 +89,13 @@ define('PATH_ROOT', __DIR__);
 spl_autoload_register(function (string $class_name) {
     include_once PATH_ROOT . '/' . $class_name . '.php';
 });
+
+
+function escape_white_space(string $string_to_escape)
+{
+    return $escape_string = str_replace(' ', '%20', $string_to_escape);
+}
+
 
 
 // ------------------
@@ -152,8 +157,3 @@ if (isset($_SERVER['REQUEST_URI'])) {
         }
     }
 }
-
-
-
-
-?>

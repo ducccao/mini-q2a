@@ -68,6 +68,12 @@ class QuestionQueueController
         }
 
 
+        if (isset($_REQUEST['keyWord'])) {
+            $keyWord = $_REQUEST['keyWord'];
+            return $this->GetQuestionByKeyWord($keyWord);
+        }
+
+
         $view_home = new View();
         /*
         data[0]: All question queues
@@ -137,6 +143,7 @@ class QuestionQueueController
         $fullArrayTags = $qqModel->GetFullArrayTagsOfFullQuetionQueue();
         $allLikeCount = $qqModel->GetFullLikeCountOfFullQuestionQueue();
 
+
         // --------------------------
         // Question Category problem
         // --------------------------
@@ -149,11 +156,10 @@ class QuestionQueueController
         $qqFilteredByQuestionCate = $qqModel->FilterQuestionQueueByQuestionCategoryPaginationed($questionCate);
 
 
-
-        console_log($questionCate);
-
-
-
+        if (isset($_REQUEST['keyWord'])) {
+            $keyWord = $_REQUEST['keyWord'];
+            return $this->GetQuestionByKeyWord($keyWord);
+        }
 
 
         $view_home = new View();
@@ -168,18 +174,53 @@ class QuestionQueueController
         
         */
 
+        console_log($allQuestionQueuePaginationed);
         $data = [
-            $qqFilteredByQuestionCate,  $questionCategories,
+            $allQuestionQueuePaginationed,  $questionCategories,
             $fullArrayTags, $allLikeCount, $pagi_total_pagi_stuff, $pagi_current,
 
         ];
-
 
         $view_path = "./App/Views/QuestionQueue/QuestionQueue.php";
 
         return $view_home->render($view_path, $data);
     }
 
+
+
+
+    public function GetQuestionByKeyWord(string $keyWord)
+    {
+        $qqModel = new QuestionQueueModel();
+        $questionCateModel = new QuestionCategoryModel();
+
+        $questionCategories = $questionCateModel->GetAllQuestionCategoriesWithCountQQ();
+        $qqByKeyWord = $qqModel->GetQuestionByKeyFullText($keyWord);
+        $fullArrayTags = $qqModel->GetFullArrayTagsOfFullQuetionQueue();
+        $allLikeCount = $qqModel->GetFullLikeCountOfFullQuestionQueue();
+
+        // ---------------------
+        // Pagination Problem
+        // ---------------------
+        $pagi_total_QuestionQueue =  0;
+        $pagi_num_QuestionQueue_appear = 5;
+        $pagi_total_pagi_stuff = 0;
+
+
+        foreach ($qqByKeyWord as $qq) {
+            $pagi_total_QuestionQueue++;
+        }
+
+        $data = [
+            $qqByKeyWord, $questionCategories,
+            $fullArrayTags, $allLikeCount, $pagi_num_QuestionQueue_appear, 1
+        ];
+
+        $view_home = new View();
+        $view_path = "./App/Views/QuestionQueue/QuestionQueue.php";
+
+        return $view_home->render($view_path, $data);
+    }
 
 
     public function GetQuestionQueueDetail()
