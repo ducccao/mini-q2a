@@ -191,7 +191,7 @@ class QuestionQueueController
 
         console_log($_SERVER);
 
-        console_log($_GET['id']);
+
         //        $qqModel->detail($qq_id);
 
         $view_qq_detail = new View();

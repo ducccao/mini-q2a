@@ -121,6 +121,30 @@ class Route
         echo '404 - Not Found';
         return;
     }
+
+    // public function map(string $url, string $method, $routing)
+    // {
+    //     // Lặp qua các route trong ứng dụng, kiểm tra có chứa url được gọi không
+    //     foreach ($this->__routes as $route) {
+
+    //         //  console_log($route);
+    //         // nếu route có $method
+    //         if ($route['method'] == $method) {
+
+    //             // kiểm tra route hiện tại có phải là url đang được gọi.
+    //             $reg = '/^' . $route["$routing"] . '$/';
+    //             if (preg_match($reg, $url, $params)) {
+    //                 array_shift($params);
+    //                 $this->__call_action_route($route['action'], $params);
+    //                 return;
+    //             }
+    //         }
+    //     }
+
+    //     // nếu không khớp với bất kì route nào cả.
+    //     echo '404 - Not Found';
+    //     return;
+    // }
     private function __call_action_route($action, $params)
     {
         // Nếu $action là một callback (một hàm).

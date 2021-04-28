@@ -177,7 +177,8 @@
 
 
 <?php
-$PATH_ROOT = "/mini-q2a";
+$PATH_ROOT = $GLOBALS['PATH_ROOT'];
+
 ?>
 
 
@@ -207,7 +208,7 @@ $PATH_ROOT = "/mini-q2a";
                 <div class="qq-top-left">
 
                     <div class="qq-title">
-                    <a class="que_title" href=  ' .   $PATH_ROOT . '/question-queue/' . $qq["que_id"] . '>
+                    <a class="que_title" href=  ' .   $PATH_ROOT . '?action=question-queue-detail&que_id=' . $qq["que_id"] . '>
                       ' .   $qq["que_title"] . '
                       </a>
                     </div>
@@ -303,7 +304,7 @@ $PATH_ROOT = "/mini-q2a";
 
                     $temp_pagi_cur_previous = $pagi_curr - 2;
                     echo "   <li class='page-item '>
-                    <a class='page-link pagi' href='$PATH_ROOT/question-queue?pagi=$temp_pagi_cur_previous'>Previous</a>
+                    <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&pagi=$temp_pagi_cur_previous'>Previous</a>
                 </li>";
                 }
 
@@ -319,12 +320,12 @@ $PATH_ROOT = "/mini-q2a";
                 for ($i = 0; $i < $data[4]; ++$i) {
                     if ($data[5] - 1 == $i) {
                         echo '  <li class="page-item active"><a  class="page-link " ';
-                        echo "  href='$PATH_ROOT/question-queue?pagi=$i'";
+                        echo "  href='$PATH_ROOT?action=question-queue&pagi=$i'";
                         echo ">";
                         echo  $i + 1 . "   </a></li>";
                     } else {
                         echo '  <li class="page-item "><a  class="page-link " ';
-                        echo "  href='$PATH_ROOT/question-queue?pagi=$i'";
+                        echo "  href='$PATH_ROOT?action=question-queue&pagi=$i'";
                         echo ">";
                         echo  $i + 1 . "   </a></li>";
                     }
@@ -333,9 +334,9 @@ $PATH_ROOT = "/mini-q2a";
                 ?>
                 <?php
                 if ($pagi_curr == $data[4]) {
-                    echo " <li class='page-item disabled'> <a class='page-link disabled pagi-next' href='$PATH_ROOT/question-queue?pagi=$pagi_curr'>Next</a> </li> ";
+                    echo " <li class='page-item disabled'> <a class='page-link disabled pagi-next' href='$PATH_ROOT?action=question-queue&pagi=$pagi_curr'>Next</a> </li> ";
                 } else {
-                    echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT/question-queue?pagi=$pagi_curr'>Next</a></li> ";
+                    echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&pagi=$pagi_curr'>Next</a></li> ";
                 }
 
 
@@ -370,7 +371,7 @@ $PATH_ROOT = "/mini-q2a";
                         // echo floor(81 / 10);
                         echo "<tr class='question-category'>";
                         echo '<th scope="row" class ="que-cate-content"> ';
-                        echo "<div> <a  href='$PATH_ROOT/question-queue?questionCate=$questionCategories[que_cate_id]' 
+                        echo "<div> <a  href='$PATH_ROOT?action=question-queue&questionCate=$questionCategories[que_cate_id]' 
                         class='que_cate_name' >" . $questionCategories["que_cate_name"] . "</a> </div> ";
 
                         echo "<div class='badge badge-light p-2'>" . $questionCategories["amount"] . " </div>";
