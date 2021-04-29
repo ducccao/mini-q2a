@@ -85,8 +85,8 @@ spl_autoload_register(function (string $class_name) {
 
 if (isset($_SERVER['REQUEST_URI'])) {
     $reqURI = $_SERVER['REQUEST_URI'];
-    echo 'req url: ' . $reqURI . "<br/>";
-    console_log($reqURI);
+    // echo 'req url: ' . $reqURI . "<br/>";
+    //console_log($reqURI);
 
 
     if (str_contains($reqURI, "/admin")) {

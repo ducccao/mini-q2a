@@ -1,35 +1,161 @@
-<!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
-<!-- if using RTL (Right-To-Left) orientation, load the RTL CSS file after fileinput.css by uncommenting below -->
-<!-- link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" /-->
-<!-- the font awesome icon library if using with `fas` theme (or Bootstrap 4.x). Note that default icons used in the plugin are glyphicons that are bundled only with Bootstrap 3.x. -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-<!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you
-    wish to resize images before upload. This must be loaded before fileinput.min.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/piexif.min.js" type="text/javascript"></script>
-<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview. 
-    This must be loaded before fileinput.min.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/sortable.min.js" type="text/javascript"></script>
-<!-- popper.min.js below is needed if you use bootstrap 4.x (for popover and tooltips). You can also use the bootstrap js 
-   3.3.x versions without popper.min.js. -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<!-- bootstrap.min.js below is needed if you wish to zoom and preview file content in a detail modal
-    dialog. bootstrap 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<!-- the main fileinput plugin file -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
-<!-- following theme script is needed to use the Font Awesome 5.x theme (`fas`) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fas/theme.min.js">
+<?php
+
+use App\Models\QuestionQueueModel;
+use App\Models\QuestionCategoryModel;
+
+
+?>
+
+
+<style>
+    .upload-wrapper {
+        background-color: var(--common-bg);
+        border-radius: var(--border-radius);
+    }
+
+    .ql-toolbar {
+        background-color: white;
+
+    }
+</style>
+
+<!-- wysiwyg toys -->
+<script src="https://cdn.tiny.cloud/1/6a2wdzaqh764emfqjwf4g5s2kr8ajq1vbfrcipng9eu1o2il/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+
+
+<form class="upload-wrapper p-3 my-3" method="GET">
+    <input type="text" class="form-control d-none" name="action" value="user-upload-question" id="action" aria-describedby="helpId" placeholder="">
+
+    <div class="form-group">
+        <label for="txtTitle"><strong>Tiêu đề</strong> </label>
+        <input type="text" class="form-control" name="txtTitle" id="txtTitle" aria-describedby="helpId" placeholder="">
+    </div>
+
+    <?php
+
+    $qCatModel = new QuestionCategoryModel();
+    $allQuestionCat = $qCatModel->all();
+    echo "  <div class='form-group'>";
+    echo "  <label for='txtQueCat'><strong>Danh mục</strong> </label>";
+    echo '<select name="txtQueCat" class="custom-select" aria-label="Default select example">';
+    // echo '<option  disabled selected></option>';
+    foreach ($allQuestionCat as $qCat) {
+        echo "<option value='$qCat[que_cate_id]' >$qCat[que_cate_name]</option>";
+    }
+    echo '</select>';
+    echo "  </div>";
+
+    ?>
+
+
+
+    <div class="form-group">
+        <label for="txtTitle"><strong>Nội dung</strong> </label>
+
+        <textarea id="txtContent" name="txtContent"></textarea>
+    </div>
+
+    <button class="btn btn-dark ">Đăng câu hỏi</button>
+</form>
+
+
+<script>
+    tinymce.init({
+        selector: '#txtContent',
+        plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        toolbar_mode: 'floating',
+    });
 </script>
-<!-- optionally if you need translation for your language then include the locale file as mentioned below (replace LANG.js with your language locale) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/LANG.js"></script>
+
 
 
 
 <?php
 
+if (isset($_GET['txtContent'])) {
+    $que_title = $_GET['txtTitle'];
+    $que_content = $_GET['txtContent'];
+    $que_cate_id = $_GET['txtQueCat'];
+    $error_flag = false;
+    $user_full_info = $_SESSION['user_full_info'];
+    $user_id = $_SESSION['user_id'];
+
+    $que_id = randomString(10);
 
 
-echo 'upload qustino vw'; ?>
+
+    if ($que_content == '' || $que_title == '') {
+        echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Nội dung hoặc tiêu đề trống!',
+            showConfirmButton: false,
+            timer: 2500
+          });
+        </script>";
+        $error_flag = true;
+    }
+
+    $qqModel = new QuestionQueueModel();
+
+    $allQQ = $qqModel->all();
+
+    foreach ($allQQ as $qq) {
+        if ($qq['que_title'] == $que_title) {
+            echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Tiêu đề đã tồn tại!',
+                showConfirmButton: false,
+                timer: 2500
+              });
+            </script>";
+            $error_flag = true;
+        }
+        if ($qq['que_id'] == $que_id) {
+            echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Đăng câu hỏi thất bại!',
+                showConfirmButton: false,
+                timer: 2500
+              });
+            </script>";
+            $error_flag = true;
+        }
+    }
+
+    if ($error_flag == false) {
+
+        $ret = $qqModel->add($que_id, $que_content, $que_title, $user_id, $que_cate_id);
+
+        if ($ret == true) {
+            echo "<script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Đăng câu hỏi thành công!',
+                showConfirmButton: false,
+                timer: 2500
+              });
+            </script>";
+        } else {
+            echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Đăng câu hỏi thất bại!',
+                showConfirmButton: false,
+                timer: 2500
+              });
+            </script>";
+        }
+    }
+}
+
+
+
+
+
+
+?>

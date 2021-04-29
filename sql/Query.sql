@@ -97,12 +97,6 @@ SELECT COUNT(*) FROM USERS;
 INSERT INTO `users`(user_id,email,user_name,user_pass,user_type,user_rank,toggle_send_notify_status) 
 VALUES ('user9','user09@gmail.com','user9','user9','user','100',true);
 
--- ------------------------------------------------------
--- Upload question
--- ------------------------------------------------------
-INSERT INTO `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) 
-VALUES ("que_03",'Toán đại học như thế nào ?','Toán đại học',current_timestamp(),"user_02",'que_cate_02',TRUE); 
-
 
 -- ------------------------------------------------------
 -- Qestion queue detail
@@ -136,6 +130,17 @@ WHERE q.que_cate_id='4O8oRVGD2P';
 UPDATE `questioncategories` AS qcat
 SET qcat.que_cate_name = 'NEW NAME'
 WHERE qcat.que_cate_id = 'old id';
+
+-- ------------------------------------------------------
+-- Get All Quetion Category, All Question Queue
+-- -----------------------------------------------------
+select * from `questioncategories`;
+SELECT * FROM `questionqueue`;
+-- ------------------------------------------------------
+-- Upload question
+-- ------------------------------------------------------
+INSERT INTO `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) 
+VALUES ("que_03",'Toán đại học như thế nào ?','Toán đại học',current_timestamp(),"user_02",'que_cate_02',TRUE); 
 
 
 

@@ -10,7 +10,30 @@ class QuestionQueueModel
     {
     }
 
+    public function all()
+    {
+        $db = new Db();
 
+        $sql = "SELECT * FROM `questionqueue`;";
+        $db->load($sql);
+        $ret = $db->Rows();
+        return $ret;
+    }
+
+    public function add($que_id, $que_content, $que_title, $user_id, $que_cate_id)
+    {
+        $db = new Db();
+
+        $sql = "INSERT INTO 
+        `questionQueue`
+        (que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) 
+        VALUES ('$que_id','$que_content','$que_title',current_timestamp(),
+        '$user_id','$que_cate_id',FALSE); 
+        ";
+
+        $ret = $db->patchDb($sql);
+        return $ret;
+    }
 
     public function GetNewestQuestionQueueWithoutArrayTag()
     {

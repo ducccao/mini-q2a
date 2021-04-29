@@ -32,6 +32,11 @@ switch ($action) {
         require_once "./Router/Admin/AdminPageRouter.php";
         break;
 
+    case 'user-upload-question':
+        require_once "./Router/User/UserUploadQuestion.php";
+        break;
+
+
     default:
         echo "404";
         break;

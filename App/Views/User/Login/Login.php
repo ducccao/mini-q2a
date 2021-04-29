@@ -178,6 +178,8 @@ foreach ($users as $us) {
             case 'user':
                 $_SESSION['user_name'] = $user_name;
                 $_SESSION['user_type'] = 'user';
+                $_SESSION['user_id'] = $us['user_id'];
+                $_SESSION['user_full_info'] = $us;
 
 
                 echo "<script>location.href = '" . $PATH_ROOT . "?action=home'</script>";
@@ -217,9 +219,6 @@ if (isset($_POST['txtUsername'])) {
 }
 
 
-
-console_log($user_name);
-console_log($user_pass);
 
 
 

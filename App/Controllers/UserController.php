@@ -80,10 +80,10 @@ class UserController
     public function UploadQuestionHandle()
     {
         $data = [1, 2];
-        $login_view = new View();
+        $upload_question_view = new View();
 
         $view_path = "./App/Views/User/UploadQuestion/UploadQuestion.php";
 
-        return $login_view->render($view_path, $data);
+        return $upload_question_view->render($view_path, $data);
     }
 }

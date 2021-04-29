@@ -44,6 +44,12 @@
             /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
             font-family: Tahoma, Geneva, Verdana, sans-serif
         }
+
+        .body {
+            background-color: #ecf0f1;
+        }
     </style>
 
 </head>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>

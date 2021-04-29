@@ -119,14 +119,15 @@ console_log($curr_route);
 
                 echo '<li';
 
-                if ($curr_route == "/user/upload-question") {
+
+                if (str_contains($curr_route, "upload")) {
                     echo " class='nav-item active '";
                 } else {
                     echo " class='nav-item '";
                 }
                 echo  '>';
                 echo "
-    <a class='nav-link'   href='$PATH_ROOT/user/upload-question'; > <i class='fas fa-arrow-circle-up'></i> Đăng câu hỏi  </a>";
+    <a class='nav-link'   href='$PATH_ROOT?action=user-upload-question'; > <i class='fas fa-arrow-circle-up'></i> Đăng câu hỏi  </a>";
                 echo "</li>";
 
 
