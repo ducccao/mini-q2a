@@ -332,15 +332,42 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                 // total pagi stuff right there 
                 for ($i = 0; $i < $data[4]; ++$i) {
                     if ($data[5] - 1 == $i) {
-                        echo '  <li class="page-item active"><a  class="page-link " ';
-                        echo "  href='$PATH_ROOT?action=question-queue&pagi=$i'";
-                        echo ">";
-                        echo  $i + 1 . "   </a></li>";
+                        $questionCate = '';
+                        if (isset($data[6])) {
+                            $questionCate = $data[6];
+                        }
+
+                        if ($questionCate != '') {
+
+                            echo '  <li class="page-item active"><a  class="page-link " ';
+                            echo "  href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$i'";
+                            echo ">";
+                            echo  $i + 1 . "   </a></li>";
+                        } else {
+
+                            echo '  <li class="page-item active"><a  class="page-link " ';
+                            echo "  href='$PATH_ROOT?action=question-queue&pagi=$i'";
+                            echo ">";
+                            echo  $i + 1 . "   </a></li>";
+                        }
                     } else {
-                        echo '  <li class="page-item "><a  class="page-link " ';
-                        echo "  href='$PATH_ROOT?action=question-queue&pagi=$i'";
-                        echo ">";
-                        echo  $i + 1 . "   </a></li>";
+                        $questionCate = '';
+                        if (isset($data[6])) {
+                            $questionCate = $data[6];
+                        }
+
+                        if ($questionCate != '') {
+                            echo '  <li class="page-item "><a  class="page-link " ';
+                            echo "  href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$i'";
+                            echo ">";
+                            echo  $i + 1 . "   </a></li>";
+                        } else {
+
+                            echo '  <li class="page-item "><a  class="page-link " ';
+                            echo "  href='$PATH_ROOT?action=question-queue&pagi=$i'";
+                            echo ">";
+                            echo  $i + 1 . "   </a></li>";
+                        }
                     }
                 }
 
