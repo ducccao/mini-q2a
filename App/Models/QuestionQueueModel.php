@@ -19,6 +19,9 @@ class QuestionQueueModel
         $ret = $db->Rows();
         return $ret;
     }
+
+
+
     public function detail($que_id)
     {
         $db = new Db();

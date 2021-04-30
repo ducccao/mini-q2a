@@ -9,6 +9,10 @@ if (isset($_GET['action'])) {
             require_once "./Router/Admin/AdminPageRouter.php";
             break;
 
+        case 'question-detail':
+            require_once "./Router/Admin/ManageQuestionDetail.php";
+            break;
+
         case 'question-category':
             require_once "./Router/Admin/ManageQuestionCategory.php";
             break;

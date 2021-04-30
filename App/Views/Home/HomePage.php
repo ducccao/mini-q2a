@@ -1,3 +1,8 @@
+<?php
+
+$PATH_ROOT = $GLOBALS['PATH_ROOT'];
+?>
+
 <style>
     .body {
         background-color: #ecf0f1;
@@ -149,6 +154,17 @@
     h6 {
         font-weight: bold;
     }
+
+    .que_title {
+        color: black;
+        font-weight: bold;
+        font-size: 22px;
+    }
+
+    .que_title:hover {
+        color: black;
+
+    }
 </style>
 
 
@@ -227,9 +243,9 @@
             <div class="qq-top-info">
                 <div class="qq-top-left">
 
-                    <div class="qq-title">
-                      ' .   $qq["que_title"] . '
-                    </div>
+                <a class="que_title" href=  ' .   $PATH_ROOT . '?action=question-queue-detail&que_id=' . $qq["que_id"] . '>
+                ' .   $qq["que_title"] . '
+                </a>
                     <div class="qq-username">
                         <p>
                         ' .   $qq["user_name"] . '

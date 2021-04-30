@@ -180,6 +180,37 @@ AND a.is_accepted = TRUE;
 SELECT *
 FROM `answers`;
 
+-- ----------------------------------------------------------
+-- Admin. Detail Question
+-- ----------------------------------------------------------
+SELECT q.que_id, q.que_content, q.que_title, q.createdAt, u.user_id,
+        u.user_name, qCate.que_cate_id, qCate.que_cate_name
+        FROM `questionqueue` AS q
+        INNER JOIN `users` AS u
+        ON q.user_id = u.user_id
+        INNER JOIN  `questioncategories` as qCate
+        ON qCate.que_cate_id = q.que_cate_id
+        WHERE q.is_accepted = TRUE
+        AND q.que_id = '$que_id';
+        
+-- ----------------------------------------------------------
+-- Admin. Answer Of Detail Question 
+-- ----------------------------------------------------------   
+        
+SELECT a.ans_id, a.que_id, a.ans_content, a.ans_source_url, a.ans_images,
+        a.createdAt, a.user_id, u.user_name, a.is_accepted
+       FROM `answers` AS a
+       INNER JOIN `users` AS u
+       ON u.user_id = a.user_id
+       WHERE a.que_id = '$que_id';
+-- ----------------------------------------------------------
+-- Admin. Accepted Question
+-- ----------------------------------------------------------   
+UPDATE `questionqueue` AS q
+SET q.is_accepted = 1
+WHERE que_id = 'que_id';
+
+
 
 ----------------
 -- testing

@@ -167,12 +167,17 @@ foreach ($users as $us) {
         switch ($user_type) {
             case 'admin':
                 $msg = 'hi';
+
+
                 $_SESSION['user_name'] = $user_name;
                 $_SESSION['user_type'] = 'admin';
+                $_SESSION['user_id'] = $us['user_id'];
+                $_SESSION['user_full_info'] = $us;
+
 
                 // echo ("<script>location.href = '" . $PATH_ROOT . "/App/Views/Admin/AdminPage/AdminPage.php';</script>");
 
-                echo ("<script>location.href = '" . $PATH_ROOT . "?action=admin';</script>");
+                echo ("<script>location.href = '" . $PATH_ADMIN_ROOT . "?action=admin';</script>");
 
                 break;
             case 'user':

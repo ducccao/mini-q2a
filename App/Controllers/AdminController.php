@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Models\AdminModel;
 use App\Models\QuestionCategoryModel;
 use App\Models\QuestionQueueModel;
 use App\Models\UserModel;
 use App\Views\View;
+use App\Models\AnswerModel;
 
 class AdminController
 {
@@ -82,6 +84,33 @@ class AdminController
 
         $data = [$allQQ];
         $manageQuestionView = new View();
+        return $manageQuestionView->render($view_path, $data);
+    }
+
+    public function ManageQuestionDetail()
+    {
+        $queDetailData = null;
+        $ansData = null;
+
+        if (isset($_GET['que_id'])) {
+            $que_id = $_GET['que_id'];
+
+            $adMode = new AdminModel();
+            $queDetailData = $adMode->QuestionDetailByQueID($que_id);
+        }
+
+
+
+        $data = [$queDetailData, $ansData];
+
+
+        // data[0]: queDetailData
+        // data[1]: ansData
+
+
+        $manageQuestionView = new View();
+        $view_path = './App/Views/Admin/ManageQuestion/ManageQuestionDetail.php';
+
         return $manageQuestionView->render($view_path, $data);
     }
 }

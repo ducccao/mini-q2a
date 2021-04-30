@@ -51,7 +51,7 @@ use App\Models\QuestionQueueModel;
                         echo "<td>$qq[is_accepted]                    
                         </td>";
                         echo "  <td class='d-flex'>
-                        <a href='/admin?action=question-detail&que_id=$qq[que_id]'  class='btn btn-question-detail btn-warning mx-2'>Chi tiết</a>
+                        <a href='/admin?action=question-detail&que_id=$qq[que_id]&is_accepted=$qq[is_accepted]'  class='btn btn-question-detail btn-warning mx-2'>Chi tiết</a>
                         <a class='btn btn-danger btn-question-detail'>Xóa</a>
                         </td>";
                         echo "</tr>";
