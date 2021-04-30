@@ -172,7 +172,68 @@ FROM `answers` AS a
 INNER JOIN `users` AS u
 ON u.user_id = a.user_id
 WHERE a.que_id = 'que_01'
-AND a.is_accepted = TRUE;
+AND a.is_accepted = TRUE
+ ORDER BY a.createdAt;
+ -- ----------------------------------------------------------
+-- Home. Like Rating Data Question Of Question Detail 
+-- ----------------------------------------------------------
+SELECT r.rate_id, r.rate_name, r.que_id, r.user_id, u.user_name
+FROM `ratingsquestion` AS r
+INNER JOIN `questionqueue` AS q
+ON q.que_id= r.que_id
+INNER JOIN `users`  AS u
+ON u.user_id = r.user_id
+WHERE q.is_accepted = TRUE 
+AND r.rate_name = 'like'
+AND r.que_id='que_01';
+ -- ----------------------------------------------------------
+-- Home. Spam Rating Data Question Of Question Detail 
+-- ----------------------------------------------------------
+SELECT r.rate_id, r.rate_name, r.que_id, r.user_id, u.user_name
+FROM `ratingsquestion` AS r
+INNER JOIN `questionqueue` AS q
+ON q.que_id= r.que_id
+INNER JOIN `users`  AS u
+ON u.user_id = r.user_id
+WHERE q.is_accepted = TRUE 
+AND r.rate_name = 'spam'
+AND r.que_id='que_01';
+ -- ----------------------------------------------------------
+-- Home. Spam Rating Data Question Of Question Detail 
+-- ----------------------------------------------------------
+SELECT r.rate_id, r.rate_name, r.que_id, r.user_id, u.user_name
+FROM `ratingsquestion` AS r
+INNER JOIN `questionqueue` AS q
+ON q.que_id= r.que_id
+INNER JOIN `users`  AS u
+ON u.user_id = r.user_id
+WHERE q.is_accepted = TRUE 
+AND r.rate_name = 'bad_content'
+AND r.que_id='que_01';
+ -- ----------------------------------------------------------
+-- Home. Get like rating Answer With AnsID - quetion detail
+-- ----------------------------------------------------------
+SELECT  COUNT(*)
+FROM `ratingsAnswer` AS r
+WHERE r.rate_name = 'like'
+AND r.ans_id='ans_01';
+
+
+ 
+ 
+----------------
+-- testing
+----------------
+select * from `users` order by user_id;
+select * from `questionqueue`;
+select * from `autoquestionaccepted`;
+select * from `ratingsquestion`;
+select * from `questioncategories`;
+select * from `labels`;
+select * from `quetionqueue_labels`;
+select * from `answers`;
+select * from `ratingsAnswer`;
+ 
 
 -- ----------------------------------------------------------
 -- Admin. All Answer
@@ -213,17 +274,6 @@ WHERE que_id = 'que_01';
 
 
 
-----------------
--- testing
-----------------
-select * from `users` order by user_id;
-select * from `questionqueue`;
-select * from `autoquestionaccepted`;
-select * from `ratingsquestion`;
-select * from `questioncategories`;
-select * from `labels`;
-select * from `quetionqueue_labels`;
-select * from `answers`;
 
 -- Get all question with keyword of que_content
 SELECT * FROM questionQueue

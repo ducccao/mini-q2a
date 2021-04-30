@@ -250,14 +250,38 @@ class QuestionQueueController
 
             $ansModel = new AnswerModel();
             $ansData = $ansModel->getAnsByQueID($que_id);
+
+            $like_data = $qqModel->getLikeRatingOfQuestionDetail($que_id);
+            $spam_data = $qqModel->getSpamRatingOfQuestionDetail($que_id);
+            $badContent_data = $qqModel->getBadcontentRatingOfQuestionDetail($que_id);
+
+            $like_question_count = count($like_data);
+            $spam_question_count = count($spam_data);
+            $badContent_question_count = count($badContent_data);
         }
 
         console_log($ansData);
 
-        $data = [$queDetailData, $ansData];
+        $data = [
+            $queDetailData, $ansData, $like_data, $like_question_count,
+            $spam_data, $spam_question_count, $badContent_data, $badContent_question_count,
+
+        ];
 
         // data[0]: queDetailData
         // data[1]: ansData
+        // data[2]: like_data
+        // data[3]: like_question_count
+        // data[4]: spam_data
+        // data[5]: spam_question_count
+        // data[6]: badContent_data
+        // data[7]: badContent_question_count
+        // data[8]: like_answer_data
+        // data[9]: like_answer_count
+
+
+
+
 
 
         $view_qq_detail = new View();
