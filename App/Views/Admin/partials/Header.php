@@ -50,14 +50,14 @@
         }
 
         .q2a-wrapper {
-            height: 100%;
+            min-height: 100vh;
             width: 100%;
             display: flex;
 
         }
 
         .q2a-side-bar {
-            height: 100%;
+
             width: 20%;
         }
 
@@ -97,3 +97,4 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>

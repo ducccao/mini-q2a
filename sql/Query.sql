@@ -143,6 +143,43 @@ INSERT INTO `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_c
 VALUES ("que_03",'Toán đại học như thế nào ?','Toán đại học',current_timestamp(),"user_02",'que_cate_02',TRUE); 
 
 
+-- ----------------------------------------------------------
+-- ADMIN. All Question 
+-- ----------------------------------------------------------
+SELECT  *
+FROM `questionqueue`;
+
+
+-- ----------------------------------------------------------
+-- Home. Question queue detail
+-- ----------------------------------------------------------
+SELECT q.que_id, q.que_content, q.que_title, q.createdAt, u.user_id,
+u.user_name, qCate.que_cate_id, qCate.que_cate_name
+FROM `questionqueue` AS q
+INNER JOIN `users` AS u
+ON q.user_id = u.user_id
+INNER JOIN  `questioncategories` as qCate
+ON qCate.que_cate_id = q.que_cate_id
+WHERE q.is_accepted = TRUE
+AND q.que_id = 'que_01';
+
+-- ----------------------------------------------------------
+-- Home. Answer of question queue detail 
+-- ----------------------------------------------------------
+SELECT a.ans_id,a.que_id, a.ans_content, a.ans_source_url, a.ans_images,
+ a.createdAt, a.user_id, u.user_name, a.is_accepted
+FROM `answers` AS a
+INNER JOIN `users` AS u
+ON u.user_id = a.user_id
+WHERE a.que_id = 'que_01'
+AND a.is_accepted = TRUE;
+
+-- ----------------------------------------------------------
+-- Admin. All Answer
+-- ----------------------------------------------------------
+SELECT *
+FROM `answers`;
+
 
 ----------------
 -- testing
@@ -154,6 +191,7 @@ select * from `ratingsquestion`;
 select * from `questioncategories`;
 select * from `labels`;
 select * from `quetionqueue_labels`;
+select * from `answers`;
 
 -- Get all question with keyword of que_content
 SELECT * FROM questionQueue

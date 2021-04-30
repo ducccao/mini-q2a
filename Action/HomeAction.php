@@ -12,7 +12,10 @@ switch ($action) {
 
         break;
     case 'question-queue':
-        require_once "./Router/QuestionQueueRouter.php";
+        require_once "./Router/Question/QuestionQueueRouter.php";
+        break;
+    case 'question-queue-detail':
+        require_once "./Router/Question/QuestionQueueDetailRouter.php";
         break;
     case 'home':
         require_once "./Router/HomeRouter.php";

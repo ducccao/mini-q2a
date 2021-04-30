@@ -47,7 +47,7 @@ console_log($curr_route);
                 <a class="nav-link" <?php echo "href='$PATH_ROOT?action=home'" ?>> <i class="fa fa-home"></i> Trang chủ <span class="sr-only">(current)</span></a>
             </li>
 
-            <li <?php if (str_contains($curr_route, "action=question-queue")) {
+            <li <?php if (str_contains($curr_route, "action=question-queue") && !str_contains($curr_route, "action=question-queue-detail")) {
                     echo "class='nav-item active'";
                 } else {
                     echo "class='nav-item '";

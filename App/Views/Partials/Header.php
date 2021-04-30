@@ -48,6 +48,15 @@
         .body {
             background-color: #ecf0f1;
         }
+
+        .common-bg {
+            background-color: #ecf0f1;
+        }
+
+        .home-content {
+            background-color: var(--common-bg);
+            border-radius: 5px;
+        }
     </style>
 
 </head>

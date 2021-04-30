@@ -19,6 +19,24 @@ class QuestionQueueModel
         $ret = $db->Rows();
         return $ret;
     }
+    public function detail($que_id)
+    {
+        $db = new Db();
+
+        $sql = "SELECT q.que_id, q.que_content, q.que_title, q.createdAt, u.user_id,
+        u.user_name, qCate.que_cate_id, qCate.que_cate_name
+        FROM `questionqueue` AS q
+        INNER JOIN `users` AS u
+        ON q.user_id = u.user_id
+        INNER JOIN  `questioncategories` as qCate
+        ON qCate.que_cate_id = q.que_cate_id
+        WHERE q.is_accepted = TRUE
+        AND q.que_id = '$que_id';";
+
+        $db->load($sql);
+        $ret = $db->Rows();
+        return $ret[0];
+    }
 
     public function add($que_id, $que_content, $que_title, $user_id, $que_cate_id)
     {
@@ -33,6 +51,10 @@ class QuestionQueueModel
 
         $ret = $db->patchDb($sql);
         return $ret;
+    }
+
+    public function del()
+    {
     }
 
     public function GetNewestQuestionQueueWithoutArrayTag()
@@ -151,7 +173,7 @@ class QuestionQueueModel
     }
 
 
-    public function FilterQuestionQueueByQuestionCategoryPaginationed($cate_id)
+    public function FilterQuestionQueueByQuestionCategory($cate_id)
     {
         $db = new Db();
 
@@ -171,6 +193,28 @@ class QuestionQueueModel
         return $data;
     }
 
+
+    public function FilterQuestionQueueByQuestionCategoryPagination($cate_id, $limit, $offset)
+    {
+        $db = new Db();
+
+        $sql = "SELECT questionqueue.que_id,questionqueue.que_title,questionqueue.createdAt,users.user_name 
+        FROM `questionqueue`,`users`
+        WHERE users.user_id = questionqueue.user_id 
+        AND questionqueue.que_cate_id='$cate_id'
+        AND questionqueue.is_accepted = TRUE
+        ORDER BY createdAt
+        LIMIT $limit
+        OFFSET $offset;
+        ";
+
+        $db->load($sql);
+        $data = $db->Rows();
+
+        return $data;
+    }
+
+
     public function GetQuestionByKeyFullText($keyWord)
     {
         $db = new Db();
@@ -185,20 +229,6 @@ class QuestionQueueModel
             ";
 
         $db->load($sql);
-        $data = $db->Rows();
-
-        return $data;
-    }
-
-    public function detail($qq_id)
-    {
-        $db = new Db();
-
-        $sql = "SELECT *
-        FROM  `questionqueue`
-        WHERE que_id='$qq_id';";
-
-        $db->load($db);
         $data = $db->Rows();
 
         return $data;

@@ -33,6 +33,7 @@ insert into `users`(user_id,email,user_name,user_pass,user_type,user_rank,toggle
 insert into `users`(user_id,email,user_name,user_pass,user_type,user_rank,toggle_send_notify_status)  values ("user_06",'admin@gmail.com','admin','admin','admin',null,true);
 insert into `users`(user_id,email,user_name,user_pass,user_type,user_rank,toggle_send_notify_status)  values ("user_07",'anonymous@gmail.com','anonymous','anonymous','anonymous',null,true);
 insert into `users`(user_id,email,user_name,user_pass,user_type,user_rank,toggle_send_notify_status)  values ("user_08",'user@gmail.com','user','user','user',null,true);
+insert into `users`(user_id,email,user_name,user_pass,user_type,user_rank,toggle_send_notify_status)  values ("duccao",'caovanducs@gmail.com','duccao','duccao','user',null,true);
 COMMIT;
 
 
@@ -107,6 +108,18 @@ insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_c
 
 insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_14",'Câu hỏi 14 có vấn đề?','Câu hỏi này có vấn đề',current_timestamp(),"user_02",'que_cate_03',false);  
 insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_15",'Câu hỏi 15 có vấn đề?','Câu hỏi này có vấn đề',current_timestamp(),"user_02",'que_cate_03',false);  
+
+
+
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_16",'Lý 1 đại học như thế nào ?','Lý 1 đại học',current_timestamp(),"duccao",'que_cate_01',true); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_17",'Lý 2 đại học như thế nào ?','Lý 2 đại học',current_timestamp(),"duccao",'que_cate_01',true); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_18",'Lý 3 đại học như thế nào ?','Lý 3 đại học',current_timestamp(),"duccao",'que_cate_01',true); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_19",'Lý phổ thông như thế nào ?','Lý phổ thông',current_timestamp(),"duccao",'que_cate_01',true); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_20",'Lý cấp 2 như thế nào ?','Lý cấp 2',current_timestamp(),"duccao",'que_cate_01',true); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_21",'Lý thạc sĩ như thế nào ?','Lý thạc sĩ',current_timestamp(),"duccao",'que_cate_01',true); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_22",'Lý tiến sĩ như thế nào ?','Lý tiến sĩ',current_timestamp(),"duccao",'que_cate_01',true); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_23",'Lý giáo sư như thế nào ?','Lý giáo sư',current_timestamp(),"duccao",'que_cate_01',true); 
+
 
 
 COMMIT;
@@ -216,6 +229,16 @@ insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que
 insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_03",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_01","user_05",true);
 insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_04",'Câu trả lời này có vấn đề !',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_02","user_05",false);
 insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_05",'Câu trả lời này có vấn đề !',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_01","user_05",false);
+
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_06",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_01","user_02",true);
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_07",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_01","user_03",true);
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_08",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_01","user_04",true);
+
+
+
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_09",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_02","user_02",true);
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_10",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_02","user_03",true);
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_11",'Vật lý bình thường thôi!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_02","user_04",true);
 
 commit;
 

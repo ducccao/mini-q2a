@@ -295,6 +295,10 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
             <ul class="pagination justify-content-end">
                 <?php
                 $pagi_curr = $data[5];
+                $questionCate = '';
+                if (isset($data[6])) {
+                    $questionCate = $data[6];
+                }
 
                 if ($pagi_curr == 1) {
                     echo "   <li class='page-item disabled '>
@@ -302,10 +306,19 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                 </li>";
                 } else {
 
-                    $temp_pagi_cur_previous = $pagi_curr - 2;
-                    echo "   <li class='page-item '>
-                    <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&pagi=$temp_pagi_cur_previous'>Previous</a>
-                </li>";
+                    if ($questionCate != '') {
+
+                        $temp_pagi_cur_previous = $pagi_curr - 2;
+                        echo "   <li class='page-item '>
+                            <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$temp_pagi_cur_previous'>Previous</a>
+                        </li>";
+                    } else {
+                        $temp_pagi_cur_previous = $pagi_curr - 2;
+
+                        echo "   <li class='page-item '>
+                        <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&pagi=$temp_pagi_cur_previous'>Previous</a>
+                    </li>";
+                    }
                 }
 
                 ?>
@@ -334,9 +347,19 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                 ?>
                 <?php
                 if ($pagi_curr == $data[4]) {
+
                     echo " <li class='page-item disabled'> <a class='page-link disabled pagi-next' href='$PATH_ROOT?action=question-queue&pagi=$pagi_curr'>Next</a> </li> ";
                 } else {
-                    echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&pagi=$pagi_curr'>Next</a></li> ";
+                    $questionCate = '';
+                    if (isset($data[6])) {
+                        $questionCate = $data[6];
+                    }
+
+                    if ($questionCate != '') {
+                        echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$pagi_curr'>Next</a></li> ";
+                    } else {
+                        echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&pagi=$pagi_curr'>Next</a></li> ";
+                    }
                 }
 
 

@@ -4,6 +4,7 @@
 namespace App\Controllers;
 
 use App\Models;
+use App\Models\AnswerModel;
 use App\Models\QuestionQueueModel;
 use App\Views\View;
 use App\Models\QuestionCategoryModel;
@@ -36,7 +37,13 @@ class QuestionQueueController
         }
 
 
-        $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear) + 1;
+        if ($pagi_total_QuestionQueue == $pagi_num_QuestionQueue_appear) {
+            $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear);
+        } else {
+            $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear) + 1;
+        }
+
+
 
 
         $uri = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")
@@ -106,35 +113,7 @@ class QuestionQueueController
 
         $questionCategories = $questionCateModel->GetAllQuestionCategoriesWithCountQQ();
 
-        $allQuestionQueue = $qqModel->GetFullQuestionQueue();
 
-        // ---------------------
-        // Pagination Problem
-        // ---------------------
-        $pagi_total_QuestionQueue =  0;
-        $pagi_num_QuestionQueue_appear = 5;
-        $pagi_total_pagi_stuff = 0;
-
-
-        foreach ($allQuestionQueue as $qq) {
-            $pagi_total_QuestionQueue++;
-        }
-
-
-        $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear) + 1;
-
-
-        $uri = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")
-            . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
-        $url_len = strlen($uri);
-
-        $pagi_current = (int)substr($uri, $url_len - 1, 1) + 1;
-
-        $limit = $pagi_num_QuestionQueue_appear;
-        $offset = $limit * ($pagi_current - 1);
-
-        $allQuestionQueuePaginationed = $qqModel->GetFullQuestionQueueByPagination($limit, $offset);
 
 
         // -------------------------------------
@@ -145,7 +124,7 @@ class QuestionQueueController
 
 
         // --------------------------
-        // Question Category problem
+        // Filter Question By Category problem
         // --------------------------
 
         $questionCate = '';
@@ -153,13 +132,50 @@ class QuestionQueueController
             $questionCate = $_REQUEST['questionCate'];
         }
 
-        $qqFilteredByQuestionCate = $qqModel->FilterQuestionQueueByQuestionCategoryPaginationed($questionCate);
+        $qqFilteredByQuestionCate = $qqModel->FilterQuestionQueueByQuestionCategory($questionCate);
 
 
         if (isset($_REQUEST['keyWord'])) {
             $keyWord = $_REQUEST['keyWord'];
             return $this->GetQuestionByKeyWord($keyWord);
         }
+
+        // ---------------------
+        // Pagination Problem
+        // ---------------------
+        $pagi_total_QuestionQueue =  0;
+        $pagi_num_QuestionQueue_appear = 5;
+        $pagi_total_pagi_stuff = 0;
+
+
+        foreach ($qqFilteredByQuestionCate as $qq) {
+            $pagi_total_QuestionQueue++;
+        }
+
+
+        if ($pagi_total_QuestionQueue == $pagi_num_QuestionQueue_appear) {
+            $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear);
+        } else {
+            $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear) + 1;
+        }
+
+
+
+        $pagi_current = 1;
+
+        if (isset($_GET['pagi'])) {
+            $pagi_current = (int)$_GET['pagi'] + 1;
+        }
+
+
+
+        $limit = $pagi_num_QuestionQueue_appear;
+        $offset = $limit * ($pagi_current - 1);
+
+
+        $filteredQQPagi = $qqModel->FilterQuestionQueueByQuestionCategoryPagination($questionCate, $limit, $offset);
+        $cate_current = $questionCate;
+
 
 
         $view_home = new View();
@@ -170,15 +186,15 @@ class QuestionQueueController
         data[3]: allLikeCount
         data[4]: pagi_total_pagi_stuff
         data[5]: pagi_current
-        data[6]:
+        data[6]: cate_current
         
         */
 
-        console_log($allQuestionQueuePaginationed);
-        $data = [
-            $allQuestionQueuePaginationed,  $questionCategories,
-            $fullArrayTags, $allLikeCount, $pagi_total_pagi_stuff, $pagi_current,
 
+        $data = [
+            $filteredQQPagi,  $questionCategories,
+            $fullArrayTags, $allLikeCount, $pagi_total_pagi_stuff, $pagi_current,
+            $cate_current
         ];
 
         $view_path = "./App/Views/QuestionQueue/QuestionQueue.php";
@@ -225,15 +241,24 @@ class QuestionQueueController
 
     public function GetQuestionQueueDetail()
     {
-        $data = [1, 1];
+        $queDetailData = null;
+        if (isset($_GET['que_id'])) {
+            $que_id = $_GET['que_id'];
 
+            $qqModel = new QuestionQueueModel();
+            $queDetailData = $qqModel->detail($que_id);
 
-        $qqModel = new QuestionQueueModel();
+            $ansModel = new AnswerModel();
+            $ansData = $ansModel->getAnsByQueID($que_id);
+        }
 
-        console_log($_SERVER);
+        console_log($ansData);
 
+        $data = [$queDetailData, $ansData];
 
-        //        $qqModel->detail($qq_id);
+        // data[0]: queDetailData
+        // data[1]: ansData
+
 
         $view_qq_detail = new View();
         $view_path = "./App/Views/QuestionQueue/QuestionQueueDetail.php";

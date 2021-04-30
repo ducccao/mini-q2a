@@ -13,6 +13,9 @@ if (isset($_GET['action'])) {
             require_once "./Router/Admin/ManageQuestionCategory.php";
             break;
 
+        case 'question':
+            require_once "./Router/Admin/ManageQuestion.php";
+            break;
 
         default:
             # code...

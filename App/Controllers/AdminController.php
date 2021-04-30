@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\QuestionCategoryModel;
+use App\Models\QuestionQueueModel;
 use App\Models\UserModel;
 use App\Views\View;
 
@@ -64,5 +65,23 @@ class AdminController
         $data = [$allQuestionCate];
         $questionCategoryView = new View();
         return $questionCategoryView->render($view_path, $data);
+    }
+
+
+    public function ManageQuestion()
+    {
+
+
+        $view_path = './App/Views/Admin/ManageQuestion/ManageQuestion.php';
+
+        $qqModel = new QuestionQueueModel();
+        $allQQ = $qqModel->all();
+
+        // Data Note
+        // data[0]: allQQ
+
+        $data = [$allQQ];
+        $manageQuestionView = new View();
+        return $manageQuestionView->render($view_path, $data);
     }
 }
