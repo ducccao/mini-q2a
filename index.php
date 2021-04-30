@@ -18,10 +18,12 @@ require_once "./Core/Db.php";
 // PATH ROOT
 // -----------------
 
-//$PATH_ROOT = "/mini-q2a";
-// $PATH_ROOT = "http://localhost:8080";
-$PATH_ROOT = "http://localhost:8080/mini-q2a";
-$PATH_ADMIN_ROOT = "http://localhost:8080/admin";
+$PATH_ROOT = "/mini-q2a";
+$PATH_ADMIN_ROOT = "/admin";
+
+//$PATH_ROOT = "http://localhost:8080";
+//$PATH_ROOT = "http://localhost:8080/mini-q2a";
+//$PATH_ADMIN_ROOT = "http://localhost:8080/admin";
 
 $GLOBALS['PATH_ROOT'] = $PATH_ROOT;
 $GLOBALS['PATH_ADMIN_ROOT'] = $PATH_ADMIN_ROOT;
