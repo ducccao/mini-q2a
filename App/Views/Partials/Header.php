@@ -57,6 +57,15 @@
             background-color: var(--common-bg);
             border-radius: 5px;
         }
+
+        .qq-top-left {
+            transition: 0.13s;
+
+        }
+
+        .qq-top-left:hover {
+            transform: translateX(10px)
+        }
     </style>
 
 </head>

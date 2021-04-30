@@ -100,7 +100,7 @@
 foreach ($data[1] as $ans) {
     echo '<div class="card my-5">';
 
-    echo '<div class="card-header   bg-info">';
+    echo '<div class="card-header  ">';
 
     echo "<h4>";
     echo '<strong> Trả lời bởi:</strong> <strong>' . $ans['user_name']  . '</strong> ';
@@ -120,7 +120,7 @@ foreach ($data[1] as $ans) {
     echo ' </div>';
 
     echo '
-    <div class="card-footer   bg-info">';
+    <div class="card-footer   ">';
     echo '
     <div>
     <span class="float-right gr-btn-report">

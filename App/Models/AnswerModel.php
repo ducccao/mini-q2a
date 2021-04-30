@@ -12,7 +12,8 @@ class AnswerModel
         $db = new Db();
 
         $sql = "SELECT *
-        FROM `answers`;
+        FROM `answers` AS a
+        ORDER BY a.createdAt;
        ";
 
         $db->load($sql);
@@ -58,7 +59,8 @@ class AnswerModel
        INNER JOIN `users` AS u
        ON u.user_id = a.user_id
        WHERE a.que_id = '$que_id'
-       AND a.is_accepted = TRUE;
+       AND a.is_accepted = TRUE
+       ORDER BY a.createdAt;
        ";
 
         $db->load($sql);

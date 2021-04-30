@@ -40,13 +40,14 @@ $adController = new AdminController();
 
 
 echo "<html lang='en'>";
-
-echo '<body>';
 // -------------
 // Header
 // -------------
 
 require_once "./App/Views/Admin/partials/Header.php";
+
+
+echo '<body>';
 
 
 echo '<div class="q2a-wrapper">';
@@ -75,7 +76,6 @@ echo '<div class="q2a-content-content">';
 $adController->index();
 
 
-
 echo '</div>';
 
 
@@ -83,6 +83,7 @@ echo '</div>';
 
 
 echo '</div>';
+echo '</body>';
 
 // -------------
 // Footer
@@ -91,5 +92,3 @@ echo '</div>';
 require_once "./App/Views/Admin/partials/Footer.php";
 
 echo "</html>";
-
-echo '</body>';

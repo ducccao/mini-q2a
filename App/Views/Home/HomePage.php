@@ -77,9 +77,17 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
     }
 
 
-    /* .que-cate-wrapper {}
+    /* .que-cate-wrapper {} */
 
-    .qq-top-left {} */
+    .qq-top-left {
+        transition: 0.13s;
+
+    }
+
+    .qq-top-left:hover {
+        transform: translateX(10px)
+    }
+
 
     .qq-title {
         font-size: 22px;
@@ -163,6 +171,7 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
     .que_title:hover {
         color: black;
+
 
     }
 </style>

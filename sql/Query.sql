@@ -202,13 +202,14 @@ SELECT a.ans_id, a.que_id, a.ans_content, a.ans_source_url, a.ans_images,
        FROM `answers` AS a
        INNER JOIN `users` AS u
        ON u.user_id = a.user_id
-       WHERE a.que_id = '$que_id';
+       WHERE a.que_id = 'que_01'
+       ORDER BY a.createdAt;
 -- ----------------------------------------------------------
 -- Admin. Accepted Question
 -- ----------------------------------------------------------   
 UPDATE `questionqueue` AS q
-SET q.is_accepted = 1
-WHERE que_id = 'que_id';
+SET q.is_accepted = 0
+WHERE que_id = 'que_01';
 
 
 
