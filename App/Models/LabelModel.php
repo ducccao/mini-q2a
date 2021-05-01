@@ -44,6 +44,15 @@ class LabelModel
 
         $db->load($sql);
         $ret = $db->Rows();
-        return $ret[0];
+
+        console_log($ret);
+
+        if (count($ret) > 0) {
+            return $ret[0];
+        }
+
+
+
+        return [];
     }
 }

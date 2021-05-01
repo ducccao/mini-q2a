@@ -22,8 +22,21 @@ class QuestionLabelModel
         return $ret;
     }
 
-    public function findQuetionLabelByQueID($que_id)
+    public function findArrayLabelOfQuestion($que_id)
     {
+
+        $db = new Db();
+
+        $sql = "SELECT  ql.que_id,  ql.label_id, l.label_name
+        FROM `quetionqueue_labels` AS ql
+        INNER JOIN `labels` AS l
+        ON ql.label_id = l.label_id
+        WHERE ql.que_id= '$que_id';
+        ";
+
+        $db->load($sql);
+        $ret = $db->Rows();
+        return $ret;
     }
 
     public function add($que_id, $label_id)

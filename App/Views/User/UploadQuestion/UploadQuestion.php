@@ -182,7 +182,9 @@ if (isset($_GET['txtContent'])) {
                     } else {
                         $label_curr = $labelModel->findLabelByLabelName($tag);
 
-                        $quetionLabelModel->add($que_id, $label_curr['label_id']);
+                        if (count($label_curr) > 0) {
+                            $quetionLabelModel->add($que_id, $label_curr['label_id']);
+                        }
                     }
                 }
             }

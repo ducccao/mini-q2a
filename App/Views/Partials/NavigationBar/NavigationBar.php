@@ -31,6 +31,22 @@ console_log($curr_route);
 ?>
 
 
+<style>
+    .list-tag {
+        display: flex;
+        align-items: flex-end;
+        flex-wrap: wrap;
+    }
+
+    .tag {
+        border-radius: var(--border-radius);
+        background-color: lightblue;
+        padding: 4px;
+        margin-bottom: 3px;
+        margin-top: 3px;
+
+    }
+</style>
 
 
 <!-- Navigation Bar -->

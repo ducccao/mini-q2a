@@ -281,6 +281,34 @@ FROM `questioncategories` AS qCat
 LEFT JOIN `questionqueue` AS q
 ON q.que_cate_id = qCat.que_cate_id
 WHERE q.que_id='que_03';
+
+
+-- ----------------------------------------------------------
+-- Home. Get Labem by que_id - Question Detail
+-- ----------------------------------------------------------   
+SELECT  ql.que_id,  ql.label_id, l.label_name
+FROM `quetionqueue_labels` AS ql
+INNER JOIN `labels` AS l
+ON ql.label_id = l.label_id
+WHERE ql.que_id= '8k3lPCf9QE';
+
+
+----------------
+-- testing
+----------------
+select * from `users` order by user_id;
+select * from `questionqueue`;
+select * from `autoquestionaccepted`;
+
+select * from `questioncategories`;
+select * from `labels`;
+select * from `quetionqueue_labels`;
+select * from `answers`;
+select * from `ratingsAnswer`;
+select * from `ratingsquestion`;
+
+
+
 -- ----------------------------------------------------------
 -- Home. All label - Upload Question
 -- ----------------------------------------------------------  
@@ -304,21 +332,10 @@ VALUES ('a','vatly');
 SELECT  *
 FROM  `labels`AS l
 WHERE l.label_name='ok';
- 
- 
-----------------
--- testing
-----------------
-select * from `users` order by user_id;
-select * from `questionqueue`;
-select * from `autoquestionaccepted`;
 
-select * from `questioncategories`;
-select * from `labels`;
-select * from `quetionqueue_labels`;
-select * from `answers`;
-select * from `ratingsAnswer`;
-select * from `ratingsquestion`;
+
+ 
+
  
 
 -- ----------------------------------------------------------
