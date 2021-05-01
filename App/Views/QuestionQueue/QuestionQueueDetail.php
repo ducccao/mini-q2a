@@ -45,6 +45,7 @@ if (isset($_SESSION['user_name'])) {
 
             use App\Models\QuestionQueueModel;
             use App\Models\RatingQuestionModel;
+            use App\Models\RatingAnswerModel;
 
             ?>
             <div class="card-header que_detail_bg">
@@ -284,12 +285,12 @@ if (isset($_GET['rating_status']) && isset($_GET['user_id']) && !isset($_GET['an
             $que_id = $_GET['que_id'];
 
 
-            $allUserLikeRating = $ratingQuestionModel->allSpam();
+            $allSpamData = $ratingQuestionModel->allSpam();
 
             $is_spamed = false;
 
-            foreach ($allUserLikeRating as $allLike) {
-                if ($allLike['que_id'] == $que_id && $allLike['user_id'] == $user_id) {
+            foreach ($allSpamData as $allSpam) {
+                if ($allSpam['que_id'] == $que_id && $allSpam['user_id'] == $user_id) {
                     $is_spamed = true;
                 }
             }
@@ -310,12 +311,12 @@ if (isset($_GET['rating_status']) && isset($_GET['user_id']) && !isset($_GET['an
             $que_id = $_GET['que_id'];
 
 
-            $allUserLikeRating = $ratingQuestionModel->allBadContent();
+            $allBadContent = $ratingQuestionModel->allBadContent();
 
             $is_badContented = false;
 
-            foreach ($allUserLikeRating as $allLike) {
-                if ($allLike['que_id'] == $que_id && $allLike['user_id'] == $user_id) {
+            foreach ($allBadContent as $allBad) {
+                if ($allBad['que_id'] == $que_id && $allBad['user_id'] == $user_id) {
                     $is_badContented = true;
                 }
             }
@@ -325,6 +326,109 @@ if (isset($_GET['rating_status']) && isset($_GET['user_id']) && !isset($_GET['an
                 echo "<script>location.href='/mini-q2a?action=question-queue-detail&que_id=$que_id'</script>";
             } else {
                 $ratingQuestionModel->unBadContentRatingByUserHandle($user_id, $que_id);
+                echo "<script>location.href='/mini-q2a?action=question-queue-detail&que_id=$que_id'</script>";
+            }
+            break;
+
+        default:
+            # code...
+            break;
+    }
+}
+?>
+
+
+
+<?php
+// ----------------------
+// handle rating answer 
+// ----------------------
+if (isset($_GET['rating_status']) && isset($_GET['user_id']) && isset($_GET['ans_id'])) {
+    $rating_status = $_GET['rating_status'];
+
+    switch ($rating_status) {
+        case 'like':
+            echo "answer like";
+
+            $ratingQuestionModel = new RatingAnswerModel();
+            $user_id = $_GET['user_id'];
+            $que_id = $_GET['que_id'];
+            $ans_id = $_GET['ans_id'];
+            $rating_status = $_GET['rating_status'];
+
+            $allUserLikeRating = $ratingQuestionModel->allLike();
+
+            $is_liked = false;
+
+            foreach ($allUserLikeRating as $allLike) {
+                if ($allLike['ans_id'] == $ans_id && $allLike['user_id'] == $user_id) {
+                    $is_liked = true;
+                }
+            }
+
+            if ($is_liked == false) {
+                $ratingQuestionModel->likeRatingByUserHandle($user_id, $ans_id);
+                echo "<script>location.href='/mini-q2a?action=question-queue-detail&que_id=$que_id'</script>";
+            } else {
+                $ratingQuestionModel->unLikeRatingByUserHandle($user_id, $ans_id);
+                echo "<script>location.href='/mini-q2a?action=question-queue-detail&que_id=$que_id'</script>";
+            }
+
+
+
+
+
+            break;
+        case 'spam':
+            $ratingQuestionModel = new RatingAnswerModel();
+            $user_id = $_GET['user_id'];
+            $que_id = $_GET['que_id'];
+            $ans_id = $_GET['ans_id'];
+
+
+
+            $allUserSpamRating = $ratingQuestionModel->allSpam();
+
+            $is_spamed = false;
+
+            foreach ($allUserSpamRating as $allSpam) {
+                if ($allSpam['ans_id'] == $ans_id && $allSpam['user_id'] == $user_id) {
+                    $is_spamed = true;
+                }
+            }
+
+            if ($is_spamed == false) {
+                $ratingQuestionModel->spamRatingByUserHandle($user_id, $ans_id);
+                echo "<script>location.href='/mini-q2a?action=question-queue-detail&que_id=$que_id'</script>";
+            } else {
+                $ratingQuestionModel->unSpamRatingByUserHandle($user_id, $ans_id);
+                echo "<script>location.href='/mini-q2a?action=question-queue-detail&que_id=$que_id'</script>";
+            }
+
+            break;
+        case 'bad_content':
+
+            $ratingQuestionModel = new RatingAnswerModel();
+            $user_id = $_GET['user_id'];
+            $que_id = $_GET['que_id'];
+            $ans_id = $_GET['ans_id'];
+
+
+            $allUserBadContentRating = $ratingQuestionModel->allBadContent();
+
+            $is_badContented = false;
+
+            foreach ($allUserBadContentRating as $allBadContent) {
+                if ($allBadContent['ans_id'] == $ans_id && $allBadContent['user_id'] == $user_id) {
+                    $is_badContented = true;
+                }
+            }
+
+            if ($is_badContented == false) {
+                $ratingQuestionModel->badContentRatingByUserHandle($user_id, $ans_id);
+                echo "<script>location.href='/mini-q2a?action=question-queue-detail&que_id=$que_id'</script>";
+            } else {
+                $ratingQuestionModel->unBadContentRatingByUserHandle($user_id, $ans_id);
                 echo "<script>location.href='/mini-q2a?action=question-queue-detail&que_id=$que_id'</script>";
             }
             break;
