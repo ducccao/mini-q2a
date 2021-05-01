@@ -1,2 +1,3 @@
-# mini-social-network-backend
-Distributed Application Course's Project
+# Mini-Q2A
+
+Đồ án môn học - Ứng dụng phân tán

@@ -8,6 +8,9 @@ if (isset($_SESSION['user_name'])) {
     $curr_user = $_SESSION['user_name'];
     $user_type = $_SESSION['user_type'];
     $isExistsUser = true;
+
+    $curr_user_id = $_SESSION['user_id'];
+    $curr_user_full_info = $_SESSION['user_full_info'];
 }
 // echo  $curr_user . ' is loged-in in system';
 console_log($curr_user . ' is loged-in in system');

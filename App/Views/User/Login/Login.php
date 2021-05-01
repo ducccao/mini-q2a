@@ -69,7 +69,7 @@ session_start();
 
     <?php
     $PATH_ROOT = $GLOBALS['PATH_ROOT'];
-
+    $PATH_ADMIN_ROOT = $GLOBALS['PATH_ADMIN_ROOT'];
 
 
     ?>
@@ -177,7 +177,7 @@ foreach ($users as $us) {
 
                 // echo ("<script>location.href = '" . $PATH_ROOT . "/App/Views/Admin/AdminPage/AdminPage.php';</script>");
 
-                echo ("<script>location.href = '" . $PATH_ADMIN_ROOT . "?action=admin';</script>");
+                echo ("<script>location.href = '" . $PATH_ADMIN_ROOT . "?action=dashboard';</script>");
 
                 break;
             case 'user':

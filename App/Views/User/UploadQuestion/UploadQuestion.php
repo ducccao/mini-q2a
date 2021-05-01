@@ -1,8 +1,9 @@
 <?php
 
+use App\Models\LabelModel;
 use App\Models\QuestionQueueModel;
 use App\Models\QuestionCategoryModel;
-
+use App\Models\QuestionLabelModel;
 
 ?>
 
@@ -56,6 +57,15 @@ use App\Models\QuestionCategoryModel;
 
         <textarea id="txtContent" name="txtContent"></textarea>
     </div>
+
+    <div class="form-group">
+        <label for="txtTags"><strong>Nhãn</strong> </label>
+
+        <input class="form-control" type="text" name="txtTags">
+        <small class="text-black">Ngăn cách bởi khoảng trắng</small>
+    </div>
+
+
 
     <button class="btn btn-dark ">Đăng câu hỏi</button>
 </form>
@@ -130,6 +140,57 @@ if (isset($_GET['txtContent'])) {
     if ($error_flag == false) {
 
         $ret = $qqModel->add($que_id, $que_content, $que_title, $user_id, $que_cate_id);
+        // --------------
+        // Tags handler
+        // --------------
+
+        if (isset($_GET['txtTags'])) {
+            $tags = $_GET['txtTags'];
+
+            $arrayTag = explode(" ", $tags);
+
+            // Handle Repeat tag from user
+            $arrayTag = array_unique($arrayTag);
+
+            console_log($arrayTag);
+
+
+
+            $isTagExists = false;
+
+            foreach ($arrayTag as $tag) {
+                if ($tag !== "") {
+                    $labelModel = new LabelModel();
+                    $quetionLabelModel = new QuestionLabelModel();
+
+                    $tagsData = $labelModel->all();
+
+                    // check tag exists
+                    foreach ($tagsData as $tagsData) {
+                        if ($tagsData['label_name'] == $tag) {
+                            $isTagExists = true;
+                            break;
+                        }
+                    }
+
+
+                    if ($isTagExists == false) {
+                        $label_id = randomString(10);
+                        $labelModel->add($label_id, $tag);
+
+                        $quetionLabelModel->add($que_id, $label_id);
+                    } else {
+                        $label_curr = $labelModel->findLabelByLabelName($tag);
+
+                        $quetionLabelModel->add($que_id, $label_curr['label_id']);
+                    }
+                }
+            }
+        }
+
+        // --------------
+        // End Tags handler
+        // --------------
 
         if ($ret == true) {
             echo "<script>
