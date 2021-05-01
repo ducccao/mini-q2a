@@ -43,6 +43,7 @@ if (isset($_SESSION['user_name'])) {
             // quetion detail
             // -------------
 
+            use App\Models\QuestionCategoryModel;
             use App\Models\QuestionQueueModel;
             use App\Models\RatingQuestionModel;
             use App\Models\RatingAnswerModel;
@@ -224,15 +225,32 @@ href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_i
     <div class="question col-sm-12 col-md-6 col-lg-4">
 
         <div class="card my-3">
-            <div class="card-header">
-                Header
-            </div>
             <div class="card-body">
-                <h4 class="card-title">Title</h4>
-                <p class="card-text">Text</p>
+
+                <h4 class="card-title"> <strong>Chủ đề:
+                        <?php
+
+                        if (isset($_GET['que_id'])) {
+                            $que_id = $_GET['que_id'];
+
+                            $queCatModel = new QuestionCategoryModel();
+                            $cat = $queCatModel->getCatByQueID($que_id);
+                        }
+                        echo $cat['que_cate_name'];
+                        ?>
+                    </strong>
+                </h4>
+
+
             </div>
-            <div class="card-footer text-muted">
-                Footer
+
+
+            <div class="card-body ">
+                <h4 class="card-title">
+                    <strong>Nhãn</strong>
+                </h4>
+
+
             </div>
         </div>
     </div>

@@ -83,4 +83,19 @@ class QuestionCategoryModel
 
         return $data;
     }
+    public function getCatByQueID($que_id)
+    {
+        $db = new Db();
+
+        $sql = "SELECT qCat.que_cate_id, qCat.que_cate_name
+        FROM `questioncategories` AS qCat
+        LEFT JOIN `questionqueue` AS q
+        ON q.que_cate_id = qCat.que_cate_id
+        WHERE q.que_id='$que_id';";
+
+        $db->load($sql);
+        $ret = $db->Rows();
+
+        return $ret[0];
+    }
 }

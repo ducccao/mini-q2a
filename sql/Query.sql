@@ -273,7 +273,37 @@ WHERE user_id = 'user_06'
 AND que_id = 'que_03'
 AND rate_name = 'spam';
 
+-- ----------------------------------------------------------
+-- Home. Get category by que_id - Question Detail
+-- ----------------------------------------------------------   
+SELECT qCat.que_cate_id, qCat.que_cate_name
+FROM `questioncategories` AS qCat
+LEFT JOIN `questionqueue` AS q
+ON q.que_cate_id = qCat.que_cate_id
+WHERE q.que_id='que_03';
+-- ----------------------------------------------------------
+-- Home. All label - Upload Question
+-- ----------------------------------------------------------  
+SELECT * 
+FROM `labels`;
+-- ----------------------------------------------------------
+-- Home. Add label - Upload Question
+-- ----------------------------------------------------------   
+INSERT INTO `labels`(label_id, label_name)
+VALUES ('a','vatly');
 
+-- ----------------------------------------------------------
+-- Home. Add question label - Upload Question
+-- ----------------------------------------------------------   
+INSERT INTO `quetionqueue_labels`(que_id, label_id)
+VALUES ('a','vatly');
+ 
+ -- ----------------------------------------------------------
+-- Home. Find label by label name - Upload Question
+-- ----------------------------------------------------------  
+SELECT  *
+FROM  `labels`AS l
+WHERE l.label_name='ok';
  
  
 ----------------

@@ -73,7 +73,7 @@ class QuestionQueueModel
         WHERE ratingsquestion.rate_name = 'like'
         AND questionqueue.is_accepted = TRUE
         GROUP BY questionqueue.que_id
-        ORDER BY questionqueue.createdAt;
+        ORDER BY questionqueue.createdAt DESC;
         ";
 
         $db->load($sql);
@@ -107,7 +107,7 @@ class QuestionQueueModel
         FROM `questionqueue`,`users`
         WHERE users.user_id = questionqueue.user_id 
         AND questionqueue.is_accepted = TRUE
-        ORDER BY createdAt;
+        ORDER BY createdAt DESC;
         ';
 
         $db->load($sql);
@@ -128,7 +128,7 @@ class QuestionQueueModel
         WHERE ratingsquestion.rate_name ='like'
         AND questionqueue.is_accepted = TRUE
         GROUP BY questionqueue.que_id
-        ORDER BY questionqueue.que_id;
+        ORDER BY questionqueue.que_id DESC;
         ";
 
         $db->load($sql);
@@ -145,7 +145,7 @@ class QuestionQueueModel
         FROM `questionqueue`,`users`
         WHERE users.user_id = questionqueue.user_id 
         AND questionqueue.is_accepted = TRUE
-        ORDER BY createdAt
+        ORDER BY createdAt DESC 
         LIMIT ' . $limit .
             ' OFFSET ' . $offset;
 
@@ -185,7 +185,7 @@ class QuestionQueueModel
         WHERE users.user_id = questionqueue.user_id 
         AND questionqueue.que_cate_id='$cate_id'
         AND questionqueue.is_accepted = TRUE
-        ORDER BY createdAt
+        ORDER BY createdAt DESC
         LIMIT 10
         OFFSET 0;
         ";
@@ -206,7 +206,7 @@ class QuestionQueueModel
         WHERE users.user_id = questionqueue.user_id 
         AND questionqueue.que_cate_id='$cate_id'
         AND questionqueue.is_accepted = TRUE
-        ORDER BY createdAt
+        ORDER BY createdAt DESC
         LIMIT $limit
         OFFSET $offset;
         ";
@@ -226,7 +226,7 @@ class QuestionQueueModel
             JOIN `users` u ON u.user_id = qq.user_id 
             WHERE MATCH(que_content)
             AGAINST('$keyWord' IN NATURAL LANGUAGE MODE)
-            ORDER BY createdAt
+            ORDER BY createdAt DESC
             LIMIT 10
             OFFSET 0;
             ";
