@@ -14,7 +14,8 @@ class QuestionQueueModel
     {
         $db = new Db();
 
-        $sql = "SELECT * FROM `questionqueue`;";
+        $sql = "SELECT * FROM `questionqueue` AS q
+        ORDER BY q.createdAt DESC;";
         $db->load($sql);
         $ret = $db->Rows();
         return $ret;

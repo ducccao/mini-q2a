@@ -14,6 +14,7 @@
 
         display: flex;
         justify-content: space-between;
+
     }
 </style>
 
@@ -26,6 +27,8 @@ if (isset($_SESSION['user_name'])) {
 
     $curr_user_id = $_SESSION['user_id'];
     $curr_user_full_info = $_SESSION['user_full_info'];
+} else {
+    $curr_user_id = "anonymous";
 }
 ?>
 
@@ -44,6 +47,7 @@ if (isset($_SESSION['user_name'])) {
             // -------------
 
             use App\Models\QuestionCategoryModel;
+            use App\Models\QuestionLabelModel;
             use App\Models\QuestionQueueModel;
             use App\Models\RatingQuestionModel;
             use App\Models\RatingAnswerModel;
@@ -89,7 +93,16 @@ if (isset($_SESSION['user_name'])) {
                 <div class="review_status"><span><?php echo "$badContent_question_count" ?></span><i class="far fa-thumbs-down mx-2"></i>Bad content</div>
 
             </div>
-            <div class="card-footer que_detail_bg">
+
+            <?php
+            if ($curr_user_id != 'anonymous') {
+            } else {
+                echo '<style>.card-footer{display:none;} .review_status_wrapper{display:flex;} </style>';
+            }
+            ?>
+
+
+            <div class="card-footer que_detail_bg ">
 
 
                 <span class="float-right gr-btn-report w-100">
@@ -118,12 +131,14 @@ if (isset($_SESSION['user_name'])) {
                 </span>
 
             </div>
+
             <div class="card-footer que_detail_bg">
 
                 <button type="button" class="btn btn-success w-100">Trả lời</button>
 
 
             </div>
+
         </div>
 
         <hr>
@@ -245,11 +260,34 @@ href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_i
             </div>
 
 
+
+
             <div class="card-body ">
                 <h4 class="card-title">
                     <strong>Nhãn</strong>
                 </h4>
+                <div class="list-tag">
+                    <?php
+                    // ---------------
+                    // Tags
+                    // ---------------
+                    $queLabelModel = new QuestionLabelModel();
+                    if (isset($_GET['que_id'])) {
+                        $que_id = $_GET['que_id'];
+                        $arrayTags = $queLabelModel->findArrayLabelOfQuestion($que_id);
+                        console_log($arrayTags);
+                        foreach ($arrayTags as $tag) {
+                            echo '   <div class="tag mx-1"> <a href="">#' . $tag['label_name'] . ' </a> </div>';
+                        }
+                    }
 
+
+
+
+                    ?>
+
+
+                </div>
 
             </div>
         </div>
@@ -366,7 +404,7 @@ if (isset($_GET['rating_status']) && isset($_GET['user_id']) && isset($_GET['ans
 
     switch ($rating_status) {
         case 'like':
-            echo "answer like";
+
 
             $ratingQuestionModel = new RatingAnswerModel();
             $user_id = $_GET['user_id'];
