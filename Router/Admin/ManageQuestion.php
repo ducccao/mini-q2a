@@ -84,6 +84,10 @@ echo '</div>';
 
 
 echo '</div>';
+
+// JQuery
+require_once "./App/Views/Partials/JQuery/JQuery-Func.php";
+
 echo '</body>';
 
 // -------------

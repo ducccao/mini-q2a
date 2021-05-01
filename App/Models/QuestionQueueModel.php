@@ -56,8 +56,17 @@ class QuestionQueueModel
         return $ret;
     }
 
-    public function del()
+    public function del($que_id)
     {
+        $db = new Db();
+
+        $sql = "DELETE 
+        FROM `questionqueue` AS q
+        WHERE q.que_id='$que_id';";
+
+        $ret = $db->patchDb($sql);
+
+        return $ret;
     }
 
     public function GetNewestQuestionQueueWithoutArrayTag()
