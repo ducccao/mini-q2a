@@ -219,6 +219,61 @@ WHERE r.rate_name = 'like'
 AND r.ans_id='ans_01';
 
 
+-- ----------------------------------------------------------
+-- Home. All rating question
+-- ----------------------------------------------------------   
+SELECT *
+FROM `ratingsquestion`;
+
+-- ----------------------------------------------------------
+-- Home. All Like rating question
+-- ----------------------------------------------------------   
+SELECT *
+FROM `ratingsquestion`
+WHERE rate_name ='like';
+
+-- ----------------------------------------------------------
+-- Home. All spam rating question
+-- ----------------------------------------------------------   
+SELECT *
+FROM `ratingsquestion`
+WHERE rate_name ='spam';
+
+-- ----------------------------------------------------------
+-- Home. All bad_content rating question
+-- ----------------------------------------------------------   
+SELECT *
+FROM `ratingsquestion`
+WHERE rate_name ='bad_content';
+
+
+
+
+-- ----------------------------------------------------------
+-- Home. Like Rating By User  - Question Detail
+-- ----------------------------------------------------------   
+INSERT INTO `ratingsquestion` (rate_id, rate_name, que_id, user_id)
+VALUES ('rate_10','like','que_03','user_08');
+
+-- ----------------------------------------------------------
+-- Home. Un-Like Rating By User  - Question Detail
+-- ----------------------------------------------------------   
+DELETE 
+FROM `ratingsquestion`
+WHERE user_id = 'user_06' 
+AND que_id = 'que_03'
+AND rate_name = 'like';
+
+-- ----------------------------------------------------------
+-- Home. Un-Spam Rating By User  - Question Detail
+-- ----------------------------------------------------------   
+DELETE 
+FROM `ratingsquestion`
+WHERE user_id = 'user_06' 
+AND que_id = 'que_03'
+AND rate_name = 'spam';
+
+
  
  
 ----------------
@@ -227,12 +282,13 @@ AND r.ans_id='ans_01';
 select * from `users` order by user_id;
 select * from `questionqueue`;
 select * from `autoquestionaccepted`;
-select * from `ratingsquestion`;
+
 select * from `questioncategories`;
 select * from `labels`;
 select * from `quetionqueue_labels`;
 select * from `answers`;
 select * from `ratingsAnswer`;
+select * from `ratingsquestion`;
  
 
 -- ----------------------------------------------------------

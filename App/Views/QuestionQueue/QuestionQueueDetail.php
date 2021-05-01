@@ -17,6 +17,18 @@
     }
 </style>
 
+<?php
+
+if (isset($_SESSION['user_name'])) {
+    $curr_user = $_SESSION['user_name'];
+    $user_type = $_SESSION['user_type'];
+    $isExistsUser = true;
+
+    $curr_user_id = $_SESSION['user_id'];
+    $curr_user_full_info = $_SESSION['user_full_info'];
+}
+?>
+
 
 
 <div class="row">
@@ -32,6 +44,7 @@
             // -------------
 
             use App\Models\QuestionQueueModel;
+            use App\Models\RatingQuestionModel;
 
             ?>
             <div class="card-header que_detail_bg">
@@ -79,7 +92,7 @@
 
                 <span class="float-right gr-btn-report w-100">
                     <a type="button" class="btn btn-light w-50" <?php
-                                                                echo 'href="/mini-q2a?action=question-queue-detail&que_id=' . $data[0]['que_id'] . '&report_status=like"';
+                                                                echo 'href="/mini-q2a?action=question-queue-detail&que_id=' . $data[0]['que_id'] . '&rating_status=like&user_id=' . $curr_user_id . '"';
                                                                 ?>>
                         <i class="far fa-thumbs-up"></i>
 
@@ -91,10 +104,10 @@
                         </button>
                         <div class="dropdown-menu w-100" aria-labelledby="btnReport">
                             <a class="dropdown-item w-100" <?php
-                                                            echo 'href="/mini-q2a?action=question-queue-detail&que_id=' . $data[0]['que_id'] . '&report_status=spam"';
+                                                            echo 'href="/mini-q2a?action=question-queue-detail&que_id=' . $data[0]['que_id'] . '&rating_status=spam&user_id=' . $curr_user_id . '"';
                                                             ?>>Spam</a>
                             <a class="dropdown-item w-100" <?php
-                                                            echo 'href="/mini-q2a?action=question-queue-detail&que_id=' . $data[0]['que_id'] . '&report_status=bad_content"';
+                                                            echo 'href="/mini-q2a?action=question-queue-detail&que_id=' . $data[0]['que_id'] . '&rating_status=bad_content&user_id=' . $curr_user_id . '"';
                                                             ?>>Bad content</a>
                         </div>
                     </div>
@@ -128,7 +141,7 @@
             foreach ($data[1] as $ans) {
                 echo '<div class="card my-5 ">';
 
-                echo '<div class="card-header  ">';
+                echo '<div class="card-header common-bg ">';
 
                 echo "<h4>";
                 echo '<strong> Trả lời bởi:</strong> <strong>' . $ans['user_name']  . '</strong> ';
@@ -147,7 +160,7 @@
 
                 echo ' </div>';
 
-                echo '   <div class="card-footer bg-light  review_status_wrapper">';
+                echo '   <div class="card-footer   common-bg review_status_wrapper">';
 
 
                 $qqModel = new QuestionQueueModel();
@@ -157,7 +170,7 @@
 
 
 
-                echo '<div class="review_status"><span>' .  $like_ans_count['like_count'] . ' 
+                echo '<div class="review_status "><span>' .  $like_ans_count['like_count'] . ' 
                  </span><i class="far fa-thumbs-up mx-2"></i>Like</div>';
 
 
@@ -170,12 +183,12 @@
 
 
                 echo '
-<div class="card-footer   ">';
+<div class="card-footer  common-bg ">';
                 echo '
 <div>
 <span class="float-right gr-btn-report">
-<a type="button" class="btn btn-light" 
-href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_id=' . $ans['ans_id'] . '&report_status=like">
+<a type="button" class="btn bg-white" 
+href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_id=' . $ans['ans_id'] . '&rating_status=like&user_id=' . $curr_user_id . '">
     <i class="far fa-thumbs-up"></i>
 
     Like</a>
@@ -186,9 +199,9 @@ href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_i
     </button>
     <div class="dropdown-menu" aria-labelledby="btnReport">
         <a class="dropdown-item"
-          href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_id=' . $ans['ans_id'] . '&report_status=spam"; >Spam</a>
+          href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_id=' . $ans['ans_id'] . '&rating_status=spam&user_id=' . $curr_user_id . '"; >Spam</a>
           <a class="dropdown-item"
-          href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_id=' . $ans['ans_id'] . '&report_status=bad_content"; >Bad content</a>
+          href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_id=' . $ans['ans_id'] . '&rating_status=bad_content&user_id=' . $curr_user_id . '"; >Bad content</a>
     </div>
 </div>
 
@@ -224,3 +237,101 @@ href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_i
     </div>
 
 </div>
+
+
+
+<?php
+// ----------------------
+// handle rating question 
+// ----------------------
+if (isset($_GET['rating_status']) && isset($_GET['user_id']) && !isset($_GET['ans_id'])) {
+    $rating_status = $_GET['rating_status'];
+
+    switch ($rating_status) {
+        case 'like':
+
+            $ratingQuestionModel = new RatingQuestionModel();
+            $user_id = $_GET['user_id'];
+            $que_id = $_GET['que_id'];
+            $rating_status = $_GET['rating_status'];
+
+            $allUserLikeRating = $ratingQuestionModel->allLike();
+
+            $is_liked = false;
+
+            foreach ($allUserLikeRating as $allLike) {
+                if ($allLike['que_id'] == $que_id && $allLike['user_id'] == $user_id) {
+                    $is_liked = true;
+                }
+            }
+
+            if ($is_liked == false) {
+                $ratingQuestionModel->likeRatingByUserHandle($user_id, $que_id);
+                echo "<script>location.href='/mini-q2a?action=question-queue-detail&que_id=$que_id'</script>";
+            } else {
+                $ratingQuestionModel->unLikeRatingByUserHandle($user_id, $que_id);
+                echo "<script>location.href='/mini-q2a?action=question-queue-detail&que_id=$que_id'</script>";
+            }
+
+
+
+
+
+            break;
+        case 'spam':
+            $ratingQuestionModel = new RatingQuestionModel();
+            $user_id = $_GET['user_id'];
+            $que_id = $_GET['que_id'];
+
+
+            $allUserLikeRating = $ratingQuestionModel->allSpam();
+
+            $is_spamed = false;
+
+            foreach ($allUserLikeRating as $allLike) {
+                if ($allLike['que_id'] == $que_id && $allLike['user_id'] == $user_id) {
+                    $is_spamed = true;
+                }
+            }
+
+            if ($is_spamed == false) {
+                $ratingQuestionModel->spamRatingByUserHandle($user_id, $que_id);
+                echo "<script>location.href='/mini-q2a?action=question-queue-detail&que_id=$que_id'</script>";
+            } else {
+                $ratingQuestionModel->unSpamRatingByUserHandle($user_id, $que_id);
+                echo "<script>location.href='/mini-q2a?action=question-queue-detail&que_id=$que_id'</script>";
+            }
+
+            break;
+        case 'bad_content':
+
+            $ratingQuestionModel = new RatingQuestionModel();
+            $user_id = $_GET['user_id'];
+            $que_id = $_GET['que_id'];
+
+
+            $allUserLikeRating = $ratingQuestionModel->allBadContent();
+
+            $is_badContented = false;
+
+            foreach ($allUserLikeRating as $allLike) {
+                if ($allLike['que_id'] == $que_id && $allLike['user_id'] == $user_id) {
+                    $is_badContented = true;
+                }
+            }
+
+            if ($is_badContented == false) {
+                $ratingQuestionModel->badContentRatingByUserHandle($user_id, $que_id);
+                echo "<script>location.href='/mini-q2a?action=question-queue-detail&que_id=$que_id'</script>";
+            } else {
+                $ratingQuestionModel->unBadContentRatingByUserHandle($user_id, $que_id);
+                echo "<script>location.href='/mini-q2a?action=question-queue-detail&que_id=$que_id'</script>";
+            }
+            break;
+
+        default:
+            # code...
+            break;
+    }
+}
+?>
