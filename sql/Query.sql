@@ -1,6 +1,7 @@
 use mini_social_network;
 
 
+
 -- --------------------------------------
 -- Count the amount of question's category
 -- --------------------------------------

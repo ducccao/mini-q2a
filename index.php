@@ -26,9 +26,12 @@ $PATH_ROOT = "http://localhost:8080/mini-q2a";
 //$PATH_ADMIN_ROOT = "http://localhost:8080/admin";
 // XAMPP
 $PATH_ADMIN_ROOT = "http://localhost:8080/mini-q2a/admin";
+$PATH_AUTO_ACCEPT_QUESTION_API_SERVICE = "http://localhost:3000/mini-q2a/admin/auto-check-accept-all-question";
 
 $GLOBALS['PATH_ROOT'] = $PATH_ROOT;
 $GLOBALS['PATH_ADMIN_ROOT'] = $PATH_ADMIN_ROOT;
+$GLOBALS['PATH_AUTO_ACCEPT_QUESTION_API_SERVICE'] = $PATH_AUTO_ACCEPT_QUESTION_API_SERVICE;
+
 
 
 global $PATH_ROOT;

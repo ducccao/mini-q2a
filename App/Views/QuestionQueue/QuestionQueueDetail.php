@@ -263,31 +263,40 @@ href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_i
 
 
             <div class="card-body ">
-                <h4 class="card-title">
-                    <strong>Nhãn</strong>
-                </h4>
-                <div class="list-tag">
-                    <?php
-                    // ---------------
-                    // Tags
-                    // ---------------
-                    $queLabelModel = new QuestionLabelModel();
-                    if (isset($_GET['que_id'])) {
-                        $que_id = $_GET['que_id'];
-                        $arrayTags = $queLabelModel->findArrayLabelOfQuestion($que_id);
-                        console_log($arrayTags);
+
+
+                <?php
+                // ---------------
+                // Tags
+                // ---------------
+                $queLabelModel = new QuestionLabelModel();
+                if (isset($_GET['que_id'])) {
+                    $que_id = $_GET['que_id'];
+                    $arrayTags = $queLabelModel->findArrayLabelOfQuestion($que_id);
+                    console_log($arrayTags);
+
+                    if (count($arrayTags) > 0) {
+                        echo '  <h4 class="card-title">
+<strong>Tags</strong>
+</h4>';
+
+
+                        echo "   <div class='list-tag'>";
                         foreach ($arrayTags as $tag) {
+
                             echo '   <div class="tag mx-1"> <a href="">#' . $tag['label_name'] . ' </a> </div>';
                         }
+                        echo "  </div>";
                     }
+                }
 
 
 
 
-                    ?>
+                ?>
 
 
-                </div>
+
 
             </div>
         </div>

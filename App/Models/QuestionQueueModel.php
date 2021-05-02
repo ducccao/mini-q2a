@@ -196,8 +196,6 @@ class QuestionQueueModel
         AND questionqueue.que_cate_id='$cate_id'
         AND questionqueue.is_accepted = TRUE
         ORDER BY createdAt DESC
-        LIMIT 10
-        OFFSET 0;
         ";
 
         $db->load($sql);
