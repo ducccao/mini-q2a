@@ -155,7 +155,6 @@ if (isset($_GET['txtContent'])) {
             // Handle Repeat tag from user
             $arrayTag = array_unique($arrayTag);
 
-            console_log($arrayTag);
 
 
 
@@ -179,9 +178,46 @@ if (isset($_GET['txtContent'])) {
 
                     if ($isTagExists == false) {
                         $label_id = randomString(10);
-                        $labelModel->add($label_id, $tag);
 
-                        $quetionLabelModel->add($que_id, $label_id);
+                        // check case sensitive
+                        $vnBadWords = [
+                            "đụ",
+                            "cụ",
+                            "đù",
+                            "đụ má",
+                            "má mày",
+                            "má",
+                            "mày",
+                            "địt",
+                            "cặc",
+                            "lồn",
+                            "đĩ",
+                            "điếm",
+                            "thúi",
+                            "quần què",
+                            "đéo",
+                            "vãi",
+                            "ngu",
+                            "cứt",
+                            "chó chết",
+                            "Chết mẹ",
+                            "đi ăn cứt",
+                            "ăn máu lồn",
+                        ];
+
+                        $badword_flag = false;
+
+                        foreach ($vnBadWords as $bad) {
+                            if (str_contains($tag, $bad) == true) {
+                                $badword_flag = true;
+                                break;
+                            }
+                        }
+
+                        if ($badword_flag == false) {
+                            $labelModel->add($label_id, $tag);
+                            $quetionLabelModel->add($que_id, $label_id);
+                        }
                     } else {
                         $label_curr = $labelModel->findLabelByLabelName($tag);
 
@@ -198,19 +234,49 @@ if (isset($_GET['txtContent'])) {
         // --------------
 
         if ($ret == true) {
-            $PATH_AUTO_ACCEPT_QUESTION_API_SERVICE = $GLOBALS['PATH_AUTO_ACCEPT_QUESTION_API_SERVICE'];
-
-
-
-
             echo "<script>
             Swal.fire({
                 icon: 'success',
-                title: 'Đăng câu hỏi thành công!',
+                title: 'Bài đăng của bạn đang được duyệt!',
                 showConfirmButton: false,
-                timer: 2500
+                timer: 3000
               });
             </script>";
+
+            $PATH_AUTO_ACCEPT_QUESTION_API_SERVICE = $GLOBALS['PATH_AUTO_ACCEPT_QUESTION_API_SERVICE'];
+
+            $curr_data_added = $qqModel->detailWithAcceptIsFalse($que_id);
+            $curr_tag_added = $quetionLabelModel->findArrayLabelOfQuestion($que_id);
+            console_log($curr_tag_added);
+
+            $retCallAPI = callAPI("GET", $PATH_AUTO_ACCEPT_QUESTION_API_SERVICE, [$curr_data_added, $curr_tag_added]);
+
+            $retCallAPI = json_decode($retCallAPI, true);
+            console_log($retCallAPI);
+
+
+            if (isset($retCallAPI)) {
+                if ($retCallAPI['is_accepted'] == true) {
+                    echo "<script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Đăng câu hỏi thành công!',
+                        showConfirmButton: false,
+                        timer: 3000
+                      });
+                    </script>";
+                } else {
+                    echo "<script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Đăng câu hỏi thất bại!',
+                        showConfirmButton: false,
+                        timer: 2500
+                      });
+                    </script>";
+                }
+            }
+
 
 
             //   echo "<script>window.location.assign('$PATH_AUTO_ACCEPT_QUESTION_API_SERVICE')</script>";
