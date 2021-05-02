@@ -70,7 +70,7 @@ function callAPI($method, $url, $data)
     // EXECUTE:
     $result = curl_exec($curl);
     if (!$result) {
-        die("Connection Failure");
+        return -1;
     }
     curl_close($curl);
     return $result;
