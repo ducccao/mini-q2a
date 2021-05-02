@@ -153,6 +153,8 @@ class QuestionQueueController
         }
 
 
+
+
         if ($pagi_total_QuestionQueue == $pagi_num_QuestionQueue_appear) {
             $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear);
         } else {
@@ -260,7 +262,6 @@ class QuestionQueueController
             $badContent_question_count = count($badContent_data);
         }
 
-        console_log($ansData);
 
         $data = [
             $queDetailData, $ansData, $like_data, $like_question_count,

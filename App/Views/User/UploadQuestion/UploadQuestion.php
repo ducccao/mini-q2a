@@ -140,6 +140,9 @@ if (isset($_GET['txtContent'])) {
     if ($error_flag == false) {
 
         $ret = $qqModel->add($que_id, $que_content, $que_title, $user_id, $que_cate_id);
+
+
+
         // --------------
         // Tags handler
         // --------------
@@ -195,6 +198,11 @@ if (isset($_GET['txtContent'])) {
         // --------------
 
         if ($ret == true) {
+            $PATH_AUTO_ACCEPT_QUESTION_API_SERVICE = $GLOBALS['PATH_AUTO_ACCEPT_QUESTION_API_SERVICE'];
+
+
+
+
             echo "<script>
             Swal.fire({
                 icon: 'success',
@@ -203,6 +211,9 @@ if (isset($_GET['txtContent'])) {
                 timer: 2500
               });
             </script>";
+
+
+            //   echo "<script>window.location.assign('$PATH_AUTO_ACCEPT_QUESTION_API_SERVICE')</script>";
         } else {
             echo "<script>
             Swal.fire({
