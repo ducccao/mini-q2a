@@ -309,19 +309,6 @@ ON q.user_id = u.user_id
 WHERE q.que_id = 'que_01';
 
 
-----------------
--- testing
-----------------
-select * from `users` order by user_id;
-select * from `questionqueue`;
-select * from `autoquestionaccepted`;
-
-select * from `questioncategories`;
-select * from `labels`;
-select * from `quetionqueue_labels`;
-select * from `answers`;
-select * from `ratingsAnswer`;
-select * from `ratingsquestion`;
 
 
 
@@ -354,11 +341,6 @@ WHERE l.label_name='ok';
 
  
 
--- ----------------------------------------------------------
--- Admin. All Answer
--- ----------------------------------------------------------
-SELECT *
-FROM `answers`;
 
 -- ----------------------------------------------------------
 -- Admin. Detail Question
@@ -390,6 +372,32 @@ SELECT a.ans_id, a.que_id, a.ans_content, a.ans_source_url, a.ans_images,
 UPDATE `questionqueue` AS q
 SET q.is_accepted = 0
 WHERE que_id = 'que_01';
+
+-- ----------------------------------------------------------
+-- Admin. All Answer
+-- ----------------------------------------------------------
+SELECT a.ans_id, a.ans_content, a.createdAt, u.user_name, qq.que_id, a.is_accepted
+FROM `answers` AS a
+INNER JOIN `questionqueue` AS qq 
+ON qq.que_id = a.que_id 
+INNER JOIN `users` AS u
+ON u.user_id = a.user_id
+ORDER BY a.createdAt DESC;
+
+
+----------------
+-- testing
+----------------
+select * from `users` order by user_id;
+select * from `questionqueue`;
+select * from `autoquestionaccepted`;
+
+select * from `questioncategories`;
+select * from `labels`;
+select * from `quetionqueue_labels`;
+select * from `answers`;
+select * from `ratingsAnswer`;
+select * from `ratingsquestion`;
 
 
 

@@ -40,4 +40,18 @@ class AdminModel
 
         return $ret;
     }
+    public function AcceptAnswerHandle($ans_id, $is_accepted)
+    {
+        $db = new Db();
+
+        $sql = "UPDATE `answers` AS a
+        SET a.is_accepted = $is_accepted
+        WHERE ans_id = '$ans_id';
+        ";
+
+
+        $ret = $db->patchDb($sql);
+
+        return $ret;
+    }
 }

@@ -113,4 +113,50 @@ class AdminController
 
         return $manageQuestionView->render($view_path, $data);
     }
+    public function ManageAnswer()
+    {
+
+
+        $view_path = './App/Views/Admin/ManageAnswer/ManageAnswer.php';
+
+        $ansModel = new AnswerModel();
+        $allAnswers = $ansModel->all();
+
+        // Data Note
+        // data[0]: allAnswers
+
+        $data = [$allAnswers];
+        $manageAnswerView = new View();
+        return $manageAnswerView->render($view_path, $data);
+    }
+
+    public function ManageAnswerDetail()
+    {
+        $queDetailData = null;
+        $ansData = null;
+
+        if (isset($_GET['ans_id'])) {
+            $ans_id = $_GET['ans_id'];
+
+            $adMode = new AdminModel();
+            $ansModel = new AnswerModel();
+            $ansDetailData = $ansModel->detail($ans_id);
+
+            console_log($ansDetailData);
+        }
+
+
+
+        $data = [$ansDetailData, $ansData];
+
+
+        // data[0]: ansDetailData
+        // data[1]: ansData
+
+
+        $manageQuestionView = new View();
+        $view_path = './App/Views/Admin/ManageAnswer/ManageAnswerDetail.php';
+
+        return $manageQuestionView->render($view_path, $data);
+    }
 }

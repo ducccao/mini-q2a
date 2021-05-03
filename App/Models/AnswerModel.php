@@ -13,10 +13,13 @@ class AnswerModel
     {
         $db = new Db();
 
-        $sql = "SELECT *
+        $sql = "SELECT a.ans_id, a.ans_content, a.createdAt, u.user_name, qq.que_id, a.is_accepted
         FROM `answers` AS a
-        ORDER BY a.createdAt;
-       ";
+        INNER JOIN `questionqueue` AS qq 
+        ON qq.que_id = a.que_id 
+        INNER JOIN `users` AS u
+        ON u.user_id = a.user_id
+        ORDER BY a.createdAt DESC;";
 
         $db->load($sql);
         $ret = $db->Rows();
@@ -45,6 +48,23 @@ class AnswerModel
         return $ret;
     }
     public function detail($ans_id)
+    {
+        $db = new Db();
+
+        $sql = "SELECT a.ans_id, a.ans_content, a.createdAt, u.user_name, qq.que_id, a.is_accepted
+        FROM `answers` AS a
+        INNER JOIN `questionqueue` AS qq 
+        ON qq.que_id = a.que_id 
+        INNER JOIN `users` AS u
+        ON u.user_id = a.user_id
+        WHERE a.ans_id = '$ans_id';";
+
+        $db->load($sql);
+        $ret = $db->Rows();
+
+        return $ret[0];
+    }
+    public function AnswerDetailByQueID($que_id)
     {
     }
 
@@ -82,7 +102,7 @@ class AnswerModel
        ON u.user_id = a.user_id
        WHERE a.que_id = '$que_id'
        AND a.is_accepted = TRUE
-       ORDER BY a.createdAt;
+       ORDER BY a.createdAt DESC;
        ";
 
         $db->load($sql);
