@@ -46,6 +46,19 @@
         </a>
 
 
+        <a <?php if (
+                str_contains($curr_route, "action=answer")
+                && !str_contains($curr_route, "action=question-category")
+            ) {
+                echo "class='nav-link active'";
+            } else {
+                echo "class='nav-link '";
+            }
+            echo "href='$PATH_ADMIN_ROOT?action=answer'" ?>>
+            <i class="fas fa-cog"></i>
+            Quản lý câu trả lời
+        </a>
+
         <a class="nav-link" <?php echo "href='$PATH_ROOT?action=home'" ?>> <i class="fas fa-cog"></i>
             Trang chủ</a>
 
