@@ -1,7 +1,9 @@
 <style>
     .que_detail_bg {
-        background-color: #343a40 !important;
-        color: var(--near-white);
+
+        background-color: var(--near-white);
+
+        color: black;
 
     }
 
@@ -11,14 +13,37 @@
     }
 
     .review_status_wrapper {
+        background-color: transparent !important;
+
 
         display: flex;
         justify-content: space-between;
 
     }
+
+    .ans_wrapper {
+        background-color: #e3e7e8;
+    }
+
+    .common-bg {
+        background-color: var(--near-white);
+
+    }
 </style>
 
+
+<!-- wysiwyg toys -->
+<script src="https://cdn.tiny.cloud/1/6a2wdzaqh764emfqjwf4g5s2kr8ajq1vbfrcipng9eu1o2il/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+
+
 <?php
+
+if (!isset($_SESSION['user_type'])) {
+    $user_type = "anonymous";
+}
+
 
 if (isset($_SESSION['user_name'])) {
     $curr_user = $_SESSION['user_name'];
@@ -46,11 +71,13 @@ if (isset($_SESSION['user_name'])) {
             // quetion detail
             // -------------
 
+            use App\Models\AnswerModel;
             use App\Models\QuestionCategoryModel;
             use App\Models\QuestionLabelModel;
             use App\Models\QuestionQueueModel;
             use App\Models\RatingQuestionModel;
             use App\Models\RatingAnswerModel;
+            use App\Models\UserModel;
 
             ?>
             <div class="card-header que_detail_bg">
@@ -105,15 +132,17 @@ if (isset($_SESSION['user_name'])) {
             <div class="card-footer que_detail_bg ">
 
 
-                <span class="float-right gr-btn-report w-100">
-                    <a type="button" class="btn btn-light w-50" <?php
-                                                                echo 'href="/mini-q2a?action=question-queue-detail&que_id=' . $data[0]['que_id'] . '&rating_status=like&user_id=' . $curr_user_id . '"';
-                                                                ?>>
+
+                <span class="float-right gr-btn-report">
+
+                    <a type="button" class="btn btn-light " <?php
+                                                            echo 'href="/mini-q2a?action=question-queue-detail&que_id=' . $data[0]['que_id'] . '&rating_status=like&user_id=' . $curr_user_id . '"';
+                                                            ?>>
                         <i class="far fa-thumbs-up"></i>
 
                         Like</a>
 
-                    <div class="dropdown mx-2  w-50">
+                    <div class="dropdown mx-2  ">
                         <button class="btn btn-danger dropdown-toggle w-100" type="button" id="btnReport" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="far fa-flag"></i> Report
                         </button>
@@ -132,21 +161,55 @@ if (isset($_SESSION['user_name'])) {
 
             </div>
 
-            <div class="card-footer que_detail_bg">
-
-                <button type="button" class="btn btn-success w-100">Trả lời</button>
 
 
-            </div>
 
         </div>
+        <hr>
+
+        <?php
+        // --------------
+        // handle answer
+        // --------------
+
+        if ($user_type != 'anonymous') {
+            if (isset($_GET['que_id'])) {
+                $que_id = $_GET['que_id'];
+            }
+            echo "       <h5 class'text-title'>
+         Gửi câu trả lời
+        </h5>";
+            echo '<form class="upload-wrapper " method="GET" >';
+            echo '<input  name="action" value="question-queue-detail" class="d-none" />';
+            echo '<input  name="que_id" value="' . $que_id . '" class="d-none" />';
+
+            echo '    <textarea id="txtAnsContent" name="txtAnsContent"></textarea>';
+            echo ' <button class="btn btn-success  my-3 px-5">Gửi</button>';
+            echo '</form>';
+        }
+
+        ?>
+
+
+        <script>
+            tinymce.init({
+                selector: '#txtAnsContent',
+                plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                toolbar_mode: 'floating',
+            });
+        </script>
+
 
         <hr>
 
 
+        <?php
+        if (count($data[1]) == 0) {
+            echo "<style>.ans_wrapper{display:none;}</style>";
+        }
+        ?>
 
-
-        <div class="home-content p-3 my-3">
+        <div class="ans_wrapper my-3">
 
             <?php
             // -------------
@@ -503,4 +566,61 @@ if (isset($_GET['rating_status']) && isset($_GET['user_id']) && isset($_GET['ans
             break;
     }
 }
+?>
+
+
+
+<?php
+// -------------------------------
+// handling Add Answer content
+// -------------------------------
+
+if (isset($_GET['txtAnsContent'])) {
+    $ans_content = $_GET['txtAnsContent'];
+    $que_id = $_GET['que_id'];
+
+
+    $ansModel = new AnswerModel();
+    $userModel = new UserModel();
+
+    $ans_id = randomString(10);
+    $ans_source_URL = "none";
+    $ans_images = "none";
+    $user_id = $curr_user_id;
+    $is_accepted = 0;
+
+
+    $ret = $ansModel->add(
+        $ans_id,
+        $ans_content,
+        $ans_source_URL,
+        $ans_images,
+        $que_id,
+        $user_id,
+        $is_accepted
+    );
+
+    if ((int)$ret == 1) {
+        echo "<script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Câu trả lời của bạn đang được duyệt!',
+            showConfirmButton: false,
+            timer: 3000
+          });
+        </script>";
+    } else {
+        echo "<script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Gửi thất bại!',
+            showConfirmButton: false,
+            timer: 3000
+          });
+        </script>";
+    }
+
+    console_log($ret);
+}
+
 ?>

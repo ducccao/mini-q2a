@@ -6,7 +6,9 @@ use Db;
 
 class AnswerModel
 {
-
+    public function __construct()
+    {
+    }
     public function all()
     {
         $db = new Db();
@@ -21,7 +23,27 @@ class AnswerModel
 
         return $ret;
     }
+    public function add(
+        $ans_id,
+        $ans_content,
+        $ans_source_URL,
+        $ans_images,
+        $que_id,
+        $user_id,
+        $is_accepted
+    ) {
+        $db = new Db();
+        $sql = "INSERT INTO `answers` (ans_id, ans_content, ans_source_URL, ans_images, createdAt, que_id, user_id,is_accepted)
+        VALUES ('$ans_id', '$ans_content', '$ans_source_URL', '$ans_images', current_timestamp(), '$que_id', '$user_id',$is_accepted);
+        ";
+        console_log($sql);
 
+        $ret = $db->patchDb($sql);
+
+        console_log($ret);
+
+        return $ret;
+    }
     public function detail($ans_id)
     {
     }
@@ -67,9 +89,5 @@ class AnswerModel
         $ret = $db->Rows();
 
         return $ret;
-    }
-
-    public function __construct()
-    {
     }
 }

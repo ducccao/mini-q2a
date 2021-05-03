@@ -27,6 +27,7 @@ use App\Models\QuestionLabelModel;
 
 
 <form class="upload-wrapper p-3 my-3" method="GET">
+    <!-- virtual acction -->
     <input type="text" class="form-control d-none" name="action" value="user-upload-question" id="action" aria-describedby="helpId" placeholder="">
 
     <div class="form-group">
@@ -255,25 +256,29 @@ if (isset($_GET['txtContent'])) {
             console_log($retCallAPI);
 
 
+
+
             if (isset($retCallAPI)) {
-                if ($retCallAPI['is_accepted'] == true) {
-                    echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Đăng câu hỏi thành công!',
-                        showConfirmButton: false,
-                        timer: 3000
-                      });
-                    </script>";
-                } else {
-                    echo "<script>
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Đăng câu hỏi thất bại!',
-                        showConfirmButton: false,
-                        timer: 2500
-                      });
-                    </script>";
+                if ($retCallAPI != -1) {
+                    if ($retCallAPI['is_accepted'] == true) {
+                        echo "<script>
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Đăng câu hỏi thành công!',
+                            showConfirmButton: false,
+                            timer: 3000
+                          });
+                        </script>";
+                    } else {
+                        echo "<script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Đăng câu hỏi thất bại!',
+                            showConfirmButton: false,
+                            timer: 2500
+                          });
+                        </script>";
+                    }
                 }
             }
 

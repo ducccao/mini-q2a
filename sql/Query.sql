@@ -285,13 +285,28 @@ WHERE q.que_id='que_03';
 
 
 -- ----------------------------------------------------------
--- Home. Get Labem by que_id - Question Detail
+-- Home. Get Label by que_id - Question Detail
 -- ----------------------------------------------------------   
 SELECT  ql.que_id,  ql.label_id, l.label_name
 FROM `quetionqueue_labels` AS ql
 INNER JOIN `labels` AS l
 ON ql.label_id = l.label_id
 WHERE ql.que_id= '8k3lPCf9QE';
+
+-- ----------------------------------------------------------
+-- Home. Answer 
+-- ----------------------------------------------------------   
+INSERT INTO `answers` (ans_id, ans_content, ans_source_URL, ans_images, createdAt, que_id, user_id,is_accepted)
+VALUES ('ans_id', 'ans_content', 'ans_source_URL', 'ans_images', current_timestamp(), 'que_01', 'user_01',false);
+
+-- ----------------------------------------------------------
+-- Home. Get userID by queID - Answer 
+-- ----------------------------------------------------------   
+SELECT u.user_id
+FROM `users` as u
+LEFT JOIN `questionqueue` AS q
+ON q.user_id = u.user_id
+WHERE q.que_id = 'que_01';
 
 
 ----------------
