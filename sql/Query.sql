@@ -337,7 +337,36 @@ FROM  `labels`AS l
 WHERE l.label_name='ok';
 
 
- 
+-- ----------------------------------------------------------
+-- Home.  Outstanding question (More than 10 like & 5 ans)
+-- ----------------------------------------------------------  
+SELECT qq.que_id, qq.que_content, qq.que_title, qq.createdAt, u.user_name, r.rate_name,
+COUNT(*) AS like_count
+FROM `questionqueue` AS qq 
+INNER JOIN `ratingsquestion` as r
+ON r.que_id = qq.que_id
+INNER JOIN `users` AS u
+ON u.user_id = qq.user_id
+WHERE qq.is_accepted = TRUE
+AND r.rate_name= 'like'
+GROUP BY qq.que_id
+ORDER BY qq.createdAt DESC
+LIMIT 5;
+
+
+----------------
+-- testing
+----------------
+select * from `users` order by user_id;
+select * from `questionqueue`;
+select * from `autoquestionaccepted`;
+
+select * from `questioncategories`;
+select * from `labels`;
+select * from `quetionqueue_labels`;
+select * from `answers`;
+select * from `ratingsAnswer`;
+select * from `ratingsquestion`;
 
  
 
@@ -385,19 +414,6 @@ ON u.user_id = a.user_id
 ORDER BY a.createdAt DESC;
 
 
-----------------
--- testing
-----------------
-select * from `users` order by user_id;
-select * from `questionqueue`;
-select * from `autoquestionaccepted`;
-
-select * from `questioncategories`;
-select * from `labels`;
-select * from `quetionqueue_labels`;
-select * from `answers`;
-select * from `ratingsAnswer`;
-select * from `ratingsquestion`;
 
 
 
