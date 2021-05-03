@@ -416,7 +416,7 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
 
     </div>
-    <div class="home-list-filter-right w-25 p-3 ml-3">
+    <div class="home-list-filter-right w-25 ml-3">
         <div class="filter_by_cat p-3 my-3">
             <h4 class="">Chủ đề</h4>
 
@@ -443,7 +443,7 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                             echo "<div> <a  href='$PATH_ROOT?action=question-queue&questionCate=$questionCategories[que_cate_id]' 
                 class='que_cate_name' >" . $questionCategories["que_cate_name"] . "</a> </div> ";
 
-                            echo "<div class='badge badge-light p-2'>" . $questionCategories["amount"] . " </div>";
+                            echo "<div class='badge badge-primary p-2'>" . $questionCategories["amount"] . " </div>";
                             echo "   </th>";
 
 
@@ -469,13 +469,63 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                 <table class="table table-hover">
                     <tbody>
 
-                        <tr>
-                            <td><a class="time_filter_css" href="#">Mới nhât</a></td>
-                        </tr>
 
-                        <tr>
-                            <td><a class="time_filter_css" href="#">Cũ nhất</a></td>
-                        </tr>
+
+                        <form action="" method="GET" id="fmSortByNewestTime">
+                            <input type="text" name="action" value="question-queue" class="d-none">
+                            <div class="form-check">
+                                <label class="form-check-label time_filter_css">
+                                    <input type="checkbox" class="form-check-input" name="txtTimeNewest" id="txtTimeNewest" value="DESC" <?php if (isset($_GET['txtTimeNewest'])) {
+                                                                                                                                                echo "checked";
+                                                                                                                                            } ?>>
+                                    Mới nhất
+                                </label>
+                            </div>
+
+
+
+                        </form>
+
+
+                        <form action="" method="GET" id="fmSortByOldestTime">
+                            <input type="text" name="action" value="question-queue" class="d-none">
+
+                            <div class="form-check">
+                                <label class="form-check-label time_filter_css">
+                                    <input type="checkbox" class="form-check-input" name="txtTimeOldest" id="txtTimeOldest" value="ASC" <?php if (isset($_GET['txtTimeOldest'])) {
+                                                                                                                                            echo "checked";
+                                                                                                                                        } ?>>
+                                    Cũ nhất
+                                </label>
+                            </div>
+
+
+
+                        </form>
+
+
+
+                        <script>
+                            const fmSortByNewestTime = $("#fmSortByNewestTime");
+                            const fmSortByOldestTime = $("#fmSortByOldestTime");
+                            const txtTimeNewest = $("#txtTimeNewest");
+                            const txtTimeOldest = $("#txtTimeOldest");
+
+
+
+                            txtTimeNewest.on("change", function(e) {
+                                if (this.checked) {
+                                    fmSortByNewestTime.submit();
+                                }
+                            })
+                            txtTimeOldest.on("change", function(e) {
+                                if (this.checked) {
+                                    fmSortByOldestTime.submit();
+                                }
+                            })
+                        </script>
+
+
                     </tbody>
                 </table>
             </div>
