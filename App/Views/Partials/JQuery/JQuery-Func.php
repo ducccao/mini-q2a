@@ -15,17 +15,59 @@
         $('<form method="POST">' +
             `<input type="text" name="queue_id" value='${event.target.id}' />` +
             '</form>').appendTo('body').submit();
-    })
+    });
+
+    $(".btn-delete-answer").click((event) => {
+        $('<form method="POST">' +
+            `<input type="text" name="answer_id" value='${event.target.id}' />` +
+            '</form>').appendTo('body').submit();
+    });
 </script>
 
 <?php
 use App\Models\QuestionQueueModel;
+use App\Models\AnswerModel;
 
 if (isset($_POST['queue_id'])) {
     $value = $_POST['queue_id'];
     console_log('Delete question: ' . $value);
     $questionQueueModel = new QuestionQueueModel;
     $ret = $questionQueueModel->del($value);
+    if ($ret == true) {
+        echo "<script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Xóa thành công!',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        </script>";
+
+
+        echo "<script>
+        
+        setTimeout(() => {
+            location.href='/admin?action=question'
+        }, 1500);
+     </script>";
+    } else {
+        echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Xóa thất bại!',
+            showConfirmButton: false,
+            timer: 2000
+          });
+        </script>";
+    }
+}
+
+
+if (isset($_POST['answer_id'])) {
+    $value = $_POST['answer_id'];
+    console_log('Delete answer: ' . $value);
+    $answerModel = new AnswerModel;
+    $ret = $answerModel->del($value);
     if ($ret == true) {
         echo "<script>
         Swal.fire({

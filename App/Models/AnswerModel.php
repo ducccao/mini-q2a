@@ -69,8 +69,17 @@ class AnswerModel
     }
 
 
-    public function del()
+    public function del($ans_id)
     {
+        $db = new Db();
+
+        $sql = "DELETE 
+        FROM `answers` AS a
+        WHERE a.ans_id='$ans_id';";
+
+        $ret = $db->patchDb($sql);
+
+        return $ret;
     }
 
     public function getAnsByQueID_Admin($que_id)

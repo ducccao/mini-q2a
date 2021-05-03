@@ -96,6 +96,7 @@ class QuestionQueueModel
 
         return $ret;
     }
+
     public function FiveOutstandingQuetion()
     {
         $db = new Db();

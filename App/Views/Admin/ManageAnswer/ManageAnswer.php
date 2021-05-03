@@ -48,7 +48,7 @@ use App\Models\QuestionQueueModel;
                         </td>";
                         echo "  <td class='d-flex'>
                         <a href='/admin?action=answer-detail&ans_id=$ans[ans_id]&is_accepted=$ans[is_accepted]'  class='btn btn-question-detail btn-warning mx-2'>Chi tiết</a>
-                        <a class='btn btn-danger btn-question-delete btn-delete' id='$ans[ans_id]'>Xóa</a>
+                        <a class='btn btn-danger btn-question-delete btn-delete-answer' id='$ans[ans_id]'>Xóa</a>
                         </td>";
                         echo "</tr>";
                     }
