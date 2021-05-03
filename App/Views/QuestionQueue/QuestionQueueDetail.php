@@ -31,7 +31,19 @@
     }
 </style>
 
+
+<!-- wysiwyg toys -->
+<script src="https://cdn.tiny.cloud/1/6a2wdzaqh764emfqjwf4g5s2kr8ajq1vbfrcipng9eu1o2il/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+
+
 <?php
+
+if (!isset($_SESSION['user_type'])) {
+    $user_type = "anonymous";
+}
+
 
 if (isset($_SESSION['user_name'])) {
     $curr_user = $_SESSION['user_name'];
@@ -59,11 +71,13 @@ if (isset($_SESSION['user_name'])) {
             // quetion detail
             // -------------
 
+            use App\Models\AnswerModel;
             use App\Models\QuestionCategoryModel;
             use App\Models\QuestionLabelModel;
             use App\Models\QuestionQueueModel;
             use App\Models\RatingQuestionModel;
             use App\Models\RatingAnswerModel;
+            use App\Models\UserModel;
 
             ?>
             <div class="card-header que_detail_bg">
@@ -117,7 +131,7 @@ if (isset($_SESSION['user_name'])) {
 
             <div class="card-footer que_detail_bg ">
 
-                <button type="button" class="btn btn-success ">Trả lời</button>
+
 
                 <span class="float-right gr-btn-report">
 
@@ -149,7 +163,42 @@ if (isset($_SESSION['user_name'])) {
 
 
 
+
         </div>
+        <hr>
+
+        <?php
+        // --------------
+        // handle answer
+        // --------------
+
+        if ($user_type != 'anonymous') {
+            if (isset($_GET['que_id'])) {
+                $que_id = $_GET['que_id'];
+            }
+            echo "       <h5 class'text-title'>
+         Gửi câu trả lời
+        </h5>";
+            echo '<form class="upload-wrapper " method="GET" >';
+            echo '<input  name="action" value="question-queue-detail" class="d-none" />';
+            echo '<input  name="que_id" value="' . $que_id . '" class="d-none" />';
+
+            echo '    <textarea id="txtAnsContent" name="txtAnsContent"></textarea>';
+            echo ' <button class="btn btn-success  my-3 px-5">Gửi</button>';
+            echo '</form>';
+        }
+
+        ?>
+
+
+        <script>
+            tinymce.init({
+                selector: '#txtAnsContent',
+                plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                toolbar_mode: 'floating',
+            });
+        </script>
+
 
         <hr>
 
@@ -160,7 +209,7 @@ if (isset($_SESSION['user_name'])) {
         }
         ?>
 
-        <div class="ans_wrapper py-3 my-3">
+        <div class="ans_wrapper my-3">
 
             <?php
             // -------------
@@ -517,4 +566,61 @@ if (isset($_GET['rating_status']) && isset($_GET['user_id']) && isset($_GET['ans
             break;
     }
 }
+?>
+
+
+
+<?php
+// -------------------------------
+// handling Add Answer content
+// -------------------------------
+
+if (isset($_GET['txtAnsContent'])) {
+    $ans_content = $_GET['txtAnsContent'];
+    $que_id = $_GET['que_id'];
+
+
+    $ansModel = new AnswerModel();
+    $userModel = new UserModel();
+
+    $ans_id = randomString(10);
+    $ans_source_URL = "none";
+    $ans_images = "none";
+    $user_id = $curr_user_id;
+    $is_accepted = 0;
+
+
+    $ret = $ansModel->add(
+        $ans_id,
+        $ans_content,
+        $ans_source_URL,
+        $ans_images,
+        $que_id,
+        $user_id,
+        $is_accepted
+    );
+
+    if ((int)$ret == 1) {
+        echo "<script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Câu trả lời của bạn đang được duyệt!',
+            showConfirmButton: false,
+            timer: 3000
+          });
+        </script>";
+    } else {
+        echo "<script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Gửi thất bại!',
+            showConfirmButton: false,
+            timer: 3000
+          });
+        </script>";
+    }
+
+    console_log($ret);
+}
+
 ?>

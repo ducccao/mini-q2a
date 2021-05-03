@@ -12,6 +12,25 @@ class UserModel
     public function __constructor()
     {
     }
+
+
+    public function getUserIDByQueID($que_id)
+    {
+        $db = new Db();
+
+        $sql = "SELECT u.user_id
+        FROM `users` as u
+        LEFT JOIN `questionqueue` AS q
+        ON q.user_id = u.user_id
+        WHERE q.que_id = '$que_id';
+        ";
+        $db->load($sql);
+        $ret = $db->Rows();
+
+
+
+        return $ret[0];
+    }
     public function getAllUser()
     {
 

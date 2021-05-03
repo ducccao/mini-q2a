@@ -27,6 +27,7 @@ use App\Models\QuestionLabelModel;
 
 
 <form class="upload-wrapper p-3 my-3" method="GET">
+    <!-- virtual acction -->
     <input type="text" class="form-control d-none" name="action" value="user-upload-question" id="action" aria-describedby="helpId" placeholder="">
 
     <div class="form-group">
