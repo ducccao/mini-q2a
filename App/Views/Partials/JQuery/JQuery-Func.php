@@ -82,7 +82,7 @@ if (isset($_POST['answer_id'])) {
         echo "<script>
         
         setTimeout(() => {
-            location.href='/admin?action=question'
+            location.href='/admin?action=answer'
         }, 1500);
      </script>";
     } else {
