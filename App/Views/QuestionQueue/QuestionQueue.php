@@ -25,8 +25,21 @@
     }
 
     .home-list-filter-right {
-        height: 300px;
-        background-color: var(--layout-bg-2);
+        min-height: 300px;
+
+    }
+
+    .filter_by_cat {
+        background-color: var(--near-white);
+        border-radius: 5px;
+        color: black;
+    }
+
+    .filter_by_time {
+        background-color: var(--near-white);
+        color: black;
+
+        border-radius: 5px;
     }
 
     .question-queue {
@@ -34,6 +47,7 @@
         min-height: 80px;
         background-color: lightblue;
         border: 1px solid black;
+        color: black;
 
     }
 
@@ -125,19 +139,23 @@
     }
 
     .home-list-filter-right {
-        background-color: #8fa1b4;
         color: var(--near-white);
         border-radius: var(--border-radius);
 
     }
 
     a:hover {
-        color: var(--near-white);
+        color: black;
         text-decoration: none;
     }
 
     .que_cate_name {
-        color: var(--near-white);
+        color: black;
+    }
+
+    .time_filter_css {
+        color: black;
+        font-weight: bold;
 
     }
 
@@ -398,45 +416,139 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
 
     </div>
-    <div class="home-list-filter-right w-25 p-3 ml-3">
-        <h4 class="">Chủ đề</h4>
+    <div class="home-list-filter-right w-25 ml-3">
+        <div class="filter_by_cat p-3 my-3">
+            <h4 class="">Chủ đề</h4>
 
-        <div class="que-cate-wrapper">
-            <table class="table table-hover">
-                <tbody>
+            <div class="que-cate-wrapper">
+                <table class="table table-hover">
+                    <tbody>
 
 
-                    <?php
-                    $questionCate = '';
-
-                    if (isset($_REQUEST['questionCate'])) {
-                        $questionCate = $_REQUEST['questionCate'];
-                    } else {
+                        <?php
                         $questionCate = '';
-                    }
+
+                        if (isset($_REQUEST['questionCate'])) {
+                            $questionCate = $_REQUEST['questionCate'];
+                        } else {
+                            $questionCate = '';
+                        }
 
 
 
-                    foreach ($data[1] as $questionCategories) {
-                        // echo floor(81 / 10);
-                        echo "<tr class='question-category'>";
-                        echo '<th scope="row" class ="que-cate-content"> ';
-                        echo "<div> <a  href='$PATH_ROOT?action=question-queue&questionCate=$questionCategories[que_cate_id]' 
-                        class='que_cate_name' >" . $questionCategories["que_cate_name"] . "</a> </div> ";
+                        foreach ($data[1] as $questionCategories) {
+                            // echo floor(81 / 10);
+                            echo "<tr class='question-category'>";
+                            echo '<th scope="row" class ="que-cate-content"> ';
+                            echo "<div> <a  href='$PATH_ROOT?action=question-queue&questionCate=$questionCategories[que_cate_id]' 
+                class='que_cate_name' >" . $questionCategories["que_cate_name"] . "</a> </div> ";
 
-                        echo "<div class='badge badge-light p-2'>" . $questionCategories["amount"] . " </div>";
-                        echo "   </th>";
-
-
-                        echo "</tr>";
-                    }
-                    ?>
-                    <th>
+                            echo "<div class='badge badge-primary p-2'>" . $questionCategories["amount"] . " </div>";
+                            echo "   </th>";
 
 
-                    </th>
-                </tbody>
-            </table>
+                            echo "</tr>";
+                        }
+                        ?>
+                        <th>
+
+
+                        </th>
+                    </tbody>
+                </table>
+            </div>
+
+
         </div>
+
+
+        <div class="filter_by_time p-3 my-3">
+            <h4 class="">Thời gian </h4>
+
+            <div class="que-cate-wrapper">
+                <table class="table table-hover">
+                    <tbody>
+
+
+
+                        <form action="" method="GET" id="fmSortByNewestTime">
+                            <input type="text" name="action" value="question-queue" class="d-none">
+                            <div class="form-check">
+                                <label class="form-check-label time_filter_css">
+                                    <input type="checkbox" class="form-check-input" name="txtTimeNewest" id="txtTimeNewest" value="DESC" <?php if (isset($_GET['txtTimeNewest'])) {
+                                                                                                                                                echo "checked";
+                                                                                                                                            } ?>>
+                                    Mới nhất
+                                </label>
+                            </div>
+
+
+
+                        </form>
+
+
+                        <form action="" method="GET" id="fmSortByOldestTime">
+                            <input type="text" name="action" value="question-queue" class="d-none">
+
+                            <div class="form-check">
+                                <label class="form-check-label time_filter_css">
+                                    <input type="checkbox" class="form-check-input" name="txtTimeOldest" id="txtTimeOldest" value="ASC" <?php if (isset($_GET['txtTimeOldest'])) {
+                                                                                                                                            echo "checked";
+                                                                                                                                        } ?>>
+                                    Cũ nhất
+                                </label>
+                            </div>
+
+
+
+                        </form>
+
+
+
+                        <script>
+                            const fmSortByNewestTime = $("#fmSortByNewestTime");
+                            const fmSortByOldestTime = $("#fmSortByOldestTime");
+                            const txtTimeNewest = $("#txtTimeNewest");
+                            const txtTimeOldest = $("#txtTimeOldest");
+
+
+
+                            txtTimeNewest.on("change", function(e) {
+                                if (this.checked) {
+                                    fmSortByNewestTime.submit();
+                                }
+                            })
+                            txtTimeOldest.on("change", function(e) {
+                                if (this.checked) {
+                                    fmSortByOldestTime.submit();
+                                }
+                            })
+                        </script>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+
+        <div class="filter_by_time p-3 my-3">
+            <h4 class="">Tags</h4>
+
+            <div class="list-tag">
+                <div class="tag mx-1"> <a href="">#a </a> </div>
+                <div class="tag mx-1"> <a href="">#a </a> </div>
+                <div class="tag mx-1"> <a href="">#a </a> </div>
+
+            </div>
+
+
+        </div>
+
     </div>
+
+
+
 </div>

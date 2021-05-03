@@ -29,6 +29,10 @@
         background-color: var(--near-white);
 
     }
+
+    .card {
+        background-color: #fff;
+    }
 </style>
 
 
