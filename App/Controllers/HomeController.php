@@ -7,6 +7,8 @@ use App\Views\View;
 use App\Models\QuestionQueueModel;
 use App\Models\QuestionCategoryModel;
 
+use function PHPSTORM_META\map;
+
 class HomeController
 {
     public function index()
@@ -17,13 +19,21 @@ class HomeController
 
 
         $questionCategories = $questionCateModel->GetAllQuestionCategoriesWithCountQQ();
-        $newestQuestionQueue = $qqModel->GetNewestQuestionQueueWithoutArrayTag();
+        $fiveOutstandingQuestion = $qqModel->FiveOutstandingQuetion();
         $newestQQArrayTags = $qqModel->GetNewstQuestionQueueArrayTagName();
 
         $view_home = new View();
 
 
-        $data = [$newestQuestionQueue,  $questionCategories, $newestQQArrayTags];
+        $fiveOutstandingQuestion = array_filter($fiveOutstandingQuestion, function ($ele) {
+            return (int)$ele['like_count'] > 2;
+        });
+
+
+        console_log($fiveOutstandingQuestion);
+
+
+        $data = [$fiveOutstandingQuestion,  $questionCategories, $newestQQArrayTags];
 
         $view_path = "./App/Views/Home/HomePage.php";
 

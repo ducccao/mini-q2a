@@ -96,12 +96,33 @@ class QuestionQueueModel
 
         return $ret;
     }
+    public function FiveOutstandingQuetion()
+    {
+        $db = new Db();
+
+        $sql = "SELECT qq.que_id, qq.que_content, qq.que_title,
+         qq.createdAt, u.user_name, r.rate_name, COUNT(*) AS like_count
+        FROM `questionqueue` AS qq 
+        INNER JOIN `ratingsquestion` as r
+        ON r.que_id = qq.que_id
+        INNER JOIN `users` AS u
+        ON u.user_id = qq.user_id
+        WHERE qq.is_accepted = TRUE
+        AND r.rate_name= 'like'
+        GROUP BY qq.que_id
+        ORDER BY qq.createdAt DESC
+        LIMIT 5;";
+
+        $db->load($sql);
+        $data = $db->Rows();
+        return $data;
+    }
 
     public function GetNewestQuestionQueueWithoutArrayTag()
     {
         $db = new Db();
         $sql = "SELECT  questionqueue.que_id,questionqueue.que_title , 
-        questionqueue.createdAt,COUNT(*) as like_count,users.user_name
+        questionqueue.createdAt,COUNT(*)  as like_count,users.user_name
         FROM `questionqueue`
         LEFT JOIN `ratingsquestion`
         ON ratingsquestion.que_id = questionqueue.que_id 
@@ -109,6 +130,7 @@ class QuestionQueueModel
         ON users.user_id = questionqueue.user_id 
         WHERE ratingsquestion.rate_name = 'like'
         AND questionqueue.is_accepted = TRUE
+ 
         GROUP BY questionqueue.que_id
         ORDER BY questionqueue.createdAt DESC;
         ";
