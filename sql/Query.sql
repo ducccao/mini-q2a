@@ -107,31 +107,6 @@ FROM  `questionqueue`
 WHERE que_id='que_01';
 
 
-
-
--- ----------------------------------------------------------
--- ADMIN. All Question Category
--- ----------------------------------------------------------
-SELECT*
-FROM `questioncategories`;
--- ----------------------------------------------------------
--- ADMIN. Add Question Category
--- ----------------------------------------------------------
-INSERT INTO `questioncategories` (que_cate_id,que_cate_name)
-VALUES ('que_cate_','Hóa học');
--- ----------------------------------------------------------
--- ADMIN. Delete Question Category
--- ----------------------------------------------------------
-DELETE 
-FROM `questioncategories` AS q
-WHERE q.que_cate_id='4O8oRVGD2P';
--- ----------------------------------------------------------
--- ADMIN. Edit Question Category
--- ----------------------------------------------------------
-UPDATE `questioncategories` AS qcat
-SET qcat.que_cate_name = 'NEW NAME'
-WHERE qcat.que_cate_id = 'old id';
-
 -- ------------------------------------------------------
 -- Get All Quetion Category, All Question Queue
 -- -----------------------------------------------------
@@ -353,6 +328,28 @@ GROUP BY qq.que_id
 ORDER BY qq.createdAt DESC
 LIMIT 5;
 
+-- ----------------------------------------------------------
+-- Home.  Outstanding tags (More than 5 user used it)
+-- ----------------------------------------------------------  
+SELECT l.label_id, l.label_name, COUNT(*) AS count_user_used
+FROM `labels` AS l
+INNER JOIN `quetionqueue_labels` AS ql
+ON ql.label_id = l.label_id
+GROUP BY l.label_id
+ORDER BY l.label_name;
+-- ----------------------------------------------------------
+-- Home.  filter by tags 
+-- ----------------------------------------------------------  
+
+SELECT q.que_id,q.que_title,q.createdAt,u.user_name , l.label_id, l.label_name
+FROM `questionqueue` as q,`users`as u, `labels` as l, `quetionqueue_labels` as ql
+WHERE u.user_id = q.user_id 
+AND q.is_accepted = TRUE
+AND l.label_id = ql.label_id
+AND ql.que_id = q.que_id
+ORDER BY l.label_name DESC 
+LIMIT 10
+OFFSET  0;
 
 ----------------
 -- testing
@@ -413,6 +410,31 @@ INNER JOIN `users` AS u
 ON u.user_id = a.user_id
 ORDER BY a.createdAt DESC;
 
+
+
+
+-- ----------------------------------------------------------
+-- ADMIN. All Question Category
+-- ----------------------------------------------------------
+SELECT*
+FROM `questioncategories`;
+-- ----------------------------------------------------------
+-- ADMIN. Add Question Category
+-- ----------------------------------------------------------
+INSERT INTO `questioncategories` (que_cate_id,que_cate_name)
+VALUES ('que_cate_','Hóa học');
+-- ----------------------------------------------------------
+-- ADMIN. Delete Question Category
+-- ----------------------------------------------------------
+DELETE 
+FROM `questioncategories` AS q
+WHERE q.que_cate_id='4O8oRVGD2P';
+-- ----------------------------------------------------------
+-- ADMIN. Edit Question Category
+-- ----------------------------------------------------------
+UPDATE `questioncategories` AS qcat
+SET qcat.que_cate_name = 'NEW NAME'
+WHERE qcat.que_cate_id = 'old id';
 
 
 

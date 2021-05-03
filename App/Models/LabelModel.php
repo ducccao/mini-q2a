@@ -55,4 +55,20 @@ class LabelModel
 
         return [];
     }
+    public function  getTagUsedByUserWithAmount()
+    {
+        $db = new Db();
+
+        $sql = "SELECT l.label_id, l.label_name, COUNT(*) AS count_user_used
+        FROM `labels` AS l
+        INNER JOIN `quetionqueue_labels` AS ql
+        ON ql.label_id = l.label_id
+        GROUP BY l.label_id
+        ORDER BY l.label_name
+        LIMIT 15";
+
+        $db->load($sql);
+        $ret = $db->Rows();
+        return $ret;
+    }
 }

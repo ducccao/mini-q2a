@@ -291,7 +291,7 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
             foreach ($this->data[2]  as $tags => $tag) {
 
                 if ($tag['que_id'] == $qq['que_id']) {
-                    echo "       <div class='tag mx-1'>    <a href=''>";
+                    echo '       <div class="tag mx-1">    <a href="/mini-q2a?action=question-queue&tag_id=' . $tag['label_id'] . '">';
                     echo  "#" . $tag['label_name'];
                     echo '    </a>      </div>';
                 }
@@ -340,12 +340,12 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
                         if ($questionCate != '') {
 
-                            $temp_pagi_cur_previous = $pagi_curr - 2;
+                            $temp_pagi_cur_previous = $pagi_curr - 1;
                             echo "   <li class='page-item '>
                                 <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&questionCate=$questionCate&pagi=$temp_pagi_cur_previous'>Previous</a>
                             </li>";
                         } else {
-                            $temp_pagi_cur_previous = $pagi_curr - 2;
+                            $temp_pagi_cur_previous = $pagi_curr - 1;
 
                             echo "   <li class='page-item '>
                             <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&pagi=$temp_pagi_cur_previous'>Previous</a>
@@ -357,8 +357,8 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                     // total pagi stuff right there 
                     // ------------------------------
 
-                    for ($i = 0; $i < $data[4]; ++$i) {
-                        if ($data[5] - 1 == $i) {
+                    for ($i = 1; $i <= $data[4]; ++$i) {
+                        if ($data[5] == $i) {
                             $questionCate = '';
                             if (isset($data[6])) {
                                 $questionCate = $data[6];
@@ -369,13 +369,13 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                                 echo '  <li class="page-item active"><a  class="page-link " ';
                                 echo "  href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&questionCate=$questionCate&pagi=$i'";
                                 echo ">";
-                                echo  $i + 1 . "   </a></li>";
+                                echo  $i . "   </a></li>";
                             } else {
 
                                 echo '  <li class="page-item active"><a  class="page-link " ';
                                 echo "  href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&pagi=$i'";
                                 echo ">";
-                                echo  $i + 1 . "   </a></li>";
+                                echo  $i . "   </a></li>";
                             }
                         } else {
                             $questionCate = '';
@@ -387,13 +387,13 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                                 echo '  <li class="page-item "><a  class="page-link " ';
                                 echo "  href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&questionCate=$questionCate&pagi=$i'";
                                 echo ">";
-                                echo  $i + 1 . "   </a></li>";
+                                echo  $i  . "   </a></li>";
                             } else {
 
                                 echo '  <li class="page-item "><a  class="page-link " ';
                                 echo "  href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&pagi=$i'";
                                 echo ">";
-                                echo  $i + 1 . "   </a></li>";
+                                echo  $i  . "   </a></li>";
                             }
                         }
                     }
@@ -408,15 +408,16 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
                         echo " <li class='page-item disabled'> <a class='page-link disabled pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&pagi=$pagi_curr'>Next</a> </li> ";
                     } else {
+                        $temp_pagi = $pagi_curr + 1;
                         $questionCate = '';
                         if (isset($data[6])) {
                             $questionCate = $data[6];
                         }
 
                         if ($questionCate != '') {
-                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&questionCate=$questionCate&pagi=$pagi_curr'>Next</a></li> ";
+                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&questionCate=$questionCate&pagi=$temp_pagi'>Next</a></li> ";
                         } else {
-                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&pagi=$pagi_curr'>Next</a></li> ";
+                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&pagi=$temp_pagi'>Next</a></li> ";
                         }
                     }
                 } else if (isset($_GET['txtTimeOldest'])) {
@@ -441,12 +442,12 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
                         if ($questionCate != '') {
 
-                            $temp_pagi_cur_previous = $pagi_curr - 2;
+                            $temp_pagi_cur_previous = $pagi_curr - 1;
                             echo "   <li class='page-item '>
                                 <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&questionCate=$questionCate&pagi=$temp_pagi_cur_previous'>Previous</a>
                             </li>";
                         } else {
-                            $temp_pagi_cur_previous = $pagi_curr - 2;
+                            $temp_pagi_cur_previous = $pagi_curr - 1;
 
                             echo "   <li class='page-item '>
                             <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&pagi=$temp_pagi_cur_previous'>Previous</a>
@@ -458,8 +459,8 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                     // total pagi stuff right there 
                     // ------------------------------
 
-                    for ($i = 0; $i < $data[4]; ++$i) {
-                        if ($data[5] - 1 == $i) {
+                    for ($i = 1; $i <= $data[4]; ++$i) {
+                        if ($data[5]  == $i) {
                             $questionCate = '';
                             if (isset($data[6])) {
                                 $questionCate = $data[6];
@@ -470,13 +471,13 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                                 echo '  <li class="page-item active"><a  class="page-link " ';
                                 echo "  href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&questionCate=$questionCate&pagi=$i'";
                                 echo ">";
-                                echo  $i + 1 . "   </a></li>";
+                                echo  $i  . "   </a></li>";
                             } else {
 
                                 echo '  <li class="page-item active"><a  class="page-link " ';
                                 echo "  href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&pagi=$i'";
                                 echo ">";
-                                echo  $i + 1 . "   </a></li>";
+                                echo  $i  . "   </a></li>";
                             }
                         } else {
                             $questionCate = '';
@@ -488,13 +489,13 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                                 echo '  <li class="page-item "><a  class="page-link " ';
                                 echo "  href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&questionCate=$questionCate&pagi=$i'";
                                 echo ">";
-                                echo  $i + 1 . "   </a></li>";
+                                echo  $i . "   </a></li>";
                             } else {
 
                                 echo '  <li class="page-item "><a  class="page-link " ';
                                 echo "  href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&pagi=$i'";
                                 echo ">";
-                                echo  $i + 1 . "   </a></li>";
+                                echo  $i . "   </a></li>";
                             }
                         }
                     }
@@ -509,15 +510,17 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
                         echo " <li class='page-item disabled'> <a class='page-link disabled pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&pagi=$pagi_curr'>Next</a> </li> ";
                     } else {
+                        $temp_pagi = $pagi_curr + 1;
+
                         $questionCate = '';
                         if (isset($data[6])) {
                             $questionCate = $data[6];
                         }
 
                         if ($questionCate != '') {
-                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&questionCate=$questionCate&pagi=$pagi_curr'>Next</a></li> ";
+                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&questionCate=$questionCate&pagi=$temp_pagi'>Next</a></li> ";
                         } else {
-                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&pagi=$pagi_curr'>Next</a></li> ";
+                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&pagi=$temp_pagi'>Next</a></li> ";
                         }
                     }
                 } else {
@@ -537,12 +540,12 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
                         if ($questionCate != '') {
 
-                            $temp_pagi_cur_previous = $pagi_curr - 2;
+                            $temp_pagi_cur_previous = $pagi_curr - 1;
                             echo "   <li class='page-item '>
                                 <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$temp_pagi_cur_previous'>Previous</a>
                             </li>";
                         } else {
-                            $temp_pagi_cur_previous = $pagi_curr - 2;
+                            $temp_pagi_cur_previous = $pagi_curr - 1;
 
                             echo "   <li class='page-item '>
                             <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&pagi=$temp_pagi_cur_previous'>Previous</a>
@@ -552,8 +555,8 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
 
                     // total pagi stuff right there 
-                    for ($i = 0; $i < $data[4]; ++$i) {
-                        if ($data[5] - 1 == $i) {
+                    for ($i = 1; $i <= $data[4]; ++$i) {
+                        if ($data[5]  == $i) {
                             $questionCate = '';
                             if (isset($data[6])) {
                                 $questionCate = $data[6];
@@ -564,13 +567,13 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                                 echo '  <li class="page-item active"><a  class="page-link " ';
                                 echo "  href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$i'";
                                 echo ">";
-                                echo  $i + 1 . "   </a></li>";
+                                echo  $i . "   </a></li>";
                             } else {
 
                                 echo '  <li class="page-item active"><a  class="page-link " ';
                                 echo "  href='$PATH_ROOT?action=question-queue&pagi=$i'";
                                 echo ">";
-                                echo  $i + 1 . "   </a></li>";
+                                echo  $i . "   </a></li>";
                             }
                         } else {
                             $questionCate = '';
@@ -582,13 +585,13 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                                 echo '  <li class="page-item "><a  class="page-link " ';
                                 echo "  href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$i'";
                                 echo ">";
-                                echo  $i + 1 . "   </a></li>";
+                                echo  $i . "   </a></li>";
                             } else {
 
                                 echo '  <li class="page-item "><a  class="page-link " ';
                                 echo "  href='$PATH_ROOT?action=question-queue&pagi=$i'";
                                 echo ">";
-                                echo  $i + 1 . "   </a></li>";
+                                echo  $i . "   </a></li>";
                             }
                         }
                     }
@@ -597,15 +600,17 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
                         echo " <li class='page-item disabled'> <a class='page-link disabled pagi-next' href='$PATH_ROOT?action=question-queue&pagi=$pagi_curr'>Next</a> </li> ";
                     } else {
+                        $temp_pagi = $pagi_curr + 1;
+
                         $questionCate = '';
                         if (isset($data[6])) {
                             $questionCate = $data[6];
                         }
 
                         if ($questionCate != '') {
-                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$pagi_curr'>Next</a></li> ";
+                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$temp_pagi'>Next</a></li> ";
                         } else {
-                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&pagi=$pagi_curr'>Next</a></li> ";
+                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&pagi=$temp_pagi'>Next</a></li> ";
                         }
                     }
                 }
@@ -620,29 +625,6 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
 
 
-
-
-
-                <?php
-
-
-
-
-
-                ?>
-
-
-
-                <?php
-
-
-
-
-                ?>
-                <?php
-
-
-                ?>
 
 
             </ul>
@@ -769,12 +751,19 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
 
         <div class="filter_by_time p-3 my-3">
-            <h4 class="">Tags</h4>
+            <h4 class="">Top tags</h4>
+
 
             <div class="list-tag">
-                <div class="tag mx-1"> <a href="">#a </a> </div>
-                <div class="tag mx-1"> <a href="">#a </a> </div>
-                <div class="tag mx-1"> <a href="">#a </a> </div>
+
+                <?php
+                // outstanding tags
+
+                foreach ($data[7] as $tag) {
+                    echo '<div class="tag mx-1"> <a href="/mini-q2a?action=question-queue&tag_id=' . $tag['label_id'] . '">#' . $tag['label_name'] . ' </a> </div>';
+                }
+                ?>
+
 
             </div>
 
