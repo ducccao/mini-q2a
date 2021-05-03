@@ -80,6 +80,20 @@ class QuestionQueueController
             return $this->GetQuestionByKeyWord($keyWord);
         }
 
+        if (isset($_GET['txtTimeNewest'])) {
+            $allQuestionQueuePaginationed = $qqModel->filterByNewestTime($limit, $offset);
+        }
+
+
+        if (isset($_GET['txtTimeOldest'])) {
+            $allQuestionQueuePaginationed = $qqModel->filterByOldestTime($limit, $offset);
+        }
+
+        // ----------------------
+        //  Filter by newest time
+        // ----------------------
+
+
 
         $view_home = new View();
         /*
@@ -93,7 +107,7 @@ class QuestionQueueController
         
         */
 
-        console_log($allQuestionQueuePaginationed);
+
         $data = [
             $allQuestionQueuePaginationed,  $questionCategories,
             $fullArrayTags, $allLikeCount, $pagi_total_pagi_stuff, $pagi_current,
@@ -261,6 +275,7 @@ class QuestionQueueController
             $spam_question_count = count($spam_data);
             $badContent_question_count = count($badContent_data);
         }
+
 
 
         $data = [
