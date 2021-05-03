@@ -33,6 +33,10 @@
     .card {
         background-color: #fff;
     }
+
+    a:hover {
+        text-decoration: none;
+    }
 </style>
 
 
@@ -352,7 +356,7 @@ href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_i
                         echo "   <div class='list-tag'>";
                         foreach ($arrayTags as $tag) {
 
-                            echo '   <div class="tag mx-1"> <a href="">#' . $tag['label_name'] . ' </a> </div>';
+                            echo '   <div class="tag mx-1"> <a href="/mini-q2a?action=question-queue&tag_id=' . $tag['label_id'] . '">#' . $tag['label_name'] . ' </a> </div>';
                         }
                         echo "  </div>";
                     }

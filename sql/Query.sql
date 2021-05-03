@@ -337,7 +337,19 @@ INNER JOIN `quetionqueue_labels` AS ql
 ON ql.label_id = l.label_id
 GROUP BY l.label_id
 ORDER BY l.label_name;
+-- ----------------------------------------------------------
+-- Home.  filter by tags 
+-- ----------------------------------------------------------  
 
+SELECT q.que_id,q.que_title,q.createdAt,u.user_name , l.label_id, l.label_name
+FROM `questionqueue` as q,`users`as u, `labels` as l, `quetionqueue_labels` as ql
+WHERE u.user_id = q.user_id 
+AND q.is_accepted = TRUE
+AND l.label_id = ql.label_id
+AND ql.que_id = q.que_id
+ORDER BY l.label_name DESC 
+LIMIT 10
+OFFSET  0;
 
 ----------------
 -- testing

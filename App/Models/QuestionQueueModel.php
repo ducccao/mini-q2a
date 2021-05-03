@@ -219,6 +219,70 @@ class QuestionQueueModel
         return $data;
     }
 
+    public function filterByTagTotalQuestion($label_id)
+    {
+        $db = new Db();
+
+        // $sql = 'SELECT questionqueue.que_id,questionqueue.que_title,questionqueue.createdAt,users.user_name 
+        // FROM `questionqueue`,`users`
+        // WHERE users.user_id = questionqueue.user_id 
+        // AND questionqueue.is_accepted = TRUE
+        // ORDER BY createdAt DESC 
+        // LIMIT ' . $limit .
+        //     ' OFFSET ' . $offset;
+
+        $sql = "SELECT q.que_id,q.que_title,q.createdAt,u.user_name , l.label_id, l.label_name
+            FROM `questionqueue` as q,`users`as u, `labels` as l, `quetionqueue_labels` as ql
+            WHERE u.user_id = q.user_id 
+            AND q.is_accepted = TRUE
+            AND l.label_id = ql.label_id
+            AND ql.que_id = q.que_id
+            AND l.label_id = '$label_id'
+          ;";
+
+
+
+
+        $db->load($sql);
+        $data = $db->Rows();
+
+        return $data;
+    }
+
+    public function filterByTag($label_id, $limit, $offset)
+    {
+        $db = new Db();
+
+        // $sql = 'SELECT questionqueue.que_id,questionqueue.que_title,questionqueue.createdAt,users.user_name 
+        // FROM `questionqueue`,`users`
+        // WHERE users.user_id = questionqueue.user_id 
+        // AND questionqueue.is_accepted = TRUE
+        // ORDER BY createdAt DESC 
+        // LIMIT ' . $limit .
+        //     ' OFFSET ' . $offset;
+
+        $sql = "SELECT q.que_id,q.que_title,q.createdAt,u.user_name , l.label_id, l.label_name
+            FROM `questionqueue` as q,`users`as u, `labels` as l, `quetionqueue_labels` as ql
+            WHERE u.user_id = q.user_id 
+            AND q.is_accepted = TRUE
+            AND l.label_id = ql.label_id
+            AND ql.que_id = q.que_id
+            AND l.label_id = '$label_id'
+            ORDER BY l.label_name DESC 
+            LIMIT $limit
+            OFFSET  $offset;";
+
+
+
+
+        $db->load($sql);
+        $data = $db->Rows();
+
+        return $data;
+    }
+
+
+
     public function filterByNewestTime($limit, $offset)
     {
         $db = new Db();
@@ -266,7 +330,7 @@ class QuestionQueueModel
     {
         $db = new Db();
 
-        $sql = "SELECT quetionqueue_labels.que_id,labels.label_name
+        $sql = "SELECT quetionqueue_labels.que_id,labels.label_name,labels.label_id
         FROM  `quetionqueue_labels`
         INNER JOIN `labels`
         ON labels.label_id=quetionqueue_labels.label_id;

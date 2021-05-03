@@ -291,7 +291,7 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
             foreach ($this->data[2]  as $tags => $tag) {
 
                 if ($tag['que_id'] == $qq['que_id']) {
-                    echo "       <div class='tag mx-1'>    <a href=''>";
+                    echo '       <div class="tag mx-1">    <a href="/mini-q2a?action=question-queue&tag_id=' . $tag['label_id'] . '">';
                     echo  "#" . $tag['label_name'];
                     echo '    </a>      </div>';
                 }
@@ -751,7 +751,7 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
 
         <div class="filter_by_time p-3 my-3">
-            <h4 class="">Tags</h4>
+            <h4 class="">Top tags</h4>
 
 
             <div class="list-tag">
@@ -760,7 +760,7 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                 // outstanding tags
 
                 foreach ($data[7] as $tag) {
-                    echo '<div class="tag mx-1"> <a href="">' . $tag['label_name'] . ' </a> </div>';
+                    echo '<div class="tag mx-1"> <a href="/mini-q2a?action=question-queue&tag_id=' . $tag['label_id'] . '">#' . $tag['label_name'] . ' </a> </div>';
                 }
                 ?>
 

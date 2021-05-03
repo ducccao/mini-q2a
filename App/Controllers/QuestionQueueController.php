@@ -86,7 +86,6 @@ class QuestionQueueController
             $allQuestionQueuePaginationed = $qqModel->FilterQuestionQueueByQuestionCategoryPagination($questionCate, $limit, $offset);
 
 
-            console_log($allQQByCat);
             $pagi_total_QuestionQueue = 0;
             foreach ($allQQByCat as $qq) {
                 $pagi_total_QuestionQueue++;
@@ -131,6 +130,34 @@ class QuestionQueueController
         $outstandingTags = array_filter($outstandingTags, function ($ele) {
             return $ele['count_user_used'] >= 1;
         });
+
+        if (isset($_GET['tag_id'])) {
+            $label_id = $_GET['tag_id'];
+            $limit = 10;
+            $offset = 10;
+            $totalQuestionFilterByTag = $qqModel->filterByTagTotalQuestion($label_id);
+
+
+            $pagi_total_QuestionQueue =  0;
+            $pagi_num_QuestionQueue_appear = 5;
+            $pagi_total_pagi_stuff = 0;
+
+
+            $limit = $pagi_num_QuestionQueue_appear;
+            $offset = $limit * ($pagi_current - 1);
+
+            $allQuestionQueuePaginationed = $qqModel->filterByTag($label_id, $limit, $offset);
+
+            $pagi_total_QuestionQueue = 0;
+            foreach ($totalQuestionFilterByTag as $qq) {
+                $pagi_total_QuestionQueue++;
+            }
+            if ($pagi_total_QuestionQueue == $pagi_num_QuestionQueue_appear) {
+                $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear);
+            } else {
+                $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear) + 1;
+            }
+        }
 
 
         console_log($allQuestionQueuePaginationed);
