@@ -219,6 +219,49 @@ class QuestionQueueModel
         return $data;
     }
 
+    public function filterByNewestTime($limit, $offset)
+    {
+        $db = new Db();
+
+        $sql = 'SELECT questionqueue.que_id,questionqueue.que_title,questionqueue.createdAt,users.user_name 
+        FROM `questionqueue`,`users`
+        WHERE users.user_id = questionqueue.user_id 
+        AND questionqueue.is_accepted = TRUE
+        ORDER BY createdAt DESC 
+        LIMIT ' . $limit .
+            ' OFFSET ' . $offset;
+
+
+        // console_log($sql);
+
+
+        $db->load($sql);
+        $data = $db->Rows();
+
+        return $data;
+    }
+    public function filterByOldestTime($limit, $offset)
+    {
+        $db = new Db();
+
+        $sql = 'SELECT questionqueue.que_id,questionqueue.que_title,questionqueue.createdAt,users.user_name 
+        FROM `questionqueue`,`users`
+        WHERE users.user_id = questionqueue.user_id 
+        AND questionqueue.is_accepted = TRUE
+        ORDER BY createdAt ASC 
+        LIMIT ' . $limit .
+            ' OFFSET ' . $offset;
+
+
+        // console_log($sql);
+
+
+        $db->load($sql);
+        $data = $db->Rows();
+
+        return $data;
+    }
+
     public function GetFullArrayTagsOfFullQuetionQueue()
     {
         $db = new Db();

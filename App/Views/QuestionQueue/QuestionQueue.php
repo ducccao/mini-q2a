@@ -202,7 +202,7 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
 
 <div class="home-content p-3 my-3">
-    <div class="home-list-question-left w-75  ">
+    <div class="home-list-question-left w-75   ">
 
         <div class="question-newest">
             <h3 class="">Danh sách câu hỏi</h3>
@@ -311,63 +311,102 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
+
+
+
                 <?php
-                $pagi_curr = $data[5];
-                $questionCate = '';
-                if (isset($data[6])) {
-                    $questionCate = $data[6];
-                }
+                // ------------------------
+                // handle filter by time
+                // ------------------------
 
-                if ($pagi_curr == 1) {
-                    echo "   <li class='page-item disabled '>
-                    <a class='page-link pagi' href='#'>Previous</a>
-                </li>";
-                } else {
 
-                    if ($questionCate != '') {
-
-                        $temp_pagi_cur_previous = $pagi_curr - 2;
-                        echo "   <li class='page-item '>
-                            <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$temp_pagi_cur_previous'>Previous</a>
-                        </li>";
-                    } else {
-                        $temp_pagi_cur_previous = $pagi_curr - 2;
-
-                        echo "   <li class='page-item '>
-                        <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&pagi=$temp_pagi_cur_previous'>Previous</a>
+                if (isset($_GET['txtTimeNewest'])) {
+                    // ------------------
+                    // case newest time
+                    // ------------------
+                    $pagi_curr = $data[5];
+                    $questionCate = '';
+                    if (isset($data[6])) {
+                        $questionCate = $data[6];
+                    }
+                    // ------------------------------
+                    // handle Previous Pagi
+                    // ------------------------------
+                    if ($pagi_curr == 1) {
+                        echo "   <li class='page-item disabled '>
+                        <a class='page-link pagi' href='#'>Previous</a>
                     </li>";
-                    }
-                }
-
-                ?>
-
-
-
-
-                <?php
-
-
-                // total pagi stuff right there 
-                for ($i = 0; $i < $data[4]; ++$i) {
-                    if ($data[5] - 1 == $i) {
-                        $questionCate = '';
-                        if (isset($data[6])) {
-                            $questionCate = $data[6];
-                        }
+                    } else {
 
                         if ($questionCate != '') {
 
-                            echo '  <li class="page-item active"><a  class="page-link " ';
-                            echo "  href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$i'";
-                            echo ">";
-                            echo  $i + 1 . "   </a></li>";
+                            $temp_pagi_cur_previous = $pagi_curr - 2;
+                            echo "   <li class='page-item '>
+                                <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&questionCate=$questionCate&pagi=$temp_pagi_cur_previous'>Previous</a>
+                            </li>";
                         } else {
+                            $temp_pagi_cur_previous = $pagi_curr - 2;
 
-                            echo '  <li class="page-item active"><a  class="page-link " ';
-                            echo "  href='$PATH_ROOT?action=question-queue&pagi=$i'";
-                            echo ">";
-                            echo  $i + 1 . "   </a></li>";
+                            echo "   <li class='page-item '>
+                            <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&pagi=$temp_pagi_cur_previous'>Previous</a>
+                        </li>";
                         }
+                    }
+
+                    // ------------------------------
+                    // total pagi stuff right there 
+                    // ------------------------------
+
+                    for ($i = 0; $i < $data[4]; ++$i) {
+                        if ($data[5] - 1 == $i) {
+                            $questionCate = '';
+                            if (isset($data[6])) {
+                                $questionCate = $data[6];
+                            }
+
+                            if ($questionCate != '') {
+
+                                echo '  <li class="page-item active"><a  class="page-link " ';
+                                echo "  href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&questionCate=$questionCate&pagi=$i'";
+                                echo ">";
+                                echo  $i + 1 . "   </a></li>";
+                            } else {
+
+                                echo '  <li class="page-item active"><a  class="page-link " ';
+                                echo "  href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&pagi=$i'";
+                                echo ">";
+                                echo  $i + 1 . "   </a></li>";
+                            }
+                        } else {
+                            $questionCate = '';
+                            if (isset($data[6])) {
+                                $questionCate = $data[6];
+                            }
+
+                            if ($questionCate != '') {
+                                echo '  <li class="page-item "><a  class="page-link " ';
+                                echo "  href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&questionCate=$questionCate&pagi=$i'";
+                                echo ">";
+                                echo  $i + 1 . "   </a></li>";
+                            } else {
+
+                                echo '  <li class="page-item "><a  class="page-link " ';
+                                echo "  href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&pagi=$i'";
+                                echo ">";
+                                echo  $i + 1 . "   </a></li>";
+                            }
+                        }
+                    }
+
+
+
+                    // -------------------
+                    // handle next Pagi
+                    // -------------------
+
+                    if ($pagi_curr == $data[4]) {
+
+                        echo " <li class='page-item disabled'> <a class='page-link disabled pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&pagi=$pagi_curr'>Next</a> </li> ";
                     } else {
                         $questionCate = '';
                         if (isset($data[6])) {
@@ -375,37 +414,232 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
                         }
 
                         if ($questionCate != '') {
-                            echo '  <li class="page-item "><a  class="page-link " ';
-                            echo "  href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$i'";
-                            echo ">";
-                            echo  $i + 1 . "   </a></li>";
+                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&questionCate=$questionCate&pagi=$pagi_curr'>Next</a></li> ";
                         } else {
-
-                            echo '  <li class="page-item "><a  class="page-link " ';
-                            echo "  href='$PATH_ROOT?action=question-queue&pagi=$i'";
-                            echo ">";
-                            echo  $i + 1 . "   </a></li>";
+                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeNewest=DESC&pagi=$pagi_curr'>Next</a></li> ";
                         }
                     }
-                }
+                } else if (isset($_GET['txtTimeOldest'])) {
+                    // ------------------
+                    // case oldest time
+                    // ------------------
 
-                ?>
-                <?php
-                if ($pagi_curr == $data[4]) {
 
-                    echo " <li class='page-item disabled'> <a class='page-link disabled pagi-next' href='$PATH_ROOT?action=question-queue&pagi=$pagi_curr'>Next</a> </li> ";
+                    $pagi_curr = $data[5];
+                    $questionCate = '';
+                    if (isset($data[6])) {
+                        $questionCate = $data[6];
+                    }
+                    // ------------------------------
+                    // handle Previous Pagi
+                    // ------------------------------
+                    if ($pagi_curr == 1) {
+                        echo "   <li class='page-item disabled '>
+                        <a class='page-link pagi' href='#'>Previous</a>
+                    </li>";
+                    } else {
+
+                        if ($questionCate != '') {
+
+                            $temp_pagi_cur_previous = $pagi_curr - 2;
+                            echo "   <li class='page-item '>
+                                <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&questionCate=$questionCate&pagi=$temp_pagi_cur_previous'>Previous</a>
+                            </li>";
+                        } else {
+                            $temp_pagi_cur_previous = $pagi_curr - 2;
+
+                            echo "   <li class='page-item '>
+                            <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&pagi=$temp_pagi_cur_previous'>Previous</a>
+                        </li>";
+                        }
+                    }
+
+                    // ------------------------------
+                    // total pagi stuff right there 
+                    // ------------------------------
+
+                    for ($i = 0; $i < $data[4]; ++$i) {
+                        if ($data[5] - 1 == $i) {
+                            $questionCate = '';
+                            if (isset($data[6])) {
+                                $questionCate = $data[6];
+                            }
+
+                            if ($questionCate != '') {
+
+                                echo '  <li class="page-item active"><a  class="page-link " ';
+                                echo "  href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&questionCate=$questionCate&pagi=$i'";
+                                echo ">";
+                                echo  $i + 1 . "   </a></li>";
+                            } else {
+
+                                echo '  <li class="page-item active"><a  class="page-link " ';
+                                echo "  href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&pagi=$i'";
+                                echo ">";
+                                echo  $i + 1 . "   </a></li>";
+                            }
+                        } else {
+                            $questionCate = '';
+                            if (isset($data[6])) {
+                                $questionCate = $data[6];
+                            }
+
+                            if ($questionCate != '') {
+                                echo '  <li class="page-item "><a  class="page-link " ';
+                                echo "  href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&questionCate=$questionCate&pagi=$i'";
+                                echo ">";
+                                echo  $i + 1 . "   </a></li>";
+                            } else {
+
+                                echo '  <li class="page-item "><a  class="page-link " ';
+                                echo "  href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&pagi=$i'";
+                                echo ">";
+                                echo  $i + 1 . "   </a></li>";
+                            }
+                        }
+                    }
+
+
+
+                    // -------------------
+                    // handle next Pagi
+                    // -------------------
+
+                    if ($pagi_curr == $data[4]) {
+
+                        echo " <li class='page-item disabled'> <a class='page-link disabled pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&pagi=$pagi_curr'>Next</a> </li> ";
+                    } else {
+                        $questionCate = '';
+                        if (isset($data[6])) {
+                            $questionCate = $data[6];
+                        }
+
+                        if ($questionCate != '') {
+                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&questionCate=$questionCate&pagi=$pagi_curr'>Next</a></li> ";
+                        } else {
+                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&txtTimeOldest=ASC&pagi=$pagi_curr'>Next</a></li> ";
+                        }
+                    }
                 } else {
+                    // previous pagi
+                    $pagi_curr = $data[5];
                     $questionCate = '';
                     if (isset($data[6])) {
                         $questionCate = $data[6];
                     }
 
-                    if ($questionCate != '') {
-                        echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$pagi_curr'>Next</a></li> ";
+                    if ($pagi_curr == 1) {
+
+                        echo "   <li class='page-item disabled '>
+                        <a class='page-link pagi' href='#'>Previous</a>
+                    </li>";
                     } else {
-                        echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&pagi=$pagi_curr'>Next</a></li> ";
+
+                        if ($questionCate != '') {
+
+                            $temp_pagi_cur_previous = $pagi_curr - 2;
+                            echo "   <li class='page-item '>
+                                <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$temp_pagi_cur_previous'>Previous</a>
+                            </li>";
+                        } else {
+                            $temp_pagi_cur_previous = $pagi_curr - 2;
+
+                            echo "   <li class='page-item '>
+                            <a class='page-link pagi' href='$PATH_ROOT?action=question-queue&pagi=$temp_pagi_cur_previous'>Previous</a>
+                        </li>";
+                        }
+                    }
+
+
+                    // total pagi stuff right there 
+                    for ($i = 0; $i < $data[4]; ++$i) {
+                        if ($data[5] - 1 == $i) {
+                            $questionCate = '';
+                            if (isset($data[6])) {
+                                $questionCate = $data[6];
+                            }
+
+                            if ($questionCate != '') {
+
+                                echo '  <li class="page-item active"><a  class="page-link " ';
+                                echo "  href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$i'";
+                                echo ">";
+                                echo  $i + 1 . "   </a></li>";
+                            } else {
+
+                                echo '  <li class="page-item active"><a  class="page-link " ';
+                                echo "  href='$PATH_ROOT?action=question-queue&pagi=$i'";
+                                echo ">";
+                                echo  $i + 1 . "   </a></li>";
+                            }
+                        } else {
+                            $questionCate = '';
+                            if (isset($data[6])) {
+                                $questionCate = $data[6];
+                            }
+
+                            if ($questionCate != '') {
+                                echo '  <li class="page-item "><a  class="page-link " ';
+                                echo "  href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$i'";
+                                echo ">";
+                                echo  $i + 1 . "   </a></li>";
+                            } else {
+
+                                echo '  <li class="page-item "><a  class="page-link " ';
+                                echo "  href='$PATH_ROOT?action=question-queue&pagi=$i'";
+                                echo ">";
+                                echo  $i + 1 . "   </a></li>";
+                            }
+                        }
+                    }
+                    //  next pagi
+                    if ($pagi_curr == $data[4]) {
+
+                        echo " <li class='page-item disabled'> <a class='page-link disabled pagi-next' href='$PATH_ROOT?action=question-queue&pagi=$pagi_curr'>Next</a> </li> ";
+                    } else {
+                        $questionCate = '';
+                        if (isset($data[6])) {
+                            $questionCate = $data[6];
+                        }
+
+                        if ($questionCate != '') {
+                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&questionCate=$questionCate&pagi=$pagi_curr'>Next</a></li> ";
+                        } else {
+                            echo "  <li class='page-item'><a class='page-link pagi-next' href='$PATH_ROOT?action=question-queue&pagi=$pagi_curr'>Next</a></li> ";
+                        }
                     }
                 }
+
+
+                // -----------------------------
+                // End handle filter by time
+                // -----------------------------
+
+                ?>
+
+
+
+
+
+
+
+                <?php
+
+
+
+
+
+                ?>
+
+
+
+                <?php
+
+
+
+
+                ?>
+                <?php
 
 
                 ?>
