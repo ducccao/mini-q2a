@@ -297,7 +297,6 @@ class QuestionQueueModel
         return $data;
     }
 
-
     public function FilterQuestionQueueByQuestionCategoryPagination($cate_id, $limit, $offset)
     {
         $db = new Db();

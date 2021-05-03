@@ -8,6 +8,7 @@ use App\Models\AnswerModel;
 use App\Models\QuestionQueueModel;
 use App\Views\View;
 use App\Models\QuestionCategoryModel;
+use App\Models\LabelModel;
 
 class QuestionQueueController
 {
@@ -42,16 +43,14 @@ class QuestionQueueController
         } else {
             $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear) + 1;
         }
+        $pagi_current = 1;
+
+        if (isset($_GET['pagi'])) {
+            $pagi_current = $_GET['pagi'];
+        }
 
 
 
-
-        $uri = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")
-            . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
-        $url_len = strlen($uri);
-
-        $pagi_current = (int)substr($uri, $url_len - 1, 1) + 1;
 
         $limit = $pagi_num_QuestionQueue_appear;
         $offset = $limit * ($pagi_current - 1);
@@ -70,8 +69,33 @@ class QuestionQueueController
         // Question Category problem
         // --------------------------
 
+        $cate_current = "";
         if (isset($_REQUEST['questionCate'])) {
-            return $this->FilterByQuestionCate();
+            $questionCate = $_GET['questionCate'];
+            $cate_current = $questionCate;
+            $allQQByCat = $qqModel->FilterQuestionQueueByQuestionCategory($questionCate);
+
+            $pagi_total_QuestionQueue =  0;
+            $pagi_num_QuestionQueue_appear = 5;
+            $pagi_total_pagi_stuff = 0;
+
+
+            $limit = $pagi_num_QuestionQueue_appear;
+            $offset = $limit * ($pagi_current - 1);
+
+            $allQuestionQueuePaginationed = $qqModel->FilterQuestionQueueByQuestionCategoryPagination($questionCate, $limit, $offset);
+
+
+            console_log($allQQByCat);
+            $pagi_total_QuestionQueue = 0;
+            foreach ($allQQByCat as $qq) {
+                $pagi_total_QuestionQueue++;
+            }
+            if ($pagi_total_QuestionQueue == $pagi_num_QuestionQueue_appear) {
+                $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear);
+            } else {
+                $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear) + 1;
+            }
         }
 
 
@@ -79,6 +103,12 @@ class QuestionQueueController
             $keyWord = $_REQUEST['keyWord'];
             return $this->GetQuestionByKeyWord($keyWord);
         }
+
+
+        // ----------------------
+        //  Filter by newest time
+        // ----------------------
+
 
         if (isset($_GET['txtTimeNewest'])) {
             $allQuestionQueuePaginationed = $qqModel->filterByNewestTime($limit, $offset);
@@ -90,28 +120,39 @@ class QuestionQueueController
         }
 
         // ----------------------
-        //  Filter by newest time
+        //  Filter by tags
         // ----------------------
+        $tagModel = new LabelModel();
 
+        // outstanding tags : used by at least 5 user
+        $outstandingTags = $tagModel->getTagUsedByUserWithAmount();
+
+
+        $outstandingTags = array_filter($outstandingTags, function ($ele) {
+            return $ele['count_user_used'] >= 1;
+        });
+
+
+        console_log($allQuestionQueuePaginationed);
 
 
         $view_home = new View();
         /*
-        data[0]: All question queues
+        data[0]:allQuestionQueuePaginationed
         data[1]: questionCategories
         data[2]: fullArrayTags
         data[3]: allLikeCount
         data[4]: pagi_total_pagi_stuff
         data[5]: pagi_current
-        data[6]:
-        
+        data[6]: cate_current
+        data[7]: outstandingTags
         */
 
 
         $data = [
             $allQuestionQueuePaginationed,  $questionCategories,
-            $fullArrayTags, $allLikeCount, $pagi_total_pagi_stuff, $pagi_current,
-
+            $fullArrayTags, $allLikeCount, $pagi_total_pagi_stuff,
+            $pagi_current, $cate_current, $outstandingTags
         ];
 
         $view_path = "./App/Views/QuestionQueue/QuestionQueue.php";
@@ -208,7 +249,7 @@ class QuestionQueueController
 
 
         $data = [
-            $filteredQQPagi,  $questionCategories,
+            $filteredQQPagi,  $cate_current,
             $fullArrayTags, $allLikeCount, $pagi_total_pagi_stuff, $pagi_current,
             $cate_current
         ];

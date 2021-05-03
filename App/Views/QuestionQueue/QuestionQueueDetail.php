@@ -306,6 +306,7 @@ href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_i
     </div>
     <div class="question col-sm-12 col-md-6 col-lg-4">
 
+
         <div class="card my-3">
             <div class="card-body">
 
@@ -367,7 +368,38 @@ href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_i
 
             </div>
         </div>
+
+        <div class="card">
+
+            <div class="card-body">
+                <h4 class="card-title">Bộ lọc câu trả lời</h4>
+
+                <form action="">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="txtFilterByTime" id="txtFilterByTime" value="DESC" checked>
+                            Mới nhất
+                        </label>
+                    </div>
+
+                </form>
+                <form action="">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="txtFilterByTime" id="txtFilterByTime" value="ASC" checked>
+                            Cũ nhất
+                        </label>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
     </div>
+
+
+
 
 </div>
 
