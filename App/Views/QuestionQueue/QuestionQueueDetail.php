@@ -37,6 +37,16 @@
     a:hover {
         text-decoration: none;
     }
+
+    .tag_sticky {
+        position: sticky;
+        top: 20px;
+    }
+
+    .timing_sticky {
+        position: sticky;
+        top: 240px;
+    }
 </style>
 
 
@@ -311,7 +321,7 @@ href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_i
     <div class="question col-sm-12 col-md-6 col-lg-4">
 
 
-        <div class="card my-3">
+        <div class="card my-3 tag_sticky">
             <div class="card-body">
 
                 <h4 class="card-title"> <strong>Chủ đề:
@@ -373,29 +383,65 @@ href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_i
             </div>
         </div>
 
-        <div class="card">
+        <div class="card  timing_sticky">
 
             <div class="card-body">
                 <h4 class="card-title">Bộ lọc câu trả lời</h4>
 
-                <form action="">
+                <form action="/mini-q2a" id="fmTimingDESC" method="GET">
+                    <input class="d-none" type="text" name="action" value="question-queue-detail">
+                    <input class="d-none" type="text" name="que_id" <?php echo 'value=' . $que_id ?>>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="txtFilterByTime" id="txtFilterByTime" value="DESC" checked>
+                            <input type="checkbox" class="form-check-input" name="txtFilterByTime" id="txtFilterByTimingDESC" value="DESC" <?php
+                                                                                                                                            if (isset($_GET['txtFilterByTime'])) {
+                                                                                                                                                $txtFilterByTime = $_GET['txtFilterByTime'];
+                                                                                                                                                if ($txtFilterByTime == "DESC") {
+                                                                                                                                                    echo "checked";
+                                                                                                                                                }
+                                                                                                                                            }
+                                                                                                                                            ?>>
                             Mới nhất
                         </label>
                     </div>
 
                 </form>
-                <form action="">
+                <form action="/mini-q2a" id="fmTimingASC" method="GET">
+                    <input class="d-none" type="text" name="action" value="question-queue-detail">
+                    <input class="d-none" type="text" name="que_id" <?php echo 'value=' . $que_id ?>>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="txtFilterByTime" id="txtFilterByTime" value="ASC" checked>
+                            <input type="checkbox" class="form-check-input" name="txtFilterByTime" id="txtFilterByTimingASC" value="ASC" <?php
+                                                                                                                                            if (isset($_GET['txtFilterByTime'])) {
+                                                                                                                                                $txtFilterByTime = $_GET['txtFilterByTime'];
+                                                                                                                                                if ($txtFilterByTime == "ASC") {
+                                                                                                                                                    echo "checked";
+                                                                                                                                                }
+                                                                                                                                            }
+                                                                                                                                            ?>>
                             Cũ nhất
                         </label>
                     </div>
 
                 </form>
+
+                <script>
+                    const txtFilterByTimingDESC = $("#txtFilterByTimingDESC");
+                    const txtFilterByTimingASC = $("#txtFilterByTimingASC");
+                    const fmTimingASC = $("#fmTimingASC");
+                    const fmTimingDESC = $("#fmTimingDESC");
+
+                    txtFilterByTimingASC.on("change", function(e) {
+                        if (this.checked) {
+                            fmTimingASC.submit();
+                        }
+                    })
+                    txtFilterByTimingDESC.on("change", function(e) {
+                        if (this.checked) {
+                            fmTimingDESC.submit();
+                        }
+                    })
+                </script>
             </div>
 
         </div>
