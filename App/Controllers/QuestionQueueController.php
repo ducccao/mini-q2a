@@ -345,6 +345,24 @@ class QuestionQueueController
         }
 
 
+        if (isset($_GET['txtFilterByTime'])) {
+            $txtFilterByTime = $_GET['txtFilterByTime'];
+            $ansModel = new AnswerModel();
+            switch ($txtFilterByTime) {
+                case 'DESC':
+                    $ansData = $ansModel->filterAnswerByDESCTiming($que_id);
+                    break;
+                case 'ASC':
+                    $ansData = $ansModel->filterAnswerByASCTiming($que_id);
+                    break;
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+        }
+
 
         $data = [
             $queDetailData, $ansData, $like_data, $like_question_count,

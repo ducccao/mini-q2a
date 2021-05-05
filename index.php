@@ -111,6 +111,11 @@ if (isset($_SERVER['REQUEST_URI'])) {
         // route home
         // ------------------
         require_once "./Action/FowardSlashHomeAction.php";
+    } else if (str_contains($reqURI, "/test")) {
+        // ------------------
+        // route test
+        // ------------------
+        require_once "./Action/TestAction.php";
     } else {
         // ------------------
         // catching  error
