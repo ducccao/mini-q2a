@@ -39,6 +39,9 @@ switch ($action) {
         require_once "./Router/User/UserUploadQuestion.php";
         break;
 
+    case 'edit-profile':
+        require_once "./Router/User/EditProfile.php";
+        break;
 
     default:
         echo "404";

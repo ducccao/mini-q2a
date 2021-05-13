@@ -20,7 +20,9 @@ class HomeController
 
         $questionCategories = $questionCateModel->GetAllQuestionCategoriesWithCountQQ();
         $fiveOutstandingQuestion = $qqModel->FiveOutstandingQuetion();
-        $newestQQArrayTags = $qqModel->GetNewstQuestionQueueArrayTagName();
+        $fullArrayTags = $qqModel->GetFullArrayTagsOfFullQuetionQueue();
+
+        console_log($fullArrayTags);
 
         $view_home = new View();
 
@@ -33,7 +35,7 @@ class HomeController
         console_log($fiveOutstandingQuestion);
 
 
-        $data = [$fiveOutstandingQuestion,  $questionCategories, $newestQQArrayTags];
+        $data = [$fiveOutstandingQuestion,  $questionCategories, $fullArrayTags];
 
         $view_path = "./App/Views/Home/HomePage.php";
 

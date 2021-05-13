@@ -292,7 +292,8 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
             foreach ($this->data[2]  as $tags => $tag) {
                 if ($tag['que_id'] == $qq['que_id']) {
-                    echo "       <div class='tag mx-1'>    <a href=''>";
+                    echo "       <div class='tag mx-1'>   ";
+                    echo '<a href="/mini-q2a?action=question-queue&tag_id=' . $tag['label_id'] . '">';
                     echo  "#" . $tag['label_name'];
                     echo '    </a>      </div>';
                 }
