@@ -38,7 +38,7 @@
             }
             echo  '>';
             echo "
-    <a class='nav-link gr-logout'   href='$PATH_ROOT&action=user-profile&user_name=$curr_user'; > <i class='fas fa-info-circle mr-1'></i>$curr_user  </a>";
+    <a class='nav-link gr-logout'   href='/mini-q2a?action=edit-profile'; > <i class='fas fa-info-circle mr-1'></i>$curr_user  </a>";
             echo "</li>";
 
 

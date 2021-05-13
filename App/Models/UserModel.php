@@ -67,4 +67,40 @@ class UserModel
 
         return $ret;
     }
+    public function  changePassword($user_id, $new_pass)
+    {
+        $db = new Db();
+        $sql = "UPDATE `users` AS u
+        SET u.user_pass = '$new_pass'
+        WHERE u.user_id= '$user_id';
+        ";
+        $ret = $db->patchDb($sql);
+
+        return $ret;
+    }
+
+    public function  changeName($user_id, $new_name)
+    {
+        $db = new Db();
+        $sql = "UPDATE `users` AS u
+        SET u.user_name = '$new_name'
+        WHERE u.user_id= '$user_id';
+        ";
+        $ret = $db->patchDb($sql);
+
+
+        return $ret;
+    }
+    public function  changeEmail($user_id, $new_email)
+    {
+        $db = new Db();
+        $sql = "UPDATE `users` AS u
+        SET u.email = '$new_email'
+        WHERE u.user_id= '$user_id';
+        ";
+        $ret = $db->patchDb($sql);
+
+
+        return $ret;
+    }
 }

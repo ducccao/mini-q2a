@@ -86,4 +86,13 @@ class UserController
 
         return $upload_question_view->render($view_path, $data);
     }
+
+
+    public function EditProfile()
+    {
+        $view_path = "./App/Views/User/Edit.php";
+        $data = [];
+        $view_edit_profile = new View();
+        return $view_edit_profile->render($view_path, $data);
+    }
 }

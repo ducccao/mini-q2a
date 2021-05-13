@@ -124,14 +124,14 @@ console_log($curr_route);
 
 
                 echo '<li';
-                if ($curr_route == "/user/profile") {
+                if (strchr($curr_route, "action=edit-profile")) {
                     echo " class='nav-item active ml-auto'";
                 } else {
                     echo " class='nav-item ml-auto'";
                 }
                 echo  '>';
                 echo "
-    <a class='nav-link'   href='$PATH_ROOT/App/Views/User/Profile/Profile.php'; > <i class='fas fa-info-circle mr-1'></i>Hi $curr_user ! </a>";
+    <a class='nav-link'   href='/mini-q2a?action=edit-profile'; > <i class='fas fa-info-circle mr-1'></i>Hi $curr_user ! </a>";
                 echo "</li>";
 
 

@@ -172,6 +172,7 @@ foreach ($users as $us) {
                 $_SESSION['user_name'] = $user_name;
                 $_SESSION['user_type'] = 'admin';
                 $_SESSION['user_id'] = $us['user_id'];
+                $_SESSION['user_email'] = $us['email'];
                 $_SESSION['user_full_info'] = $us;
 
 
@@ -184,6 +185,8 @@ foreach ($users as $us) {
                 $_SESSION['user_name'] = $user_name;
                 $_SESSION['user_type'] = 'user';
                 $_SESSION['user_id'] = $us['user_id'];
+                $_SESSION['user_email'] = $us['email'];
+
                 $_SESSION['user_full_info'] = $us;
 
 
@@ -196,6 +199,10 @@ foreach ($users as $us) {
             default:
                 $_SESSION['user_name'] = $user_name;
                 $_SESSION['user_type'] = 'user';
+                $_SESSION['user_id'] = $us['user_id'];
+                $_SESSION['user_email'] = $us['email'];
+
+                $_SESSION['user_full_info'] = $us;
 
                 echo "<script>location.href = '" . $PATH_ROOT . "/'</script>";
 

@@ -432,9 +432,15 @@ INSERT INTO `quetionqueue_labels`(que_id, label_id)
 VALUES ('que_04','label_04');
 
 
-select * from `labels`;
-select * from `quetionqueue_labels`;
-delete from `labels` as l where l.label_name='';
+-- ----------------------------------------------------------
+-- User change password
+-- ----------------------------------------------------------
+UPDATE `users` AS u
+SET u.user_pass = 'asd'
+WHERE u.user_id= 'asd';
+
+
+
 ----------------
 -- testing
 ----------------
