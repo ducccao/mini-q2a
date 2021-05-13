@@ -22,6 +22,19 @@ class QuestionLabelModel
         return $ret;
     }
 
+    public function detail($que_id)
+    {
+        $db = new Db();
+
+        $sql = "SELECT * 
+        FROM `quetionqueue_labels` AS q
+        WHERE q.que_id = '$que_id';";
+
+        $db->load($sql);
+        $ret = $db->Rows();
+        return $ret;
+    }
+
     public function findArrayLabelOfQuestion($que_id)
     {
 

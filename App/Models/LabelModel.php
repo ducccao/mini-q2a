@@ -71,4 +71,17 @@ class LabelModel
         $ret = $db->Rows();
         return $ret;
     }
+    public function getTagIdByTagName($tag_name)
+    {
+        $db = new Db();
+
+        $sql = "SELECT l.label_id
+        FROM `labels` AS l
+        WHERE l.label_name = '$tag_name'
+        ";
+
+        $db->load($sql);
+        $ret = $db->Rows();
+        return $ret[0];
+    }
 }

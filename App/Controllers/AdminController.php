@@ -8,6 +8,7 @@ use App\Models\QuestionQueueModel;
 use App\Models\UserModel;
 use App\Views\View;
 use App\Models\AnswerModel;
+use App\Models\LabelModel;
 
 class AdminController
 {
@@ -158,5 +159,51 @@ class AdminController
         $view_path = './App/Views/Admin/ManageAnswer/ManageAnswerDetail.php';
 
         return $manageQuestionView->render($view_path, $data);
+    }
+
+    public function AllQuestionToAddLabel()
+    {
+        $view_path = './App/Views/Admin/AddLabelToQuestion/AllQuestionToAddLabel.php';
+
+        $qqModel = new QuestionQueueModel();
+        $allAcceptedQQ = $qqModel->allWithAccepted();
+
+
+        // data[0]: allAcceptedQQ
+        $data = [$allAcceptedQQ];
+        $view_add_label_to_question = new View();
+
+        return $view_add_label_to_question->render($view_path, $data);
+    }
+
+    public function AddLabelToQuestion()
+    {
+        $view_path = './App/Views/Admin/AddLabelToQuestion/AddLabelToQuestion.php';
+
+        $qqModel = new QuestionQueueModel();
+        $tagModel = new LabelModel();
+
+        $que_id = '';
+        if (isset($_GET['que_id'])) {
+            $que_id = $_GET['que_id'];
+        }
+
+        $curr_question = $qqModel->detail($que_id);
+        $like_count = $qqModel->GetFullLikeCountOfFullQuestionQueue();
+        $tags = $qqModel->GetFullArrayTagsOfFullQuetionQueue();
+        $all_label = $tagModel->all();
+
+
+        // data[0]: allAcceptedQQ
+        // data[1]: que_id
+        // data[2]: allAcceptedQQ
+        // data[3]: like_count
+        // data[4]: all_label
+
+
+        $data = [[$curr_question], $que_id, $tags, $like_count, $all_label];
+        $view_add_label_to_question = new View();
+
+        return $view_add_label_to_question->render($view_path, $data);
     }
 }

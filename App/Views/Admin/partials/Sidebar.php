@@ -59,8 +59,24 @@
             Quản lý câu trả lời
         </a>
 
+
+        <a <?php if (str_contains($curr_route, "action=all-question-to-add-label")) {
+                echo "class='nav-link active'";
+            } else {
+                echo "class='nav-link '";
+            }
+            echo "href='$PATH_ADMIN_ROOT?action=all-question-to-add-label'" ?>>
+            <i class="fas fa-cog"></i>
+            Gán nhãn
+        </a>
+
+
         <a class="nav-link" <?php echo "href='$PATH_ROOT?action=home'" ?>> <i class="fas fa-cog"></i>
             Trang chủ</a>
+
+
+
+
 
     </nav>
 </div>
