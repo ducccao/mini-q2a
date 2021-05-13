@@ -439,6 +439,25 @@ UPDATE `users` AS u
 SET u.user_pass = 'asd'
 WHERE u.user_id= 'asd';
 
+-- ----------------------------------------------------------
+-- User rank by month
+-- ----------------------------------------------------------
+-- SELECT 
+-- FROM `users` AS u
+
+
+-- ----------------------------------------------------------
+-- Count question of user
+-- ----------------------------------------------------------
+SELECT COUNT(*) AS question_count,u.user_id, u.user_name, qq.que_content, qq.que_id 
+FROM `users` AS u
+INNER JOIN `questionqueue` AS qq
+ON qq.user_id = u.user_id
+WHERE qq.createdAt BETWEEN '2021-05-13' AND '2021-05-13' 
+GROUP BY u.user_id 
+
+
+
 
 
 ----------------
