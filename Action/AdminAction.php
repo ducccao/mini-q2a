@@ -32,6 +32,13 @@ if (isset($_GET['action'])) {
             require_once "./Router/Admin/ManageAnswerDetail.php";
             break;
 
+        case 'all-question-to-add-label':
+            require_once "./Router/Admin/AllQuestionToAddLabel.php";
+            break;
+        case 'add-label-to-question':
+            require_once "./Router/Admin/AddQuestionToLabel.php";
+            break;
+
         default:
             # code...
             break;

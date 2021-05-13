@@ -351,19 +351,7 @@ ORDER BY l.label_name DESC
 LIMIT 10
 OFFSET  0;
 
-----------------
--- testing
-----------------
-select * from `users` order by user_id;
-select * from `questionqueue`;
-select * from `autoquestionaccepted`;
 
-select * from `questioncategories`;
-select * from `labels`;
-select * from `quetionqueue_labels`;
-select * from `answers`;
-select * from `ratingsAnswer`;
-select * from `ratingsquestion`;
 
  
 
@@ -436,6 +424,30 @@ UPDATE `questioncategories` AS qcat
 SET qcat.que_cate_name = 'NEW NAME'
 WHERE qcat.que_cate_id = 'old id';
 
+
+-- ----------------------------------------------------------
+-- ADMIN. Add label to quesion
+-- ----------------------------------------------------------
+INSERT INTO `quetionqueue_labels`(que_id, label_id) 
+VALUES ('que_04','label_04');
+
+
+select * from `labels`;
+select * from `quetionqueue_labels`;
+delete from `labels` as l where l.label_name='';
+----------------
+-- testing
+----------------
+select * from `users` order by user_id;
+select * from `questionqueue`;
+select * from `autoquestionaccepted`;
+
+select * from `questioncategories`;
+select * from `labels`;
+select * from `quetionqueue_labels`;
+select * from `answers`;
+select * from `ratingsAnswer`;
+select * from `ratingsquestion`;
 
 
 

@@ -21,6 +21,19 @@ class QuestionQueueModel
         return $ret;
     }
 
+    public function allWithAccepted()
+    {
+        $db = new Db();
+
+        $sql = "SELECT * FROM `questionqueue` AS q
+        WHERE q.is_accepted= TRUE
+        ORDER BY q.createdAt DESC;";
+        $db->load($sql);
+        $ret = $db->Rows();
+        return $ret;
+    }
+
+
 
 
     public function detail($que_id)
