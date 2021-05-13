@@ -100,7 +100,7 @@ class QuestionQueueController
 
         if (isset($_REQUEST['keyWord'])) {
             $keyWord = $_REQUEST['keyWord'];
-            return $this->GetQuestionByKeyWord($keyWord);
+            $allQuestionQueuePaginationed = $qqModel->FullTextSearchPagi($keyWord, $limit, $offset);
         }
 
 
@@ -156,6 +156,36 @@ class QuestionQueueController
                 $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear);
             } else {
                 $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear) + 1;
+            }
+        }
+
+
+        if (isset($_REQUEST['keyWord'])) {
+            $pagi_current = 1;
+
+            if (isset($_GET['pagi'])) {
+                $pagi_current = $_GET['pagi'];
+            }
+            $pagi_total_QuestionQueue =  0;
+            $pagi_num_QuestionQueue_appear = 5;
+            $pagi_total_pagi_stuff = 0;
+
+            $limit = $pagi_num_QuestionQueue_appear;
+            $offset = $limit * ($pagi_current - 1);
+
+            $keyWord = $_REQUEST['keyWord'];
+            $allQuestionQueuePaginationed = $qqModel->FullTextSearchPagi($keyWord, $limit, $offset);
+
+
+            foreach ($allQuestionQueuePaginationed as $qq) {
+                $pagi_total_QuestionQueue++;
+            }
+
+
+            if ($pagi_total_QuestionQueue == $pagi_num_QuestionQueue_appear) {
+                $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear);
+            } else {
+                $pagi_total_pagi_stuff = 1 + floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear);
             }
         }
 

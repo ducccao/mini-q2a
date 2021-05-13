@@ -414,6 +414,24 @@ class QuestionQueueModel
         return $data;
     }
 
+    public function FullTextSearchPagi($keyword, $limit, $offset)
+    {
+        $db = new Db();
+        $sql = "SELECT * 
+        FROM `questionQueue` QQ 
+        INNER JOIN `users` U 
+        ON U.USER_ID=QQ.USER_ID
+        WHERE MATCH(QQ.QUE_CONTENT)
+        AGAINST ('$keyword' IN NATURAL LANGUAGE MODE)
+        ORDER BY QQ.CREATEDAT DESC
+        LIMIT $limit
+        OFFSET $offset;";;
+
+        $db->load($sql);
+        $data = $db->Rows();
+        return $data;
+    }
+
     public function getLikeRatingOfQuestionDetail($que_id)
     {
         $db = new Db();

@@ -202,11 +202,31 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
 
 <div class="home-content p-3 my-3">
+
+
+    <?php
+    if (count($this->data[0]) == 0) {
+        echo "<style>
+        .question-newest{display:none}
+        .home-list-question-left  {display:none}
+        .pagination{display:none}
+        </style>";
+        echo "
+        <div class='w-75'>
+        <h4>Không tìm thấy câu hỏi!</h4>
+        </div>
+        ";
+    }
+
+    ?>
+
     <div class="home-list-question-left w-75   ">
+
 
         <div class="question-newest">
             <h3 class="">Danh sách câu hỏi</h3>
         </div>
+
 
 
 
@@ -220,7 +240,7 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
 
             echo '
         
-            <div class="question-queue-card p-3 my-3">
+            <div class="question-queue-card p-3 my-3 ">
           
             <div class="qq-top-info">
                 <div class="qq-top-left">

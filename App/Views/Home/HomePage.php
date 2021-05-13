@@ -358,3 +358,13 @@ $PATH_ROOT = $GLOBALS['PATH_ROOT'];
         </div>
     </div> -->
 </div>
+
+
+<?php
+
+if (isset($_GET['keyWord'])) {
+    $key_word = $_GET['keyWord'];
+    // echo '<script>location.href="/mini-q2a?action=question-queue&KeyWord=' . $keyWord . '"</script>';
+}
+
+?>

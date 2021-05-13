@@ -454,8 +454,21 @@ FROM `users` AS u
 INNER JOIN `questionqueue` AS qq
 ON qq.user_id = u.user_id
 WHERE qq.createdAt BETWEEN '2021-05-13' AND '2021-05-13' 
-GROUP BY u.user_id 
+GROUP BY u.user_id ;
 
+
+-- ----------------------------------------------------------
+-- Full-text search pagination
+-- ----------------------------------------------------------
+SELECT * 
+FROM `questionQueue` QQ 
+INNER JOIN `users` U 
+ON U.USER_ID=QQ.USER_ID
+WHERE MATCH(QQ.QUE_CONTENT)
+AGAINST ('VATLY' IN NATURAL LANGUAGE MODE)
+ORDER BY QQ.CREATEDAT DESC
+LIMIT 10
+OFFSET 0;
 
 
 
