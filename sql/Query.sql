@@ -488,6 +488,13 @@ SELECT a.ans_id, a.que_id, a.ans_content, a.ans_source_url, a.ans_images,
 
 
 
+-- ----------------------------------------------------------
+-- Admin. Turn off notify
+-- ----------------------------------------------------------
+UPDATE  `users` U
+SET U.toggle_send_notify_status=0
+WHERE U.USER_ID ='duccao';
+
 ----------------
 -- testing
 ----------------

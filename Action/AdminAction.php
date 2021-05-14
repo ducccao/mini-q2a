@@ -38,6 +38,9 @@ if (isset($_GET['action'])) {
         case 'add-label-to-question':
             require_once "./Router/Admin/AddQuestionToLabel.php";
             break;
+        case 'email-notify':
+            require_once "./Router/Admin/EmailNotify.php";
+            break;
 
         default:
             # code...

@@ -206,4 +206,15 @@ class AdminController
 
         return $view_add_label_to_question->render($view_path, $data);
     }
+    public function EmailNotify()
+    {
+        $view_path = './App/Views/Admin/EmailNotify/EmailNotify.php';
+
+
+
+        $data = [];
+        $view_email_notify_toggle = new View();
+
+        return $view_email_notify_toggle->render($view_path, $data);
+    }
 }
