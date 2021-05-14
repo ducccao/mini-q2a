@@ -54,4 +54,29 @@ class AdminModel
 
         return $ret;
     }
+    public function getUserInfo($user_id)
+    {
+        $db = new Db();
+
+        $sql = "SELECT * 
+        FROM `users` U
+        WHERE U.USER_ID = '$user_id';
+        ";
+
+
+        $db->load($sql);
+        $ret = $db->Rows();
+        return $ret[0];
+    }
+    public function ToggleNotify($user_id, $noti_value)
+    {
+        $db = new Db();
+
+        $sql = "UPDATE  `users` U
+        SET U.toggle_send_notify_status=$noti_value
+        WHERE U.USER_ID ='$user_id';";
+
+        $ret = $db->patchDb($sql);
+        return $ret;
+    }
 }

@@ -71,6 +71,28 @@
         </a>
 
 
+
+        <a <?php if (str_contains($curr_route, "action=email-notify")) {
+                echo "class='nav-link active'";
+            } else {
+                echo "class='nav-link '";
+            }
+            echo "href='$PATH_ADMIN_ROOT?action=email-notify'" ?>>
+            <i class="fas fa-cog"></i>
+            Thông báo duyệt qua Email
+        </a>
+
+
+
+
+
+
+
+
+
+
+
+
         <a class="nav-link" <?php echo "href='$PATH_ROOT?action=home'" ?>> <i class="fas fa-cog"></i>
             Trang chủ</a>
 
