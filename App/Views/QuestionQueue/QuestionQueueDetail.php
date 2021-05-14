@@ -309,11 +309,56 @@ href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_i
 </div>
 ';
 
+
+
                 echo '</div>';
+
+
 
 
                 echo '</div>';
             }
+
+
+            ?>
+
+
+            <?php
+
+            if (isset($_GET['que_id'])) {
+                $que_id = $_GET['que_id'];
+            }
+
+            echo '<nav aria-label="Page navigation example ">
+            <ul class="pagination float-right">';
+            if ((int)$_GET['pagi'] == 1) {
+                echo '<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>';
+            } else {
+                echo '<li class="page-item"><a class="page-link" href="/mini-q2a?action=question-queue-detail&que_id=que_01&pagi=' . ((int)$_GET['pagi'] - 1) . '">Previous</a></li>';
+            }
+
+
+            for ($i = 1; $i <= $data[8]; $i++) {
+                if ($i == (int)$_GET['pagi']) {
+                    echo '
+                    <li class="page-item active"><a class="page-link " href="/mini-q2a?action=question-queue-detail&que_id=' . $que_id . '&pagi=' . $i . '">' . $i . '</a></li>
+                    ';
+                } else {
+                    echo '
+                    <li class="page-item"><a class="page-link" href="/mini-q2a?action=question-queue-detail&que_id=' . $que_id . '&pagi=' . $i . '">' . $i . '</a></li>
+                    ';
+                }
+            }
+
+            if ((int)$_GET['pagi'] == $data[8]) {
+                echo '<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>';
+            } else {
+                echo '<li class="page-item"><a class="page-link" href="/mini-q2a?action=question-queue-detail&que_id=que_01&pagi=' . ((int)$_GET['pagi'] + 1) . '">Next</a></li>';
+            }
+            echo ' </ul>
+              </nav>';
+
+
             ?>
         </div>
 
