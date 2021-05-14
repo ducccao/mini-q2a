@@ -471,6 +471,21 @@ LIMIT 10
 OFFSET 0;
 
 
+-- ----------------------------------------------------------
+-- Answer pagination
+-- ----------------------------------------------------------
+SELECT a.ans_id, a.que_id, a.ans_content, a.ans_source_url, a.ans_images,
+        a.createdAt, a.user_id, u.user_name, a.is_accepted
+       FROM `answers` AS a
+       INNER JOIN `users` AS u
+       ON u.user_id = a.user_id
+       WHERE a.que_id = 'que_01'
+       AND a.is_accepted = TRUE
+       ORDER BY a.createdAt DESC
+       LIMIT 3
+       OFFSET 2;
+
+
 
 
 ----------------

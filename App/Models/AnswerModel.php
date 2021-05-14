@@ -63,10 +63,6 @@ class AnswerModel
 
         return $ret[0];
     }
-    public function AnswerDetailByQueID($que_id)
-    {
-    }
-
 
     public function del($ans_id)
     {
@@ -118,6 +114,29 @@ class AnswerModel
 
         return $ret;
     }
+
+    public function getAnsPagiByQueID($que_id, $limit, $offset)
+    {
+        $db = new Db();
+
+        $sql = "SELECT a.ans_id, a.que_id, a.ans_content, a.ans_source_url, a.ans_images,
+        a.createdAt, a.user_id, u.user_name, a.is_accepted
+       FROM `answers` AS a
+       INNER JOIN `users` AS u
+       ON u.user_id = a.user_id
+       WHERE a.que_id = '$que_id'
+       AND a.is_accepted = TRUE
+       ORDER BY a.createdAt DESC
+       LIMIT $limit
+       OFFSET $offset;
+       ";
+
+        $db->load($sql);
+        $ret = $db->Rows();
+
+        return $ret;
+    }
+
     public function filterAnswerByDESCTiming($que_id)
     {
         $db = new Db();
@@ -137,6 +156,7 @@ class AnswerModel
 
         return $ret;
     }
+
 
     public function filterAnswerByASCTiming($que_id)
     {

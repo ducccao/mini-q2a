@@ -363,7 +363,7 @@ class QuestionQueueController
             $queDetailData = $qqModel->detail($que_id);
 
             $ansModel = new AnswerModel();
-            $ansData = $ansModel->getAnsByQueID($que_id);
+
 
             $like_data = $qqModel->getLikeRatingOfQuestionDetail($que_id);
             $spam_data = $qqModel->getSpamRatingOfQuestionDetail($que_id);
@@ -372,6 +372,29 @@ class QuestionQueueController
             $like_question_count = count($like_data);
             $spam_question_count = count($spam_data);
             $badContent_question_count = count($badContent_data);
+
+
+            $curr_pagi = 1;
+            $total_pagi_stuff = 0;
+            $num_ans_appear = 3;
+            $total_ans = 0;
+
+
+            $limit = $num_ans_appear;
+            $offset = $limit * ($curr_pagi - 1);
+            $fullAnsData = $ansModel->getAnsByQueID($que_id);
+            $ansData = $ansModel->getAnsPagiByQueID($que_id, $limit, $offset);
+
+            foreach ($fullAnsData as $ans) {
+                $total_ans++;
+            }
+
+
+            if ($total_ans == $num_ans_appear) {
+                $total_pagi_stuff = floor($total_ans / $num_ans_appear);
+            } else {
+                $total_pagi_stuff = floor($total_ans / $num_ans_appear) + 1;
+            }
         }
 
 
@@ -394,10 +417,38 @@ class QuestionQueueController
         }
 
 
+
+        $curr_pagi = 1;
+
+        if (isset($_GET['pagi']) && isset($_GET['que_id'])) {
+            $curr_pagi = (int) $_GET['pagi'];
+            $que_id = $_GET['que_id'];
+
+            $total_pagi_stuff = 0;
+            $num_ans_appear = 3;
+
+            $limit = $num_ans_appear;
+            $offset = $limit * ($curr_pagi - 1);
+
+            $fullAnsData = $ansModel->getAnsByQueID($que_id);
+
+            $ansData = $ansModel->getAnsPagiByQueID($que_id, $limit, $offset);
+
+            $total_ans = count($fullAnsData);
+
+            if ($total_ans == $num_ans_appear) {
+                $total_pagi_stuff = floor($total_ans / $num_ans_appear);
+            } else {
+                $total_pagi_stuff = floor($total_ans / $num_ans_appear) + 1;
+            }
+        }
+
+
+
         $data = [
             $queDetailData, $ansData, $like_data, $like_question_count,
             $spam_data, $spam_question_count, $badContent_data, $badContent_question_count,
-
+            $total_pagi_stuff
         ];
 
         // data[0]: queDetailData
@@ -408,8 +459,8 @@ class QuestionQueueController
         // data[5]: spam_question_count
         // data[6]: badContent_data
         // data[7]: badContent_question_count
-        // data[8]: like_answer_data
-        // data[9]: like_answer_count
+        // data[8]: total_pagi_stuff
+
 
 
 
