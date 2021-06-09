@@ -448,7 +448,7 @@ class QuestionQueueController
         $data = [
             $queDetailData, $ansData, $like_data, $like_question_count,
             $spam_data, $spam_question_count, $badContent_data, $badContent_question_count,
-            $total_pagi_stuff
+            $total_pagi_stuff, $curr_pagi
         ];
 
         // data[0]: queDetailData

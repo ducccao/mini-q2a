@@ -331,15 +331,22 @@ href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_i
 
             echo '<nav aria-label="Page navigation example ">
             <ul class="pagination float-right">';
-            if ((int)$_GET['pagi'] == 1) {
+
+            if (isset($_GET['pagi'])) {
+                $curr_pagi = $_GET['pagi'];
+            } else {
+                $curr_pagi = 1;
+            }
+
+            if ((int)$curr_pagi == 1) {
                 echo '<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>';
             } else {
-                echo '<li class="page-item"><a class="page-link" href="/mini-q2a?action=question-queue-detail&que_id=que_01&pagi=' . ((int)$_GET['pagi'] - 1) . '">Previous</a></li>';
+                echo '<li class="page-item"><a class="page-link" href="/mini-q2a?action=question-queue-detail&que_id=que_01&pagi=' . ((int)$curr_pagi - 1) . '">Previous</a></li>';
             }
 
 
             for ($i = 1; $i <= $data[8]; $i++) {
-                if ($i == (int)$_GET['pagi']) {
+                if ($i == (int)$curr_pagi) {
                     echo '
                     <li class="page-item active"><a class="page-link " href="/mini-q2a?action=question-queue-detail&que_id=' . $que_id . '&pagi=' . $i . '">' . $i . '</a></li>
                     ';
@@ -350,10 +357,10 @@ href="/mini-q2a?action=question-queue-detail&que_id=' . $ans['que_id'] . '&ans_i
                 }
             }
 
-            if ((int)$_GET['pagi'] == $data[8]) {
+            if ((int)$curr_pagi == $data[8]) {
                 echo '<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>';
             } else {
-                echo '<li class="page-item"><a class="page-link" href="/mini-q2a?action=question-queue-detail&que_id=que_01&pagi=' . ((int)$_GET['pagi'] + 1) . '">Next</a></li>';
+                echo '<li class="page-item"><a class="page-link" href="/mini-q2a?action=question-queue-detail&que_id=que_01&pagi=' . ((int)$curr_pagi + 1) . '">Next</a></li>';
             }
             echo ' </ul>
               </nav>';
