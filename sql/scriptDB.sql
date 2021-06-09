@@ -119,6 +119,9 @@ insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_c
 insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_21",'Lý thạc sĩ như thế nào ?','Lý thạc sĩ',current_timestamp(),"duccao",'que_cate_01',true); 
 insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_22",'Lý tiến sĩ như thế nào ?','Lý tiến sĩ',current_timestamp(),"duccao",'que_cate_01',true); 
 insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_23",'Lý giáo sư như thế nào ?','Lý giáo sư',current_timestamp(),"duccao",'que_cate_01',true); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_24",'Môn ứng dụng phân tán có khó không?','CSC','2021-02-11 11:11:11',"duccao",'que_cate_01',true); 
+insert into `questionQueue`(que_id,que_content,que_title,createdAt,user_id,que_cate_id,is_accepted) values ("que_25",'Môn ứng dụng phân tán có dễ không?','CSC','2021-03-11 11:11:11',"duccao",'que_cate_01',true); 
+
 
 
 
@@ -242,6 +245,10 @@ insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que
 
 insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_12",'Lý dễ mà!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_02","user_08",true);
 insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_13",'Do bạn lười đấy!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,current_timestamp(),"que_02","user_08",true);
+
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_14",'Ứng dụng phân tán không khó đâu!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,'2021-02-12 11:11:11',"que_24","user_08",true);
+insert into `answers`(ans_id,ans_content,ans_source_URL,ans_images,createdAt,que_id,user_id,is_accepted)  values ("ans_15",'Ứng dụng phân tán không khó đâu!',"https://www.merriam-webster.com/dictionary/physic#:~:text=1a%20%3A%20the%20art%20or,physic",null,'2021-03-12 11:11:11',"que_24","user_08",true);
+
 
 commit;
 
