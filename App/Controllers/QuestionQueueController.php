@@ -39,9 +39,9 @@ class QuestionQueueController
 
 
         if ($pagi_total_QuestionQueue == $pagi_num_QuestionQueue_appear) {
-            $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear);
+            $pagi_total_pagi_stuff = floor(count($allQuestionQueue) / $pagi_num_QuestionQueue_appear);
         } else {
-            $pagi_total_pagi_stuff = floor($pagi_total_QuestionQueue / $pagi_num_QuestionQueue_appear) + 1;
+            $pagi_total_pagi_stuff = floor(count($allQuestionQueue) / $pagi_num_QuestionQueue_appear) + 1;
         }
         $pagi_current = 1;
 
@@ -190,7 +190,7 @@ class QuestionQueueController
         }
 
 
-        console_log($allQuestionQueuePaginationed);
+        console_log($pagi_total_pagi_stuff);
 
 
         $view_home = new View();

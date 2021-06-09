@@ -83,7 +83,15 @@
         </a>
 
 
-
+        <a <?php if (str_contains($curr_route, "action=export")) {
+                echo "class='nav-link active'";
+            } else {
+                echo "class='nav-link '";
+            }
+            echo "href='$PATH_ADMIN_ROOT?action=export'" ?>>
+            <i class="fas fa-cog"></i>
+            Export records database
+        </a>
 
 
 

@@ -63,7 +63,7 @@
 
         .q2a-content {
             min-height: 300px;
-            width: 80%;
+            min-width: 79%;
         }
 
         a {

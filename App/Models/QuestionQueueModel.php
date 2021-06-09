@@ -214,7 +214,8 @@ class QuestionQueueModel
     {
         $db = new Db();
 
-        $sql = 'SELECT questionqueue.que_id,questionqueue.que_title,questionqueue.createdAt,users.user_name 
+        $sql = 'SELECT questionqueue.que_id,questionqueue.que_title,
+        questionqueue.createdAt,users.user_name 
         FROM `questionqueue`,`users`
         WHERE users.user_id = questionqueue.user_id 
         AND questionqueue.is_accepted = TRUE

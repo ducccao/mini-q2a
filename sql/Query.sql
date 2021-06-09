@@ -533,7 +533,6 @@ use mini_social_network;
 select * from `users` order by user_id;
 select * from `questionqueue`;
 select * from `autoquestionaccepted`;
-
 select * from `questioncategories`;
 select * from `labels`;
 select * from `quetionqueue_labels`;

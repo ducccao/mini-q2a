@@ -42,6 +42,10 @@ if (isset($_GET['action'])) {
             require_once "./Router/Admin/EmailNotify.php";
             break;
 
+        case 'export':
+            require_once "./Router/Admin/ExportRecords.php";
+            break;
+
         default:
             # code...
             break;
