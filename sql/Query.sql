@@ -539,7 +539,7 @@ select * from `quetionqueue_labels`;
 select * from `answers`;
 select * from `ratingsAnswer`;
 select * from `ratingsquestion`;
-
+select * from `configureAPI`;
 
 
 

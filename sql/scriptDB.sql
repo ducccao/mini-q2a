@@ -221,7 +221,7 @@ create table `answers`(
     is_accepted bool,
   CONSTRAINT `fk_answers_questionQueue` FOREIGN KEY (`que_id`) REFERENCES `questionQueue` (`que_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_answers_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-)ENGINE=InnoDB AUTO_INCREMENT=16050 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ------------------------------------------------------
 -- Record of answers
@@ -280,5 +280,23 @@ insert into `ratingsAnswer`(rate_ans_id,rate_name,ans_id,user_id)  values ("rate
 insert into `ratingsAnswer`(rate_ans_id,rate_name,ans_id,user_id)  values ("rate_ans_03",'like','ans_01','user_03');
 insert into `ratingsAnswer`(rate_ans_id,rate_name,ans_id,user_id)  values ("rate_ans_04",'like','ans_01','user_04');
 commit;
+
+
+-- -------------------------------------
+-- Table structure for configureAPI 
+-- -------------------------------------
+drop table if exists `configureAPI`;
+create table `configureAPI`(
+	config_id int (10) not null auto_increment,
+    table_name nvarchar(200),
+    column_name nvarchar(200),
+    
+    primary key (config_id)
+)ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+-- ------------------------------------------------------
+-- Record of ratingsAnswer
+-- ------------------------------------------------------
+insert into `configureAPI` (table_name,column_name) values ('answers','ans_content,que_id,user_id');
 
 
