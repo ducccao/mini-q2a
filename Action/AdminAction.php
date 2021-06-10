@@ -46,6 +46,11 @@ if (isset($_GET['action'])) {
             require_once "./Router/Admin/ExportRecords.php";
             break;
 
+
+        case 'config-api':
+            require_once "./Router/Admin/ConfigAPI.php";
+            break;
+
         default:
             # code...
             break;

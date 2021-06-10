@@ -229,4 +229,16 @@ class AdminController
 
         return $view_email_notify_toggle->render($view_path, $data);
     }
+
+    public function ConfigAPI()
+    {
+        $view_path = './App/Views/Admin/ConfigAPI/ConfigAPI.php';
+
+
+
+        $data = [];
+        $view_email_notify_toggle = new View();
+
+        return $view_email_notify_toggle->render($view_path, $data);
+    }
 }

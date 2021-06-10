@@ -94,6 +94,19 @@
         </a>
 
 
+        <a <?php if (str_contains($curr_route, "action=config-api")) {
+                echo "class='nav-link active'";
+            } else {
+                echo "class='nav-link '";
+            }
+            echo "href='$PATH_ADMIN_ROOT?action=config-api'" ?>>
+            <i class="fas fa-cog"></i>
+            Cấu hình API
+        </a>
+
+
+
+
 
 
 

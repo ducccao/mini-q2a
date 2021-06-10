@@ -289,14 +289,17 @@ drop table if exists `configureAPI`;
 create table `configureAPI`(
 	config_id int (10) not null auto_increment,
     table_name nvarchar(200),
+      column_default nvarchar(200),
     column_name nvarchar(200),
-    
+    column_remain nvarchar(200),
     primary key (config_id)
 )ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 -- ------------------------------------------------------
 -- Record of ratingsAnswer
 -- ------------------------------------------------------
-insert into `configureAPI` (table_name,column_name) values ('answers','ans_content,que_id,user_id');
+insert into `configureAPI` (table_name,column_default,column_remain) values ('answers','ans_content,que_id,user_id','ans_source_URL,ans_images,is_accepted');
+insert into `configureAPI` (table_name,column_default,column_remain) values ('users','user_name,user_pass,user_type','email,toggle_send_notify_status');
+insert into `configureAPI` (table_name,column_default,column_remain) values ('questionqueue','que_content,user_id,que_cate_id','que_title,is_accepted');
 
 
