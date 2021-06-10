@@ -290,6 +290,7 @@ if (isset($_POST['newQueCatName'])) {
 
 
         echo $ret;
+        echo "<script>location.href='/mini-q2a/admin?action=question-category'</script>";
 
         // if ($ret == true) {
         //     echo "<script>
