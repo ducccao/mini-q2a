@@ -292,14 +292,15 @@ create table `configureAPI`(
       column_default nvarchar(200),
     column_name nvarchar(200),
     column_remain nvarchar(200),
+       column_remain_default nvarchar(200),
     primary key (config_id)
 )ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 -- ------------------------------------------------------
 -- Record of ratingsAnswer
 -- ------------------------------------------------------
-insert into `configureAPI` (table_name,column_default,column_remain) values ('answers','ans_content,que_id,user_id','ans_source_URL,ans_images,is_accepted');
-insert into `configureAPI` (table_name,column_default,column_remain) values ('users','user_name,user_pass,user_type','email,toggle_send_notify_status');
-insert into `configureAPI` (table_name,column_default,column_remain) values ('questionqueue','que_content,user_id,que_cate_id','que_title,is_accepted');
+insert into `configureAPI` (table_name,column_default,column_remain,column_remain_default) values ('answers','ans_content,que_id,user_id','ans_source_URL,ans_images,is_accepted','ans_source_URL,ans_images,is_accepted');
+insert into `configureAPI` (table_name,column_default,column_remain,column_remain_default) values ('users','user_name,user_pass,user_type','email,toggle_send_notify_status','email,toggle_send_notify_status');
+insert into `configureAPI` (table_name,column_default,column_remain,column_remain_default) values ('questionqueue','que_content,user_id,que_cate_id','que_title,is_accepted','que_title,is_accepted');
 
 

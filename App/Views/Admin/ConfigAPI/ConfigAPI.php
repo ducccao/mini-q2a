@@ -70,9 +70,9 @@
             <h5 class="text-title ">Cấu hình API</h5>
             <div class="my-4">
 
-                <div id="users" class="btn btn-primary btn-table">Bảng Users</div>
-                <div id="answers" class="btn btn-primary btn-table">Bảng Answers</div>
-                <div id="questionqueue" class="btn btn-primary btn-table">Bảng Question Queue</div>
+                <div id="users" href="/mini-q2a/admin?action=config-api&table=users" name="table" value="users" class="btn btn-primary btn-table">Bảng Users</div>
+                <div id="answers" href="/mini-q2a/admin?action=config-api&table=answers" name="table" value="answers" class="btn btn-primary btn-table">Bảng Answers</div>
+                <div id="questionqueue" href="/mini-q2a/admin?action=config-api&table=questionqueue" name="table" value="questionqueue" class="btn btn-primary btn-table">Bảng Question Queue</div>
 
             </div>
         </div>
@@ -102,6 +102,10 @@
 
             </div>
 
+            <button class="btn btn-success" id="btnPatch">
+                Cập nhật
+            </button>
+
         </div>
     </div>
 </div>
@@ -112,9 +116,22 @@
     const btnTable = $(".btn-table");
     const holdAdded = $("#hold-added");
     const holdAdd = $("#hold-add");
+    let currTable = "";
+    let dataColumnName = [];
+    /**
+     * FLOW:
+     * + use an array to carry stuff
+     * + remove remain when it was clicked and add it into added hold
+     * + remove added when it was clicked and add it into remain hold
+     * + update array carry stuff
+     * 
+     * 
+     */
+
 
     for (let i = 0; i < btnTable.length; ++i) {
         btnTable[i].onclick = e => {
+            currTable = btnTable[i].id;
             // add column default
             $.ajax({
                 url: `http://localhost:3000/api/${btnTable[i].id}/column-default`,
@@ -140,6 +157,48 @@
                 }
             })
 
+
+            // add column name
+            $.ajax({
+                url: `http://localhost:3000/api/${btnTable[i].id}/toggle-column-name`,
+                success: ret => {
+                    for (let k = 0; k < ret.toggle_column_name.length; ++k) {
+
+                        let tagAdded2 = ` <div class="tag">
+                    ${ret.toggle_column_name[k]}
+             
+                    <i class="fas fa-times"></i>
+                </div>`;
+
+
+                        holdAdded.append($("<div>").html(tagAdded2).contents());
+                    }
+
+                    const tag = $(".tag");
+                    for (let j = 0; j < tag.length; ++j) {
+                        tag[j].onclick = e => {
+                            tag[j].style.display = 'none';
+
+                            const tagAdd1 = `
+                           <div class="tag-add ">
+                    ${tag[j].textContent.trim()}
+                    <i class="fas fa-plus"></i>
+                </div> 
+
+                            
+                            `;
+
+
+                            holdAdd.append($("<div>").html(tagAdd1).contents());
+
+                        }
+                    }
+                },
+                error: er => {
+
+                }
+            })
+
             // add column remain
 
             $.ajax({
@@ -147,10 +206,10 @@
                 success: ret => {
 
                     holdAdd.empty();
-                    for (let i = 0; i < ret.column_remain.length; ++i) {
+                    for (let z = 0; z < ret.column_remain.length; ++z) {
                         let tag_need_to_add = `
                         <div class="tag-add ">
-                    ${ret.column_remain[i]}
+                    ${ret.column_remain[z]}
                     <i class="fas fa-plus"></i>
                 </div>
                         `;
@@ -161,11 +220,29 @@
 
 
                         const tagAdd = $(".tag-add");
-                        // console.log(tagAdd);
+
 
                         for (let j = 0; j < tagAdd.length; ++j) {
+
+                            if (tagAdd[j].textContent.trim() === "") {
+                                tagAdd[j].style.display = "none";
+                            }
+
+                            dataColumnName = [];
                             tagAdd[j].onclick = e => {
                                 tagAdd[j].style.display = "none";
+                                // patch it
+                                dataColumnName.push(tagAdd[j].textContent.trim());
+
+                                let tagAdded3 = ` <div class="tag">
+                    ${tagAdd[j].textContent.trim()}
+             
+                    <i class="fas fa-times"></i>
+                </div>`;
+                                holdAdded.append($("<div>").html(tagAdded3).contents());
+
+
+
 
                             }
                         }
@@ -178,9 +255,52 @@
                 }
             })
 
-
-
-
         }
     }
+
+
+    const btnPatch = $("#btnPatch");
+
+
+
+    btnPatch.on("click", e => {
+        const dataClient = {
+            column_name: dataColumnName,
+            table_name: currTable
+        }
+
+
+        console.log(dataClient);
+
+
+
+        $.ajax({
+            url: `http://localhost:3000/api/${currTable}/column-name`,
+            contentType: "application/json",
+            method: "patch",
+            data: JSON.stringify(dataClient),
+            success: ret => {
+                // get data again
+                // btnTable[`${currTable}`].click();
+
+
+                for (let i = 0; i < btnTable.length; ++i) {
+                    if (btnTable[i].id.toString().toUpperCase() === currTable.toUpperCase()) {
+                        btnTable[i].click();
+                        break;
+                    }
+                }
+
+            },
+            error: er => {
+                // get data again
+                for (let i = 0; i < btnTable.length; ++i) {
+                    if (btnTable[i].id === currTable) {
+                        btnTable[i].click();
+                    }
+                }
+            }
+        })
+
+    })
 </script>
