@@ -118,6 +118,7 @@
     const holdAdd = $("#hold-add");
     let currTable = "";
     let dataColumnName = [];
+    let dataColumnRemain = [];
     /**
      * FLOW:
      * + use an array to carry stuff
@@ -129,178 +130,353 @@
      */
 
 
-    for (let i = 0; i < btnTable.length; ++i) {
-        btnTable[i].onclick = e => {
-            currTable = btnTable[i].id;
-            // add column default
-            $.ajax({
-                url: `http://localhost:3000/api/${btnTable[i].id}/column-default`,
-                success: ret => {
-                    holdAdded.empty();
-                    for (let j = 0; j < ret.column_added.length; ++j) {
+    // const btnPatch = $("#btnPatch");
 
-                        let tagAdded = ` <div class="default-tag">
+
+
+
+    // handle btn table show data col when it was clicked
+    for (let i = 0; i < btnTable.length; ++i) {
+        btnTable[i].addEventListener("click", (e) => {
+            loadInforColWhenClick(btnTable[i].id);
+        });
+    }
+
+    function loadInforColWhenClick(tableName) {
+        // col default
+        $.ajax({
+            url: `http://localhost:3000/api/${tableName}/column-default`,
+            success: ret => {
+                holdAdded.empty();
+                for (let j = 0; j < ret.column_added.length; ++j) {
+
+                    let tagAdded = ` <div class="default-tag">
                     ${ret.column_added[j]}
              
                     <div class="tool-tip">Trường default</div>
                 </div>`;
 
 
-                        holdAdded.append($("<div/>").html(tagAdded).contents());
+                    holdAdded.append($("<div>").html(tagAdded).contents());
 
 
-                    }
-
-                },
-                error: er => {
-                    console.log(er);
                 }
-            })
 
+            },
+            error: er => {
+                console.log(er);
+            }
+        })
 
-            // add column name
-            $.ajax({
-                url: `http://localhost:3000/api/${btnTable[i].id}/toggle-column-name`,
-                success: ret => {
-                    for (let k = 0; k < ret.toggle_column_name.length; ++k) {
+        // add column name
 
-                        let tagAdded2 = ` <div class="tag">
+        $.ajax({
+            url: `http://localhost:3000/api/${tableName}/toggle-column-name`,
+            success: ret => {
+                dataColumnName = [];
+                for (let k = 0; k < ret.toggle_column_name.length; ++k) {
+
+                    let tagAdded2 = ` <div class="tag">
                     ${ret.toggle_column_name[k]}
              
                     <i class="fas fa-times"></i>
                 </div>`;
 
 
-                        holdAdded.append($("<div>").html(tagAdded2).contents());
-                    }
+                    dataColumnName.push(ret.toggle_column_name[k]);
+                    holdAdded.append($("<div>").html(tagAdded2).contents());
+                }
 
-                    const tag = $(".tag");
-                    for (let j = 0; j < tag.length; ++j) {
-                        tag[j].onclick = e => {
-                            tag[j].style.display = 'none';
+                const tag = $(".tag");
+                for (let j = 0; j < tag.length; ++j) {
+                    tag[j].onclick = e => {
+                        tag[j].style.display = 'none';
 
-                            const tagAdd1 = `
-                           <div class="tag-add ">
+                        const tagAdd1 = `
+                           <div class="tag-add col-name">
                     ${tag[j].textContent.trim()}
                     <i class="fas fa-plus"></i>
-                </div> 
-
-                            
+                </div>                    
                             `;
 
 
-                            holdAdd.append($("<div>").html(tagAdd1).contents());
+                        holdAdd.append($("<div>").html(tagAdd1).contents());
 
-                        }
                     }
-                },
-                error: er => {
-
                 }
-            })
 
-            // add column remain
 
-            $.ajax({
-                url: `http://localhost:3000/api/${btnTable[i].id}/column-remain`,
-                success: ret => {
+                const colName = $(".col-name");
+                handleColNameClick(colName);
 
-                    holdAdd.empty();
-                    for (let z = 0; z < ret.column_remain.length; ++z) {
-                        let tag_need_to_add = `
-                        <div class="tag-add ">
+
+            },
+            error: er => {
+
+            }
+        })
+
+
+        // add column remain
+
+        $.ajax({
+            url: `http://localhost:3000/api/${tableName}/column-remain`,
+            success: ret => {
+
+                holdAdd.empty();
+                dataColumnRemain = [];
+
+                for (let z = 0; z < ret.column_remain.length; ++z) {
+                    let tag_need_to_add = `
+                        <div class="tag-add col-remain">
                     ${ret.column_remain[z]}
                     <i class="fas fa-plus"></i>
                 </div>
                         `;
 
 
-                        holdAdd.append($("<div>").html(tag_need_to_add).contents());
-
-
-
-                        const tagAdd = $(".tag-add");
-
-
-                        for (let j = 0; j < tagAdd.length; ++j) {
-
-                            if (tagAdd[j].textContent.trim() === "") {
-                                tagAdd[j].style.display = "none";
-                            }
-
-                            dataColumnName = [];
-                            tagAdd[j].onclick = e => {
-                                tagAdd[j].style.display = "none";
-                                // patch it
-                                dataColumnName.push(tagAdd[j].textContent.trim());
-
-                                let tagAdded3 = ` <div class="tag">
-                    ${tagAdd[j].textContent.trim()}
-             
-                    <i class="fas fa-times"></i>
-                </div>`;
-                                holdAdded.append($("<div>").html(tagAdded3).contents());
-
-
-
-
-                            }
-                        }
-
-                    }
-                },
-                error: er => {
-                    console.log(er);
+                    dataColumnRemain.push(ret.column_remain[z]);
+                    holdAdd.append($("<div>").html(tag_need_to_add).contents());
 
                 }
-            })
+
+                const colRemain = $(".col-remain");
+                handleColRemainClick(colRemain);
+                const colName = getColName();
+                handleColNameClick(colName);
+
+
+                console.log(colName)
+
+
+
+            },
+            error: er => {
+                console.log(er);
+
+            }
+        })
+
+
+    }
+
+
+    // delete element in a array
+    function deleteEleInArray(a, pos) {
+        let ret = [...a];
+        for (let i = pos; i < ret.length; ++i) {
+            ret[i] = ret[i + 1];
+        }
+        ret.length--;
+        return ret;
+    }
+
+
+    function handleColNameClick(colName) {
+        for (let i = 0; i < colName.length; ++i) {
+            colName.onclick = e => {
+                colName[i].style.display = "none";
+                let colRemainIndex = document.createElement("div");
+                colRemainIndex.classList.add("tag-add");
+                colRemainIndex.classList.add("col-remain");
+
+                let plusElement = document.createElement("i");
+                plusElement.classList.add("fas");
+                plusElement.classList.add("fa-plus");
+
+                colRemainIndex.append(plusElement);
+
+                holdAdd.append(colRemainIndex);
+            }
+        }
+    }
+
+    function handleColRemainClick(colRemain) {
+
+        for (let i = 0; i < colRemain.length; ++i) {
+            colRemain[i].onclick = e => {
+                colRemain[i].style.display = "none";
+
+
+                let colNameIndex = document.createElement("div");
+                colNameIndex.classList.add("tag");
+                colNameIndex.classList.add("col-name");
+
+                let deleteElement = document.createElement("i");
+                deleteElement.classList.add("fas");
+                deleteElement.classList.add("fa-times");
+                deleteElement.classList.add("ml-1");
+
+
+                // <i class="fas fa-plus"></i>
+
+                colNameIndex.textContent = colRemain[i].textContent.trim();
+                colNameIndex.append(deleteElement);
+
+
+                colNameIndex.addEventListener("click", () => {
+
+                    colNameIndex.style.display = "none";
+
+
+                    let colRemainIndex = document.createElement("div");
+                    colRemainIndex.classList.add("tag-add");
+                    colRemainIndex.classList.add("col-remain");
+
+                    let plusElement = document.createElement("i");
+                    plusElement.classList.add("fas");
+                    plusElement.classList.add("fa-plus");
+
+                    colRemainIndex.textContent = colNameIndex.textContent.trim();
+                    colRemainIndex.append(plusElement);
+
+                    holdAdd.append(colRemainIndex);
+                })
+
+                holdAdded.append(colNameIndex);
+
+                const colName = $(".col-name");
+                handleColNameClick(colName);
+            }
+        }
+
+        console.log(holdAdded[0]);
+
+        for (let i = 0; i < holdAdded[0].length; ++i) {
+            console.log(holdAdded[0][i]);
 
         }
     }
 
+    function getColName() {
+        const ret = $(".col-name");
+        return ret;
+    }
 
-    const btnPatch = $("#btnPatch");
+    function getColRemain() {
+        const ret = $(".col-remain");
+        return ret;
+    }
 
-
-
-    btnPatch.on("click", e => {
-        const dataClient = {
-            column_name: dataColumnName,
-            table_name: currTable
-        }
-
-
-        console.log(dataClient);
-
-
-
+    function loadUserFirstTime() {
+        // col default
         $.ajax({
-            url: `http://localhost:3000/api/${currTable}/column-name`,
-            contentType: "application/json",
-            method: "patch",
-            data: JSON.stringify(dataClient),
+            url: `http://localhost:3000/api/users/column-default`,
             success: ret => {
-                // get data again
-                // btnTable[`${currTable}`].click();
+                holdAdded.empty();
+                for (let j = 0; j < ret.column_added.length; ++j) {
+
+                    let tagAdded = ` <div class="default-tag">
+                    ${ret.column_added[j]}
+             
+                    <div class="tool-tip">Trường default</div>
+                </div>`;
 
 
-                for (let i = 0; i < btnTable.length; ++i) {
-                    if (btnTable[i].id.toString().toUpperCase() === currTable.toUpperCase()) {
-                        btnTable[i].click();
-                        break;
-                    }
+                    holdAdded.append($("<div>").html(tagAdded).contents());
+
+
                 }
 
             },
             error: er => {
-                // get data again
-                for (let i = 0; i < btnTable.length; ++i) {
-                    if (btnTable[i].id === currTable) {
-                        btnTable[i].click();
-                    }
-                }
+                console.log(er);
             }
         })
 
-    })
+        // add column name
+
+        $.ajax({
+            url: `http://localhost:3000/api/users/toggle-column-name`,
+            success: ret => {
+                dataColumnName = [];
+                for (let k = 0; k < ret.toggle_column_name.length; ++k) {
+
+                    let tagAdded2 = ` <div class="tag">
+                    ${ret.toggle_column_name[k]}
+             
+                    <i class="fas fa-times"></i>
+                </div>`;
+
+
+                    dataColumnName.push(ret.toggle_column_name[k]);
+                    holdAdded.append($("<div>").html(tagAdded2).contents());
+                }
+
+                const tag = $(".tag");
+                for (let j = 0; j < tag.length; ++j) {
+                    tag[j].onclick = e => {
+                        tag[j].style.display = 'none';
+
+                        const tagAdd1 = `
+                           <div class="tag-add col-name">
+                    ${tag[j].textContent.trim()}
+                    <i class="fas fa-plus"></i>
+                </div>                    
+                            `;
+
+
+                        holdAdd.append($("<div>").html(tagAdd1).contents());
+
+                    }
+                }
+
+
+                const colName = $(".col-name");
+                handleColNameClick(colName);
+
+
+            },
+            error: er => {
+
+            }
+        })
+
+
+        // add column remain
+
+        $.ajax({
+            url: `http://localhost:3000/api/users/column-remain`,
+            success: ret => {
+
+                holdAdd.empty();
+                dataColumnRemain = [];
+
+                for (let z = 0; z < ret.column_remain.length; ++z) {
+                    let tag_need_to_add = `
+                        <div class="tag-add col-remain">
+                    ${ret.column_remain[z]}
+                    <i class="fas fa-plus"></i>
+                </div>
+                        `;
+
+
+                    dataColumnRemain.push(ret.column_remain[z]);
+                    holdAdd.append($("<div>").html(tag_need_to_add).contents());
+
+                }
+
+                const colRemain = $(".col-remain");
+                handleColRemainClick(colRemain);
+                const colName = getColName();
+                handleColNameClick(colName);
+
+
+                console.log(colName)
+
+
+
+            },
+            error: er => {
+                console.log(er);
+
+            }
+        })
+
+
+
+
+    }
+
+    loadUserFirstTime();
 </script>
