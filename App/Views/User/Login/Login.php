@@ -97,7 +97,7 @@ session_start();
                             <!-- <small id="helpId" class="form-text text-muted">Tên tài khoản</small> -->
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-dark" type="submit">Đăng nhập</button>
+                            <button class="btn btn-dark btn-login" type="button">Đăng nhập</button>
                             <a class="btn btn-dark ml-3" <?php echo "href='$PATH_ROOT?action=home'"; ?>>Trang chủ </a>
 
 
@@ -124,6 +124,13 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+    <?php
+        // JQuery
+        require_once "./App/Views/Partials/JQuery/JQuery-Func.php";
+        if(isset($_SESSION['jwt']) && !empty($_SESSION['jwt'])){
+            echo $_SESSION['jwt'];
+        }
+    ?>
 </body>
 
 </html>
@@ -211,6 +218,7 @@ foreach ($users as $us) {
                 break;
         }
     } else {
+
     }
 }
 
