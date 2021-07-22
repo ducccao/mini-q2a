@@ -306,10 +306,13 @@
     }
 
     function handleColRemainClick(colRemain) {
+        var curr_cols = [];
 
         for (let i = 0; i < colRemain.length; ++i) {
             colRemain[i].onclick = e => {
                 colRemain[i].style.display = "none";
+
+                curr_cols.push(colRemain[i].textContent.trim())
 
 
                 let colNameIndex = document.createElement("div");
@@ -351,15 +354,44 @@
 
                 const colName = $(".col-name");
                 handleColNameClick(colName);
+
+
+
+                const btnPatch = document.getElementById("btnPatch");
+
+                btnPatch.addEventListener('click', e => {
+                    console.log(curr_cols);
+                    curr_cols = curr_cols.join(",");
+
+                    $.ajax({
+                        type: 'patch',
+                        url: "http://localhost:3000/api/admin/config-api-users",
+                        data: {
+                            fields: curr_cols
+                        },
+                        success: ret => {
+                            console.log(ret);
+                            alert("Config API thành công");
+
+                        },
+                        error: er => {
+                            console.log(er);
+                            alert("Config API thất bại");
+
+                        }
+                    })
+                })
+
             }
         }
 
-        console.log(holdAdded[0]);
 
         for (let i = 0; i < holdAdded[0].length; ++i) {
             console.log(holdAdded[0][i]);
 
         }
+
+
     }
 
     function getColName() {
