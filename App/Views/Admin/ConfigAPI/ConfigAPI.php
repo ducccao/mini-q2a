@@ -16,16 +16,30 @@
         width: fit-content;
         margin: 0 10px;
         padding: 0 10px;
-
+        cursor: pointer;
     }
 
     .tool-tip {
         position: absolute;
-        width: 200px;
-        bottom: -70%;
+        padding: 6px 36px;
+        top: 135%;
         left: 0%;
         display: none;
         color: black;
+        background-color: #fff;
+        border-radius: 5px;
+
+    }
+
+    .tool-tip::after {
+        content: "";
+        bottom: 100%;
+        left: 50%;
+        border-style: solid;
+        position: absolute;
+        border-width: 10px;
+        border-color: #fff;
+        border-color: transparent transparent #fff transparent;
     }
 
     .default-tag:hover .tool-tip {

@@ -530,6 +530,7 @@ order by total_count_ranking desc;
 ----------------
 use mini_social_network;
 
+select * from `users` ;
 select * from `users` order by user_id;
 select * from `questionqueue`;
 select * from `questioncategories`;
