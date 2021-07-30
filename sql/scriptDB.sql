@@ -81,7 +81,7 @@ create table `questionQueue`(
 ALTER TABLE `questionQueue`
 ADD FULLTEXT(que_content);
 ALTER TABLE `questionQueue`
-    ADD FULLTEXT(que_title);
+ADD FULLTEXT(que_title);
 
 -- ------------------------------------
 -- Record of questionQueue

@@ -409,11 +409,13 @@
         $.ajax({
             url: `http://localhost:3000/api/users/column-default`,
             success: ret => {
+                console.log(ret);
                 holdAdded.empty();
-                for (let j = 0; j < ret.column_added.length; ++j) {
+                for (let j = 0; j < ret.column_default.length; ++j) {
 
                     let tagAdded = ` <div class="default-tag">
-                    ${ret.column_added[j]}
+
+                    ${ret.column_default[j]}
              
                     <div class="tool-tip">Trường default</div>
                 </div>`;

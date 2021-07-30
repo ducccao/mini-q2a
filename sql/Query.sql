@@ -525,6 +525,18 @@ order by total_count_ranking desc;
 
 
 
+
+SELECT * 
+        FROM `questionQueue` QQ 
+        LEFT JOIN `users` U 
+        ON U.USER_ID=QQ.USER_ID
+        WHERE MATCH(QQ.QUE_CONTENT)
+        AGAINST ('lý' IN NATURAL LANGUAGE MODE)
+        ORDER BY QQ.CREATEDAT DESC
+        LIMIT 100
+        OFFSET 0;
+
+
 ----------------
 -- testing
 ----------------
